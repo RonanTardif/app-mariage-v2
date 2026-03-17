@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin } from 'lucide-react'
 import { PageIntro } from '../components/shared/PageIntro'
@@ -7,8 +7,6 @@ import { getPlaces } from '../services/dataService'
 import { Card, CardContent } from '../components/ui/card'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 
-// Coordonnées SVG extraites de l'ancienne version (viewBox 0 0 1024 1024)
-// Note : Rafraîchissement retiré de la carte (reste dans la liste)
 const MAP_SPOTS = [
   { id: 'gites', label: 'Gîtes', points: '475.708,340.164 478.763,273.558 527.648,244.228 511.761,241.172 358.385,228.951 272.226,280.891 275.893,284.557 277.726,318.165 281.2,316.546 286.526,317.927 292.247,314.573 297.968,315.56 299.94,317.73 307.831,316.743 312.566,318.322 316.906,318.124 320.851,314.968 324.797,318.716 331.306,319.111 338.803,319.505 344.918,321.872 351.231,321.675 358.924,322.07 365.04,323.253 367.012,324.437 370.958,321.083 374.312,325.029 380.23,326.607 383.386,324.24 389.699,327.001 388.712,330.355 393.052,327.791 397.787,329.961 405.875,323.648 408.834,319.308 408.055,297.792 409.425,295.053 413.534,292.998 410.794,288.204 427.916,287.862 439.216,290.944 432.367,296.765 433.052,300.531 436.476,300.874 435.792,337.171' },
   { id: 'chapelle', label: 'Chapelle', points: '560.421,214.435 610.022,223.225 658.995,211.61 656.798,169.857 659.937,169.857 635.451,143.173 610.022,147.254 609.708,135.01 611.592,132.499 605.627,121.825 602.488,112.407 599.662,101.42 598.721,88.862 603.116,87.038 605.627,83.27 598.721,81.073 598.721,75.108 595.267,83.584 591.186,81.701 591.814,87.038 596.209,89.863 592.128,109.327 588.047,125.965 584.908,133.186 586.477,136.325 585.535,147.626 558.537,173.055 562.932,175.566' },
@@ -31,27 +29,93 @@ function resolveHref(href) {
 
 export function PlanPage() {
   const { data: places = [], loading, error } = useAsyncData(getPlaces, [])
-  const [selected, setSelected] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
   const carouselRef = useRef(null)
-  const cardRefs = useRef({})
+  const cardRefs = useRef([])
+  const scrollTimer = useRef(null)
+  const isJumping = useRef(false)
+
+  // Liste avec clones pour la boucle infinie : [dernier, ...réels, premier]
+  const displayItems = places.length > 0
+    ? [...places.slice(-1), ...places, ...places.slice(0, 1)]
+    : []
+  const REAL_OFFSET = 1 // index du 1er item réel dans displayItems
+
+  // Init : sélectionne le château et positionne le carousel
+  useEffect(() => {
+    if (places.length === 0) return
+    const chateauIdx = Math.max(0, places.findIndex(p => p.id === 'chateau'))
+    setSelectedId(places[chateauIdx].id)
+    const displayIdx = REAL_OFFSET + chateauIdx
+    const container = carouselRef.current
+    const el = cardRefs.current[displayIdx]
+    if (el && container) {
+      container.scrollTo({ left: el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2, behavior: 'instant' })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [places.length])
 
   if (loading) return <LoadingState message="Chargement du plan…" />
   if (error) return <ErrorState message="Impossible de charger le plan. Réessaie plus tard." />
 
-  const byId = new Map(places.map((p) => [p.id, p]))
+  const byId = new Map(places.map(p => [p.id, p]))
 
-  function select(id) {
-    const place = byId.get(id)
-    if (!place) return
-    setSelected(place)
-    // Centre la carte dans le carousel
-    const el = cardRefs.current[id]
+  function scrollToDisplayIdx(idx, behavior = 'smooth') {
     const container = carouselRef.current
-    if (el && container) {
-      const left = el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2
-      container.scrollTo({ left, behavior: 'smooth' })
-    }
+    const el = cardRefs.current[idx]
+    if (!el || !container) return
+    container.scrollTo({ left: el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2, behavior })
   }
+
+  // Clic sur un bâtiment de la carte
+  function selectFromMap(id) {
+    if (!byId.has(id)) return
+    setSelectedId(id)
+    const placeIdx = places.findIndex(p => p.id === id)
+    if (placeIdx >= 0) scrollToDisplayIdx(REAL_OFFSET + placeIdx)
+  }
+
+  // Clic sur une carte du carousel
+  function selectFromCarousel(id, displayIdx) {
+    setSelectedId(id)
+    scrollToDisplayIdx(displayIdx)
+  }
+
+  // Scroll : auto-sélection + boucle infinie
+  function handleScroll() {
+    if (isJumping.current) return
+    clearTimeout(scrollTimer.current)
+    scrollTimer.current = setTimeout(() => {
+      const container = carouselRef.current
+      if (!container || isJumping.current) return
+
+      const center = container.scrollLeft + container.offsetWidth / 2
+      let closestIdx = REAL_OFFSET
+      let minDist = Infinity
+      displayItems.forEach((_, i) => {
+        const el = cardRefs.current[i]
+        if (!el) return
+        const dist = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center)
+        if (dist < minDist) { minDist = dist; closestIdx = i }
+      })
+
+      const item = displayItems[closestIdx]
+      if (item) setSelectedId(item.id)
+
+      // Boucle infinie : saute silencieusement vers l'item réel équivalent
+      if (closestIdx === 0) {
+        isJumping.current = true
+        scrollToDisplayIdx(displayItems.length - 2, 'instant')
+        setTimeout(() => { isJumping.current = false }, 100)
+      } else if (closestIdx === displayItems.length - 1) {
+        isJumping.current = true
+        scrollToDisplayIdx(1, 'instant')
+        setTimeout(() => { isJumping.current = false }, 100)
+      }
+    }, 120)
+  }
+
+  const selected = byId.get(selectedId)
 
   return (
     <>
@@ -72,11 +136,11 @@ export function PlanPage() {
               preserveAspectRatio="xMidYMid meet"
             />
             {MAP_SPOTS.map((spot) => {
-              const isActive = selected?.id === spot.id
+              const isActive = selectedId === spot.id
               return (
                 <g
                   key={spot.id}
-                  onClick={() => select(spot.id)}
+                  onClick={() => selectFromMap(spot.id)}
                   className="cursor-pointer"
                   role="button"
                   aria-label={spot.label}
@@ -96,23 +160,24 @@ export function PlanPage() {
         </div>
       </Card>
 
-      {/* Carousel horizontal snap */}
+      {/* Carousel horizontal infini avec snap */}
       <div
         ref={carouselRef}
+        onScroll={handleScroll}
         className="mt-3 -mx-4 flex gap-3 overflow-x-auto px-4 pb-2"
         style={{ scrollbarWidth: 'none', scrollSnapType: 'x mandatory' }}
       >
-        {places.map((place) => {
-          const isActive = selected?.id === place.id
+        {displayItems.map((place, i) => {
+          const isActive = selectedId === place.id
           const onMap = SPOT_IDS.has(place.id)
           return (
             <div
-              key={place.id}
-              ref={(el) => { cardRefs.current[place.id] = el }}
+              key={i}
+              ref={(el) => { cardRefs.current[i] = el }}
               className="shrink-0 w-[78vw] max-w-[300px]"
               style={{ scrollSnapAlign: 'center' }}
             >
-              <button onClick={() => select(place.id)} className="w-full text-left h-full">
+              <button onClick={() => selectFromCarousel(place.id, i)} className="w-full text-left h-full">
                 <Card className={`h-full transition-colors ${isActive ? 'border-rose-300 bg-rose-50/50' : 'hover:border-stone-300'}`}>
                   <CardContent className="p-4">
                     <div className="flex items-center gap-1.5 mb-2">
@@ -124,14 +189,14 @@ export function PlanPage() {
                     <p className="text-xs text-stone-500 leading-relaxed">{place.description}</p>
                     {place.links?.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-2">
-                        {place.links.map((link, i) => {
+                        {place.links.map((link, j) => {
                           const to = resolveHref(link.href)
                           return to?.startsWith('/') ? (
-                            <Link key={i} to={to} className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-50">
+                            <Link key={j} to={to} className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-50">
                               {link.label}
                             </Link>
                           ) : (
-                            <a key={i} href={to} className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-50">
+                            <a key={j} href={to} className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-50">
                               {link.label}
                             </a>
                           )
@@ -144,8 +209,6 @@ export function PlanPage() {
             </div>
           )
         })}
-        {/* Padding droit pour que la dernière carte puisse se centrer */}
-        <div className="shrink-0 w-[11vw]" aria-hidden="true" />
       </div>
     </>
   )
