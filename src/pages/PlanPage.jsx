@@ -113,7 +113,7 @@ export function PlanPage() {
         scrollToDisplayIdx(1, 'instant')
         setTimeout(() => { isJumping.current = false }, 100)
       }
-    }, 120)
+    }, 20)
   }
 
   const selected = byId.get(selectedId)
