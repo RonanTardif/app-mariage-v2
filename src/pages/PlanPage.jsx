@@ -28,7 +28,8 @@ function resolveHref(href) {
 }
 
 export function PlanPage() {
-  const { data: places = [], loading, error } = useAsyncData(getPlaces, [])
+  const { data: rawPlaces, loading, error } = useAsyncData(getPlaces, [])
+  const places = rawPlaces ?? []
   const [selectedId, setSelectedId] = useState(null)
   const carouselRef = useRef(null)
   const cardRefs = useRef([])
