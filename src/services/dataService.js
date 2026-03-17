@@ -1,12 +1,14 @@
 import { APP_CONFIG } from '../utils/constants'
 import { fetchJson, fetchJsonp } from './http'
 
+const BASE = import.meta.env.BASE_URL
+
 export async function getPlaces() {
-  return fetchJson('/data/places.json')
+  return fetchJson(BASE + 'data/places.json')
 }
 
 export async function getQuiz() {
-  return fetchJson('/data/quiz.json')
+  return fetchJson(BASE + 'data/quiz.json')
 }
 
 export async function getRooms() {
@@ -14,7 +16,7 @@ export async function getRooms() {
     const payload = await fetchJsonp(APP_CONFIG.roomsApi)
     return Array.isArray(payload?.rooms) ? payload.rooms : []
   } catch {
-    return fetchJson('/data/rooms.json')
+    return fetchJson(BASE + 'data/rooms.json')
   }
 }
 
@@ -29,7 +31,7 @@ export async function getPhotoSlots() {
   } catch {
     // Fallback local — structure alignée sur le format API :
     // groups ont un slot_id, slots sont indexés par slot_id
-    const rows = await fetchJson('/data/photo_slots.json')
+    const rows = await fetchJson(BASE + 'data/photo_slots.json')
     return {
       people: rows.map((item, i) => ({
         person_id: String(i),

@@ -56,7 +56,7 @@ export function PwaInstallPrompt() {
       {/* Bannière en bas */}
       <div className="fixed bottom-20 left-3 right-3 z-50 rounded-2xl border border-border bg-white/95 p-4 shadow-xl backdrop-blur-sm">
         <div className="flex items-start gap-3">
-          <img src="/icons/icon-192.png" alt="App icon" className="h-10 w-10 rounded-xl shrink-0" />
+          <img src={import.meta.env.BASE_URL + 'icons/icon-192.png'} alt="App icon" className="h-10 w-10 rounded-xl shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-sm">Installer l'app</p>
             <p className="text-xs text-stone-500 mt-0.5">Accès rapide depuis l'écran d'accueil ✨</p>

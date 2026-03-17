@@ -68,7 +68,7 @@ export function PlanPage() {
             preserveAspectRatio="xMidYMid meet"
           >
             <image
-              href="/assets/plan-domaine-color.jpg"
+              href={import.meta.env.BASE_URL + 'assets/plan-domaine-color.jpg'}
               x="0" y="0" width="1024" height="1024"
               preserveAspectRatio="xMidYMid meet"
             />
