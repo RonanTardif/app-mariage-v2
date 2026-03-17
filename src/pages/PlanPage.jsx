@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 import { PageIntro } from '../components/shared/PageIntro'
 import { useAsyncData } from '../hooks/useAsyncData'
 import { getPlaces } from '../services/dataService'
@@ -8,6 +8,7 @@ import { Card, CardContent } from '../components/ui/card'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 
 // Coordonnées SVG extraites de l'ancienne version (viewBox 0 0 1024 1024)
+// Note : Rafraîchissement retiré de la carte (reste dans la liste)
 const MAP_SPOTS = [
   { id: 'gites', label: 'Gîtes', points: '475.708,340.164 478.763,273.558 527.648,244.228 511.761,241.172 358.385,228.951 272.226,280.891 275.893,284.557 277.726,318.165 281.2,316.546 286.526,317.927 292.247,314.573 297.968,315.56 299.94,317.73 307.831,316.743 312.566,318.322 316.906,318.124 320.851,314.968 324.797,318.716 331.306,319.111 338.803,319.505 344.918,321.872 351.231,321.675 358.924,322.07 365.04,323.253 367.012,324.437 370.958,321.083 374.312,325.029 380.23,326.607 383.386,324.24 389.699,327.001 388.712,330.355 393.052,327.791 397.787,329.961 405.875,323.648 408.834,319.308 408.055,297.792 409.425,295.053 413.534,292.998 410.794,288.204 427.916,287.862 439.216,290.944 432.367,296.765 433.052,300.531 436.476,300.874 435.792,337.171' },
   { id: 'chapelle', label: 'Chapelle', points: '560.421,214.435 610.022,223.225 658.995,211.61 656.798,169.857 659.937,169.857 635.451,143.173 610.022,147.254 609.708,135.01 611.592,132.499 605.627,121.825 602.488,112.407 599.662,101.42 598.721,88.862 603.116,87.038 605.627,83.27 598.721,81.073 598.721,75.108 595.267,83.584 591.186,81.701 591.814,87.038 596.209,89.863 592.128,109.327 588.047,125.965 584.908,133.186 586.477,136.325 585.535,147.626 558.537,173.055 562.932,175.566' },
@@ -17,13 +18,11 @@ const MAP_SPOTS = [
   { id: 'orangerie', label: 'Orangerie', points: '396.349,697.521 608.53,742.948 663.833,718.118 665.244,711.629 658.754,707.396 657.908,685.953 663.833,679.745 631.103,665.637 442.34,632.061 396.349,657.173' },
   { id: 'vin', label: "Vin d'Honneur", points: '633.941,356.186 609.071,371.49 580.854,380.577 564.594,385.838 648.288,396.36 683.201,402.099 726.243,414.533 763.069,425.055 819.025,437.011 868.285,435.576 908.458,433.663 955.357,429.359 1002.226,422.185 1025.182,418.838 1023.269,354.273 946.27,355.23 780.316,384.403 730.1,380.577 700.926,375.316 687.535,373.403 678.926,367.186 667.448,367.186 659.318,372.447 640.666,366.708' },
   { id: 'saloon', label: 'Saloon', points: '476.478,340.568 515.705,343.892 539.972,329.265 541.302,336.911 548.948,337.908 546.621,349.211 551.94,338.906 558.256,340.235 559.585,352.203 563.907,350.208 564.239,340.9 572.218,339.238 573.215,348.879 576.872,345.222 576.872,333.254 585.182,334.917 596.818,329.93 598.729,320.29 598.729,314.306 594.407,311.979 604.38,312.976 606.375,321.952 622.664,315.303 621.667,307.99 623.994,304.333 618.01,299.347 607.372,297.02 597.067,299.014 588.091,303.003 588.091,292.366 595.072,288.376 571.802,274.082 580.778,267.433 539.224,236.85 479.719,273.75' },
-  { id: 'refresh', label: 'Rafraîchissement', points: '744,430 852,426 868,498 742,500' },
   { id: 'lac', label: 'Lac', points: '1022.562,462.444 984.372,465.428 946.182,476.169 913.959,485.716 881.139,498.247 891.098,503.252 895.886,505.406 898.52,508.758 906.421,505.646 914.083,504.928 918.393,513.068 923.9,517.378 926.294,517.139 929.167,513.068 938.984,526.716 943.772,528.631 944.251,531.026 948.8,537.011 959.35,536.433 967.279,538.911 973.225,532.469 981.154,531.974 985.614,539.902 992.056,536.929 994.534,546.344 1006.427,544.362 1012.373,552.291 1025.753,556.255' },
 ]
 
 const SPOT_IDS = new Set(MAP_SPOTS.map((s) => s.id))
 
-// Convertit href ancienne version (#/chambre) en route React
 function resolveHref(href) {
   if (!href) return null
   const map = { '#/chambre': '/chambres', '#/photos': '/photos', '#/quiz': '/quiz', '#/leaderboard': '/leaderboard' }
@@ -33,7 +32,8 @@ function resolveHref(href) {
 export function PlanPage() {
   const { data: places = [], loading, error } = useAsyncData(getPlaces, [])
   const [selected, setSelected] = useState(null)
-  const detailRef = useRef(null)
+  const carouselRef = useRef(null)
+  const cardRefs = useRef({})
 
   if (loading) return <LoadingState message="Chargement du plan…" />
   if (error) return <ErrorState message="Impossible de charger le plan. Réessaie plus tard." />
@@ -44,19 +44,18 @@ export function PlanPage() {
     const place = byId.get(id)
     if (!place) return
     setSelected(place)
-    // Scroll vers le détail sur mobile
-    setTimeout(() => detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50)
-  }
-
-  function shift(offset) {
-    const idx = places.findIndex((p) => p.id === selected?.id)
-    const next = places[(idx + offset + places.length) % places.length]
-    if (next) select(next.id)
+    // Centre la carte dans le carousel
+    const el = cardRefs.current[id]
+    const container = carouselRef.current
+    if (el && container) {
+      const left = el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2
+      container.scrollTo({ left, behavior: 'smooth' })
+    }
   }
 
   return (
     <>
-      <PageIntro eyebrow="Plan" title="Plan du domaine" description="Clique sur un bâtiment pour afficher sa description." />
+      <PageIntro eyebrow="Plan" title="Plan du domaine" description="Clique sur un bâtiment ou fais défiler les lieux." />
 
       {/* Carte SVG interactive */}
       <Card className="overflow-hidden">
@@ -64,11 +63,11 @@ export function PlanPage() {
           <svg
             viewBox="0 0 1024 1024"
             className="w-full"
-            style={{ touchAction: 'none', display: 'block' }}
+            style={{ touchAction: 'pan-y', display: 'block' }}
             preserveAspectRatio="xMidYMid meet"
           >
             <image
-              href={import.meta.env.BASE_URL + 'assets/plan-domaine-color.jpg'}
+              href={import.meta.env.BASE_URL + 'assets/plan-domaine.jpg'}
               x="0" y="0" width="1024" height="1024"
               preserveAspectRatio="xMidYMid meet"
             />
@@ -85,9 +84,9 @@ export function PlanPage() {
                 >
                   <polygon
                     points={spot.points}
-                    fill={isActive ? 'rgba(225,100,120,0.45)' : 'rgba(225,100,120,0.15)'}
-                    stroke={isActive ? 'rgba(225,80,100,0.9)' : 'rgba(225,100,120,0.5)'}
-                    strokeWidth={isActive ? '4' : '2'}
+                    fill={isActive ? 'rgba(225,100,120,0.45)' : 'transparent'}
+                    stroke={isActive ? 'rgba(225,80,100,0.9)' : 'transparent'}
+                    strokeWidth="4"
                     style={{ transition: 'fill 0.15s, stroke 0.15s' }}
                   />
                 </g>
@@ -97,72 +96,56 @@ export function PlanPage() {
         </div>
       </Card>
 
-      {/* Détail lieu sélectionné avec carousel */}
-      {selected && (
-        <Card className="mt-3" ref={detailRef}>
-          <CardContent>
-            <div className="flex items-center justify-between gap-2">
-              <button
-                onClick={() => shift(-1)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border hover:bg-stone-50"
-                aria-label="Lieu précédent"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              <div className="flex-1 text-center">
-                <p className="font-bold">{selected.title}</p>
-                <p className="mt-1 text-sm text-stone-600">{selected.description}</p>
-                {selected.links?.length > 0 && (
-                  <div className="mt-2 flex flex-wrap justify-center gap-2">
-                    {selected.links.map((link, i) => {
-                      const to = resolveHref(link.href)
-                      return to?.startsWith('/') ? (
-                        <Link key={i} to={to} className="inline-flex items-center rounded-full border border-border bg-stone-50 px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-100">
-                          {link.label}
-                        </Link>
-                      ) : (
-                        <a key={i} href={to} className="inline-flex items-center rounded-full border border-border bg-stone-50 px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-100">
-                          {link.label}
-                        </a>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-              <button
-                onClick={() => shift(1)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border hover:bg-stone-50"
-                aria-label="Lieu suivant"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Grille de cartes cliquables */}
-      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+      {/* Carousel horizontal snap */}
+      <div
+        ref={carouselRef}
+        className="mt-3 -mx-4 flex gap-3 overflow-x-auto px-4 pb-2"
+        style={{ scrollbarWidth: 'none', scrollSnapType: 'x mandatory' }}
+      >
         {places.map((place) => {
           const isActive = selected?.id === place.id
+          const onMap = SPOT_IDS.has(place.id)
           return (
-            <button key={place.id} onClick={() => select(place.id)} className="text-left">
-              <Card className={`h-full transition-colors ${isActive ? 'border-rose-300 bg-rose-50/50' : 'hover:border-stone-300'}`}>
-                <CardContent>
-                  <div className="flex items-start gap-2">
-                    {SPOT_IDS.has(place.id) && (
-                      <span className="mt-0.5 text-xs text-rose-400">●</span>
-                    )}
-                    <div>
-                      <p className="font-semibold text-sm">{place.title}</p>
-                      <p className="mt-0.5 text-xs text-stone-500 line-clamp-2">{place.description}</p>
+            <div
+              key={place.id}
+              ref={(el) => { cardRefs.current[place.id] = el }}
+              className="shrink-0 w-[78vw] max-w-[300px]"
+              style={{ scrollSnapAlign: 'center' }}
+            >
+              <button onClick={() => select(place.id)} className="w-full text-left h-full">
+                <Card className={`h-full transition-colors ${isActive ? 'border-rose-300 bg-rose-50/50' : 'hover:border-stone-300'}`}>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      {onMap && <MapPin size={11} className="shrink-0 text-rose-400" />}
+                      <p className={`font-semibold text-sm leading-snug ${isActive ? 'text-rose-700' : 'text-foreground'}`}>
+                        {place.title}
+                      </p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </button>
+                    <p className="text-xs text-stone-500 leading-relaxed">{place.description}</p>
+                    {place.links?.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {place.links.map((link, i) => {
+                          const to = resolveHref(link.href)
+                          return to?.startsWith('/') ? (
+                            <Link key={i} to={to} className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-50">
+                              {link.label}
+                            </Link>
+                          ) : (
+                            <a key={i} href={to} className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-stone-700 hover:bg-stone-50">
+                              {link.label}
+                            </a>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </button>
+            </div>
           )
         })}
+        {/* Padding droit pour que la dernière carte puisse se centrer */}
+        <div className="shrink-0 w-[11vw]" aria-hidden="true" />
       </div>
     </>
   )
