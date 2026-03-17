@@ -1,16 +1,17 @@
 const CACHE_NAME = 'mariage-react-v1';
+const BASE = self.registration.scope;
 
 const APP_SHELL = [
-  '/',
-  '/manifest.webmanifest',
-  '/data/places.json',
-  '/data/quiz.json',
-  '/data/rooms.json',
-  '/data/photo_slots.json',
-  '/assets/plan-domaine-color.jpg',
-  '/assets/plan-domaine.jpg',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  BASE,
+  BASE + 'manifest.webmanifest',
+  BASE + 'data/places.json',
+  BASE + 'data/quiz.json',
+  BASE + 'data/rooms.json',
+  BASE + 'data/photo_slots.json',
+  BASE + 'assets/plan-domaine-color.jpg',
+  BASE + 'assets/plan-domaine.jpg',
+  BASE + 'icons/icon-192.png',
+  BASE + 'icons/icon-512.png',
 ];
 
 self.addEventListener('install', (event) => {
