@@ -5,7 +5,7 @@ import { PageIntro } from '../components/shared/PageIntro'
 import { Input } from '../components/ui/input'
 import { useFirestoreSnapshot } from '../hooks/useFirestoreSnapshot'
 import { subscribeToSessionData, subscribeToSessionState } from '../services/photoSessionService'
-import { computeEta, computeGroupEta } from '../utils/etaUtils'
+import { computeGroupEta } from '../utils/etaUtils'
 import { normalizeName } from '../utils/text'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 
@@ -133,9 +133,6 @@ export function PhotosPage() {
   const { data: sessionState, loading: loadingState } = useFirestoreSnapshot(subscribeToSessionState, null)
 
   const people = sessionData?.people || []
-  const slots  = sessionData?.slots  || []
-  const groups = sessionData?.groups || []
-  const delayMinutes = sessionState?.delayMinutes ?? 0
 
   const [query, setQuery] = useState('')
   const [person, setPerson] = useState(null)
@@ -151,52 +148,29 @@ export function PhotosPage() {
 
   const personSlots = useMemo(() => {
     if (!person) return []
-    const result = []
-
-    // 1. Créneaux seedés depuis GAS (photoSession/data)
-    const ids = String(person.group_ids || '').split(/[;,\s]+/).map(s => s.trim()).filter(Boolean)
-    for (const id of ids) {
-      const group = groups.find(g => String(g.group_id) === id)
-      if (!group) continue
-      const slot = slots.find(s => String(s.slot_id) === String(group.slot_id))
-      const baseEta = slot?.baseEta || slot?.eta || ''
-      const groupId = group.group_id
-      const membersInGroup = people.filter(p =>
-        String(p.group_ids || '').split(/[;,\s]+/).map(s => s.trim()).includes(String(groupId))
-      )
-      result.push({
-        groupName: group.group_name,
-        eta:       baseEta ? computeEta(baseEta, delayMinutes) : '',
-        location:  slot?.location || '',
-        status:    slot?.status   || '',
-        notes:     slot?.notes    || '',
-        members:   membersInGroup.map(p => p.display_name).filter(Boolean),
-      })
-    }
-
-    // 2. Groupes créés manuellement dans AdminPage (photoSession/state)
     const adminGroups = sessionState?.groups || []
-    adminGroups.forEach((group, idx) => {
-      if (!group.memberIds?.includes(person.person_id)) return
-      result.push({
-        groupName: group.name,
-        eta:       computeGroupEta(
-          sessionState.photoStart,
-          sessionState.delayMinutes,
-          sessionState.groupIntervalMinutes,
-          idx,
-        ),
-        location:  '',
-        status:    group.done ? 'DONE' : '',
-        notes:     '',
-        members:   (group.memberIds || [])
-          .map(id => people.find(p => p.person_id === id)?.display_name)
-          .filter(Boolean),
-      })
-    })
-
-    return result.sort((a, b) => (a.eta || '99:99').localeCompare(b.eta || '99:99'))
-  }, [person, groups, slots, delayMinutes, sessionState, people])
+    return adminGroups
+      .reduce((result, group, idx) => {
+        if (!group.memberIds?.includes(person.person_id)) return result
+        result.push({
+          groupName: group.name,
+          eta:      computeGroupEta(
+            sessionState.photoStart,
+            sessionState.delayMinutes,
+            sessionState.groupIntervalMinutes,
+            idx,
+          ),
+          location: '',
+          status:   group.done ? 'DONE' : '',
+          notes:    '',
+          members:  (group.memberIds || [])
+            .map(id => people.find(p => p.person_id === id)?.display_name)
+            .filter(Boolean),
+        })
+        return result
+      }, [])
+      .sort((a, b) => (a.eta || '99:99').localeCompare(b.eta || '99:99'))
+  }, [person, sessionState, people])
 
   if (loadingData || loadingState) return <LoadingState message="Chargement des créneaux photos…" />
   if (errorData) return <ErrorState message="Impossible de charger les créneaux. Réessaie plus tard." />
