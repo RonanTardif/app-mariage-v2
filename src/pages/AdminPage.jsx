@@ -283,7 +283,6 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete, people,
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, height: 0, marginBottom: 0 }}
       transition={{ duration: 0.18 }}
-      className="touch-none"
       style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
     >
       <div className={`flex items-center gap-3 rounded-2xl border px-4 py-3 transition-colors ${
