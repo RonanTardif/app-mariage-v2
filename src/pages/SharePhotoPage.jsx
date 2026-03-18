@@ -4,30 +4,6 @@ import { Camera, Images, Check, AlertCircle, X, Plus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { submitPhoto } from '../services/galleryService'
 
-/* ─── Image compression via canvas ──────────────────────────── */
-async function compressImage(file, maxPx = 1200, quality = 0.75) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onerror = reject
-    reader.onload = (e) => {
-      const img = new Image()
-      img.onerror = reject
-      img.onload = () => {
-        const ratio = Math.min(maxPx / img.width, maxPx / img.height, 1)
-        const w = Math.round(img.width * ratio)
-        const h = Math.round(img.height * ratio)
-        const canvas = document.createElement('canvas')
-        canvas.width = w
-        canvas.height = h
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h)
-        resolve(canvas.toDataURL('image/jpeg', quality))
-      }
-      img.src = e.target.result
-    }
-    reader.readAsDataURL(file)
-  })
-}
-
 function genId() {
   return `photo_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
 }
@@ -289,15 +265,11 @@ export function SharePhotoPage() {
     try {
       for (let i = 0; i < items.length; i++) {
         setProgress({ current: i + 1, total: items.length })
-        const base64 = await compressImage(items[i].file)
-        submitPhoto({
+        await submitPhoto({
           photo_id: items[i].id,
+          file: items[i].file,
           author: author.trim().slice(0, 40),
           caption: '',
-          image_url: base64,
-          thumb_url: base64,
-          likes: 0,
-          created_at: new Date().toISOString(),
         })
       }
       setDoneCount(items.length)

@@ -1,62 +1,118 @@
-const LS_PHOTOS      = 'mariage_gallery_proto_v1'
-const LS_MY_REACTIONS = 'mariage_my_reactions_proto_v1'
-const LS_MY_NAME     = 'mariage_my_name_proto_v1'
-const MAX_PHOTOS     = 50
+import { signInAnonymously } from 'firebase/auth'
+import {
+  collection, doc, getDocs, setDoc, updateDoc, increment,
+  query, orderBy, serverTimestamp,
+} from 'firebase/firestore'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { auth, db, storage } from '../lib/firebase'
 
 export const REACTION_EMOJIS = ['❤️', '🔥', '😂', '😍', '🥹']
 
-/* ─── Internal helpers ───────────────────────────────────────── */
-function loadPhotos() {
-  try { return JSON.parse(localStorage.getItem(LS_PHOTOS) || '[]') } catch { return [] }
+const LS_MY_REACTIONS = 'mariage_my_reactions_proto_v1'
+const LS_MY_NAME      = 'mariage_my_name_proto_v1'
+
+/* ─── Auth anonyme ───────────────────────────────────────────── */
+let _uid = null
+
+async function ensureAuth() {
+  if (_uid) return _uid
+  if (auth.currentUser) { _uid = auth.currentUser.uid; return _uid }
+  const { user } = await signInAnonymously(auth)
+  _uid = user.uid
+  return _uid
 }
-function savePhotos(photos) {
-  try { localStorage.setItem(LS_PHOTOS, JSON.stringify(photos.slice(0, MAX_PHOTOS))) } catch {}
-}
+
+/* ─── Helpers ────────────────────────────────────────────────── */
 function emptyReactions() {
   return Object.fromEntries(REACTION_EMOJIS.map((e) => [e, 0]))
 }
 
+async function compressToBlob(file, maxPx = 1200, quality = 0.75) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onerror = reject
+    reader.onload = (e) => {
+      const img = new Image()
+      img.onerror = reject
+      img.onload = () => {
+        const ratio = Math.min(maxPx / img.width, maxPx / img.height, 1)
+        const w = Math.round(img.width * ratio)
+        const h = Math.round(img.height * ratio)
+        const canvas = document.createElement('canvas')
+        canvas.width = w
+        canvas.height = h
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h)
+        canvas.toBlob(resolve, 'image/jpeg', quality)
+      }
+      img.src = e.target.result
+    }
+    reader.readAsDataURL(file)
+  })
+}
+
 /* ─── Read ───────────────────────────────────────────────────── */
 export async function getGalleryPhotos() {
-  return loadPhotos()
-    .map((p) => ({ ...p, reactions: p.reactions ?? emptyReactions() }))
-    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  const q = query(collection(db, 'photos'), orderBy('created_at', 'desc'))
+  const snap = await getDocs(q)
+  return snap.docs.map((d) => {
+    const data = d.data()
+    return {
+      ...data,
+      created_at: data.created_at?.toDate?.()?.toISOString() ?? new Date().toISOString(),
+      reactions: data.reactions ?? emptyReactions(),
+    }
+  })
 }
 
 /* ─── Write ──────────────────────────────────────────────────── */
-export function submitPhoto(photoObj) {
-  const photos = loadPhotos()
-  photos.unshift({ ...photoObj, reactions: emptyReactions() })
-  savePhotos(photos)
-  // Save author as "my name" for the "Miennes" tab
-  if (photoObj.author) saveMyName(photoObj.author)
+// photoObj: { photo_id, file (File), author, caption? }
+export async function submitPhoto({ photo_id, file, author, caption = '' }) {
+  const uid = await ensureAuth()
+
+  // 1. Upload HD (original)
+  const hdRef = ref(storage, `photos/hd/${photo_id}`)
+  await uploadBytes(hdRef, file)
+  const hd_url = await getDownloadURL(hdRef)
+
+  // 2. Compress → upload thumb
+  const thumbBlob = await compressToBlob(file)
+  const thumbRef = ref(storage, `photos/thumb/${photo_id}`)
+  await uploadBytes(thumbRef, thumbBlob)
+  const thumb_url = await getDownloadURL(thumbRef)
+
+  // 3. Firestore doc
+  await setDoc(doc(db, 'photos', photo_id), {
+    photo_id,
+    author: author.trim().slice(0, 40),
+    caption,
+    hd_url,
+    thumb_url,
+    uid,
+    created_at: serverTimestamp(),
+    reactions: emptyReactions(),
+  })
+
+  saveMyName(author)
 }
 
 /* ─── Reactions ──────────────────────────────────────────────── */
-export function reactToPhoto(photo_id, emoji) {
-  const photos = loadPhotos()
+export async function reactToPhoto(photo_id, emoji) {
   const myReactions = loadMyReactions()
-  const idx = photos.findIndex((p) => p.photo_id === photo_id)
-  if (idx === -1) return null
-
-  const photo = { ...photos[idx], reactions: photos[idx].reactions ?? emptyReactions() }
   const prevEmoji = myReactions[photo_id] ?? null
 
+  const updates = {}
   if (prevEmoji === emoji) {
-    // Toggle off
-    photo.reactions[emoji] = Math.max(0, (photo.reactions[emoji] || 0) - 1)
+    updates[`reactions.${emoji}`] = increment(-1)
     delete myReactions[photo_id]
   } else {
-    // Switch from prev (if any) to new
-    if (prevEmoji) photo.reactions[prevEmoji] = Math.max(0, (photo.reactions[prevEmoji] || 0) - 1)
-    photo.reactions[emoji] = (photo.reactions[emoji] || 0) + 1
+    if (prevEmoji) updates[`reactions.${prevEmoji}`] = increment(-1)
+    updates[`reactions.${emoji}`] = increment(1)
     myReactions[photo_id] = emoji
   }
 
-  photos[idx] = photo
-  savePhotos(photos)
+  await updateDoc(doc(db, 'photos', photo_id), updates)
   saveMyReactions(myReactions)
-  return { reactions: photo.reactions, myReaction: myReactions[photo_id] ?? null }
+  return { myReaction: myReactions[photo_id] ?? null }
 }
 
 export function getMyReactions() { return loadMyReactions() }

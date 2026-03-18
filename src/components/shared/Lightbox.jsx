@@ -47,6 +47,12 @@ function ReactionBar({ photo, myReaction, reactionCounts, onReact }) {
   )
 }
 
+const slideVariants = {
+  enter: (dir) => ({ x: dir * 60, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir) => ({ x: dir * -60, opacity: 0 }),
+}
+
 /* ─── Main Lightbox ──────────────────────────────────────────── */
 export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCounts, getMyReaction, handleReact }) {
   const photo = photos[index]
@@ -54,13 +60,14 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
   const lastTapRef = useRef(0)
   const imgRef = useRef(null)
   const [heartPos, setHeartPos] = useState(null)
+  const [dir, setDir] = useState(0)
 
   /* keyboard nav */
   useEffect(() => {
     function onKey(e) {
       if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft') onPrev()
-      if (e.key === 'ArrowRight') onNext()
+      if (e.key === 'ArrowLeft') { setDir(-1); onPrev() }
+      if (e.key === 'ArrowRight') { setDir(1); onNext() }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -77,7 +84,10 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
   function handleTouchEnd(e) {
     if (touchStartX.current === null) return
     const delta = e.changedTouches[0].clientX - touchStartX.current
-    if (Math.abs(delta) > 50) { delta > 0 ? onPrev() : onNext() }
+    if (Math.abs(delta) > 50) {
+      if (delta > 0) { setDir(-1); onPrev() }
+      else { setDir(1); onNext() }
+    }
     touchStartX.current = null
   }
 
@@ -104,7 +114,7 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
 
   return (
     <>
-      {/* Dark overlay — fades separately from image */}
+      {/* Dark overlay */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -134,37 +144,49 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
           </button>
         </div>
 
-        {/* Image — shared layout element */}
-        <div className="flex-1 flex items-center justify-center px-4 min-h-0 relative">
-          <AnimatePresence mode="wait">
-            <div key={photo.photo_id} ref={imgRef} className="relative"
-              onClick={handleImageTap} onTouchEnd={handleImageTap}
+        {/* Image area */}
+        <div className="flex-1 flex items-center justify-center px-4 min-h-0 relative overflow-hidden">
+          <AnimatePresence mode="wait" custom={dir}>
+            <motion.div
+              key={photo.photo_id}
+              ref={imgRef}
+              custom={dir}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.22, ease: 'easeInOut' }}
+              className="relative"
+              onClick={handleImageTap}
+              onTouchEnd={handleImageTap}
             >
-              <motion.img
-                layoutId={`photo-${photo.photo_id}`}
-                src={photo.image_url}
+              <img
+                src={photo.thumb_url}
                 alt={photo.caption || photo.author}
                 className="max-h-[68vh] max-w-full rounded-2xl object-contain select-none"
                 draggable={false}
-                transition={{ type: 'spring', stiffness: 400, damping: 35 }}
               />
               {/* Floating heart on double-tap */}
               <AnimatePresence>
                 {heartPos && <FloatingHeart key={heartPos.x + heartPos.y} pos={heartPos} />}
               </AnimatePresence>
-            </div>
+            </motion.div>
           </AnimatePresence>
 
           {/* Prev / Next */}
           {hasPrev && (
-            <button onClick={onPrev}
-              className="absolute left-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors">
+            <button
+              onClick={() => { setDir(-1); onPrev() }}
+              className="absolute left-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+            >
               <ChevronLeft size={22} />
             </button>
           )}
           {hasNext && (
-            <button onClick={onNext}
-              className="absolute right-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors">
+            <button
+              onClick={() => { setDir(1); onNext() }}
+              className="absolute right-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+            >
               <ChevronRight size={22} />
             </button>
           )}

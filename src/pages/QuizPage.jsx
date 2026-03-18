@@ -110,7 +110,7 @@ function QuestionScreen({ q, index, total, onAnswer }) {
 
 // ─── Écran résultat ───────────────────────────────────────────────────────────
 
-function ResultScreen({ score, total, questions, answers }) {
+function ResultScreen({ score, total, questions, answers, onScoreSubmitted }) {
   const [name, setName] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -134,6 +134,7 @@ function ResultScreen({ score, total, questions, answers }) {
         created_at: now.toISOString(),
       })
       setSubmitted(true)
+      onScoreSubmitted?.()
     } catch (err) {
       setSubmitError(err?.message || "Erreur lors de l'envoi.")
     } finally {
@@ -250,15 +251,37 @@ function ResultScreen({ score, total, questions, answers }) {
   )
 }
 
+// ─── Persistence localStorage ─────────────────────────────────────────────────
+
+const LS_PROGRESS = 'mariage_quiz_progress_v1'
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(LS_PROGRESS) || 'null') } catch { return null }
+}
+function saveProgress(state) {
+  try { localStorage.setItem(LS_PROGRESS, JSON.stringify(state)) } catch {}
+}
+export function clearQuizProgress() {
+  try { localStorage.removeItem(LS_PROGRESS) } catch {}
+}
+
 // ─── Page principale ──────────────────────────────────────────────────────────
 
 export function QuizPage() {
   const { data, loading, error } = useAsyncData(getQuiz, [])
   const questions = data?.questions ?? []
 
-  const [index, setIndex] = useState(0)
-  const [answers, setAnswers] = useState([])
-  const [done, setDone] = useState(false)
+  const saved = loadProgress()
+  const [index, setIndex] = useState(saved?.index ?? 0)
+  const [answers, setAnswers] = useState(saved?.answers ?? [])
+  const [done, setDone] = useState(saved?.done ?? false)
+
+  // Sauvegarde automatique à chaque changement
+  useEffect(() => {
+    if (!loading && questions.length > 0) {
+      saveProgress({ index, answers, done })
+    }
+  }, [index, answers, done, loading, questions.length])
 
   if (loading) return <LoadingState message="Chargement du quiz…" />
   if (error)   return <ErrorState  message="Impossible de charger le quiz. Réessaie plus tard." />
@@ -310,6 +333,7 @@ export function QuizPage() {
               total={total}
               questions={questions}
               answers={answers}
+              onScoreSubmitted={clearQuizProgress}
             />
           </motion.div>
         )}
