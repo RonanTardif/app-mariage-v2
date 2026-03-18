@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, Camera } from 'lucide-react'
 import { PageIntro } from '../components/shared/PageIntro'
 import { Input } from '../components/ui/input'
-import { useAsyncData } from '../hooks/useAsyncData'
-import { getPhotoSlots } from '../services/dataService'
+import { useFirestoreSnapshot } from '../hooks/useFirestoreSnapshot'
+import { subscribeToSessionData, subscribeToSessionState } from '../services/photoSessionService'
+import { computeEta, computeGroupEta } from '../utils/etaUtils'
 import { normalizeName } from '../utils/text'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 
@@ -94,10 +95,13 @@ function SlotTicket({ slot }) {
 }
 
 export function PhotosPage() {
-  const { data, loading, error } = useAsyncData(getPhotoSlots, [])
-  const people = data?.people || []
-  const slots  = data?.slots  || []
-  const groups = data?.groups || []
+  const { data: sessionData, loading: loadingData, error: errorData } = useFirestoreSnapshot(subscribeToSessionData, null)
+  const { data: sessionState, loading: loadingState } = useFirestoreSnapshot(subscribeToSessionState, null)
+
+  const people = sessionData?.people || []
+  const slots  = sessionData?.slots  || []
+  const groups = sessionData?.groups || []
+  const delayMinutes = sessionState?.delayMinutes ?? 0
 
   const [query, setQuery] = useState('')
   const [person, setPerson] = useState(null)
@@ -113,26 +117,47 @@ export function PhotosPage() {
 
   const personSlots = useMemo(() => {
     if (!person) return []
-    const ids = String(person.group_ids || '').split(/[;,\s]+/).map(s => s.trim()).filter(Boolean)
-    return ids
-      .map((id) => {
-        const group = groups.find(g => String(g.group_id) === id)
-        if (!group) return null
-        const slot = slots.find(s => String(s.slot_id) === String(group.slot_id))
-        return {
-          groupName: group.group_name,
-          eta:      slot?.eta      || '',
-          location: slot?.location || '',
-          status:   slot?.status   || '',
-          notes:    slot?.notes    || '',
-        }
-      })
-      .filter(Boolean)
-      .sort((a, b) => (a.eta || '99:99').localeCompare(b.eta || '99:99'))
-  }, [person, groups, slots])
+    const result = []
 
-  if (loading) return <LoadingState message="Chargement des créneaux photos…" />
-  if (error)   return <ErrorState message="Impossible de charger les créneaux. Réessaie plus tard." />
+    // 1. Créneaux seedés depuis GAS (photoSession/data)
+    const ids = String(person.group_ids || '').split(/[;,\s]+/).map(s => s.trim()).filter(Boolean)
+    for (const id of ids) {
+      const group = groups.find(g => String(g.group_id) === id)
+      if (!group) continue
+      const slot = slots.find(s => String(s.slot_id) === String(group.slot_id))
+      const baseEta = slot?.baseEta || slot?.eta || ''
+      result.push({
+        groupName: group.group_name,
+        eta:       baseEta ? computeEta(baseEta, delayMinutes) : '',
+        location:  slot?.location || '',
+        status:    slot?.status   || '',
+        notes:     slot?.notes    || '',
+      })
+    }
+
+    // 2. Groupes créés manuellement dans AdminPage (photoSession/state)
+    const adminGroups = sessionState?.groups || []
+    adminGroups.forEach((group, idx) => {
+      if (!group.memberIds?.includes(person.person_id)) return
+      result.push({
+        groupName: group.name,
+        eta:       computeGroupEta(
+          sessionState.photoStart,
+          sessionState.delayMinutes,
+          sessionState.groupIntervalMinutes,
+          idx,
+        ),
+        location:  '',
+        status:    group.done ? 'DONE' : '',
+        notes:     '',
+      })
+    })
+
+    return result.sort((a, b) => (a.eta || '99:99').localeCompare(b.eta || '99:99'))
+  }, [person, groups, slots, delayMinutes, sessionState])
+
+  if (loadingData || loadingState) return <LoadingState message="Chargement des créneaux photos…" />
+  if (errorData) return <ErrorState message="Impossible de charger les créneaux. Réessaie plus tard." />
 
   function selectPerson(item) {
     setPerson(item)

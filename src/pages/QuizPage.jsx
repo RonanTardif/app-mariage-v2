@@ -6,7 +6,8 @@ import { PageIntro } from '../components/shared/PageIntro'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 import { useAsyncData } from '../hooks/useAsyncData'
-import { getQuiz, submitScore } from '../services/dataService'
+import { getQuiz } from '../services/dataService'
+import { submitScore } from '../services/leaderboardService'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 
 const FEEDBACK_DELAY = 1100

@@ -14,7 +14,7 @@ const LS_MY_NAME      = 'mariage_my_name_proto_v1'
 /* ─── Auth anonyme ───────────────────────────────────────────── */
 let _uid = null
 
-async function ensureAuth() {
+export async function ensureAuth() {
   if (_uid) return _uid
   if (auth.currentUser) { _uid = auth.currentUser.uid; return _uid }
   const { user } = await signInAnonymously(auth)

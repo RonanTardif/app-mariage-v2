@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ChevronUp, Trophy } from 'lucide-react'
-import { useAsyncData } from '../hooks/useAsyncData'
-import { getLeaderboard } from '../services/dataService'
+import { useFirestoreSnapshot } from '../hooks/useFirestoreSnapshot'
+import { subscribeToLeaderboard } from '../services/leaderboardService'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 
 /* ─── Helpers ────────────────────────────────────────────────── */
@@ -129,7 +129,7 @@ function EmptyState() {
 
 /* ─── Main page ──────────────────────────────────────────────── */
 export function LeaderboardPage() {
-  const { data, loading, error } = useAsyncData(getLeaderboard, [])
+  const { data, loading, error } = useFirestoreSnapshot(subscribeToLeaderboard, [])
   const [expanded, setExpanded] = useState(false)
 
   if (loading) return <LoadingState message="Chargement du classement…" />
