@@ -27,7 +27,7 @@ function statusConfig(status) {
   return               { label: 'À venir',            bg: 'bg-card',           timeColor: 'text-foreground', pill: 'bg-stone-100 text-stone-600' }
 }
 
-function SlotTicket({ slot }) {
+function SlotTicket({ slot, currentPersonName }) {
   const eta = slot.eta ? String(slot.eta).match(/(\d{1,2}:\d{2})/)?.[1] ?? slot.eta : '--:--'
   const s = (slot.status || '').toUpperCase()
   const isNow    = s === 'NOW'
@@ -89,7 +89,41 @@ function SlotTicket({ slot }) {
             {slot.notes}
           </p>
         )}
+
+        {/* Members */}
+        {slot.members?.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-stone-100">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-stone-400 mb-2">
+              Dans ce groupe · {slot.members.length}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {slot.members.map((name, i) => (
+                <MemberAvatar
+                  key={i}
+                  name={name}
+                  isYou={name === currentPersonName}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+    </div>
+  )
+}
+
+function MemberAvatar({ name, isYou }) {
+  const initials = String(name || '?').split(/\s+/).map(w => w[0] || '').join('').toUpperCase().slice(0, 2)
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div className={`h-10 w-10 rounded-2xl flex items-center justify-center text-xs font-bold ${
+        isYou ? 'bg-rose-100 text-rose-600 ring-2 ring-rose-300 ring-offset-1' : 'bg-stone-100 text-stone-500'
+      }`}>
+        {initials}
+      </div>
+      <p className={`text-[10px] font-medium text-center w-12 truncate ${isYou ? 'text-rose-500' : 'text-stone-400'}`}>
+        {isYou ? 'Vous' : String(name || '').split(' ')[0]}
+      </p>
     </div>
   )
 }
@@ -126,12 +160,17 @@ export function PhotosPage() {
       if (!group) continue
       const slot = slots.find(s => String(s.slot_id) === String(group.slot_id))
       const baseEta = slot?.baseEta || slot?.eta || ''
+      const groupId = group.group_id
+      const membersInGroup = people.filter(p =>
+        String(p.group_ids || '').split(/[;,\s]+/).map(s => s.trim()).includes(String(groupId))
+      )
       result.push({
         groupName: group.group_name,
         eta:       baseEta ? computeEta(baseEta, delayMinutes) : '',
         location:  slot?.location || '',
         status:    slot?.status   || '',
         notes:     slot?.notes    || '',
+        members:   membersInGroup.map(p => p.display_name).filter(Boolean),
       })
     }
 
@@ -150,11 +189,14 @@ export function PhotosPage() {
         location:  '',
         status:    group.done ? 'DONE' : '',
         notes:     '',
+        members:   (group.memberIds || [])
+          .map(id => people.find(p => p.person_id === id)?.display_name)
+          .filter(Boolean),
       })
     })
 
     return result.sort((a, b) => (a.eta || '99:99').localeCompare(b.eta || '99:99'))
-  }, [person, groups, slots, delayMinutes, sessionState])
+  }, [person, groups, slots, delayMinutes, sessionState, people])
 
   if (loadingData || loadingState) return <LoadingState message="Chargement des créneaux photos…" />
   if (errorData) return <ErrorState message="Impossible de charger les créneaux. Réessaie plus tard." />
@@ -232,7 +274,7 @@ export function PhotosPage() {
               </div>
             ) : (
               personSlots.map((slot, idx) => (
-                <SlotTicket key={idx} slot={slot} />
+                <SlotTicket key={idx} slot={slot} currentPersonName={person?.display_name} />
               ))
             )}
           </motion.div>

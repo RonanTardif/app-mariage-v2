@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { Reorder, useDragControls, motion, AnimatePresence } from 'framer-motion'
-import { GripVertical, Check, RotateCcw, Clock, Users, Camera, Trash2, Plus, Database, Search, X } from 'lucide-react'
+import { GripVertical, Check, RotateCcw, Clock, Users, Camera, Trash2, Plus, Database, Search, X, Pencil } from 'lucide-react'
 import { APP_CONFIG } from '../utils/constants'
 import { computeGroupEta } from '../utils/etaUtils'
 import { normalizeName } from '../utils/text'
@@ -56,14 +56,14 @@ function SyncBadge({ status }) {
   )
 }
 
-/* ─── AddGroupModal ──────────────────────────────────────────── */
-function AddGroupModal({ groupsCount, onAdd, onClose }) {
-  const [people, setPeople] = useState([])
-  const [loadingPeople, setLoadingPeople] = useState(true)
-  const [name, setName] = useState(`Groupe ${groupsCount + 1}`)
+/* ─── GroupModal ─────────────────────────────────────────────── */
+function GroupModal({ mode = 'add', initialGroup = null, groupsCount, people, onSave, onClose }) {
+  const [name, setName] = useState(initialGroup?.name ?? `Groupe ${groupsCount + 1}`)
   const [search, setSearch] = useState('')
-  const [selected, setSelected] = useState(new Set())
+  const [selected, setSelected] = useState(new Set(initialGroup?.memberIds || []))
   const nameRef = useRef(null)
+
+  const loadingPeople = people.length === 0
 
   // Scroll lock + focus
   useEffect(() => {
@@ -73,14 +73,6 @@ function AddGroupModal({ groupsCount, onAdd, onClose }) {
       document.body.style.overflow = ''
       clearTimeout(t)
     }
-  }, [])
-
-  // Load people once
-  useEffect(() => {
-    loadSessionData()
-      .then(data => setPeople(data?.people || []))
-      .catch(() => {})
-      .finally(() => setLoadingPeople(false))
   }, [])
 
   const filtered = useMemo(() => {
@@ -100,15 +92,21 @@ function AddGroupModal({ groupsCount, onAdd, onClose }) {
     })
   }
 
-  function handleAdd() {
-    onAdd({
-      id: uid(),
+  function handleSave() {
+    onSave({
+      ...initialGroup,
+      id: initialGroup?.id ?? uid(),
       name: name.trim() || `Groupe ${groupsCount + 1}`,
-      done: false,
+      done: initialGroup?.done ?? false,
       memberIds: [...selected],
     })
     onClose()
   }
+
+  const title = mode === 'edit' ? 'Modifier le groupe' : 'Nouveau groupe'
+  const buttonLabel = mode === 'edit'
+    ? 'Enregistrer'
+    : (selected.size > 0 ? `Créer · ${selected.size} personne${selected.size > 1 ? 's' : ''}` : 'Créer le groupe')
 
   return (
     <motion.div
@@ -141,7 +139,7 @@ function AddGroupModal({ groupsCount, onAdd, onClose }) {
         {/* Header */}
         <div className="flex items-start justify-between px-5 pb-4 pt-2 shrink-0">
           <div>
-            <h2 className="text-lg font-bold text-stone-900">Nouveau groupe</h2>
+            <h2 className="text-lg font-bold text-stone-900">{title}</h2>
             <p className="text-xs text-stone-400 mt-0.5">
               {selected.size > 0
                 ? `${selected.size} personne${selected.size > 1 ? 's' : ''} sélectionnée${selected.size > 1 ? 's' : ''}`
@@ -162,7 +160,7 @@ function AddGroupModal({ groupsCount, onAdd, onClose }) {
             ref={nameRef}
             value={name}
             onChange={e => setName(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleAdd()}
+            onKeyDown={e => e.key === 'Enter' && handleSave()}
             placeholder="Famille, Témoins, Collègues…"
             className="w-full rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-semibold text-stone-800 outline-none focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-shadow"
           />
@@ -233,12 +231,10 @@ function AddGroupModal({ groupsCount, onAdd, onClose }) {
         {/* Footer */}
         <div className="px-5 pb-8 pt-3 border-t border-stone-100 shrink-0">
           <button
-            onClick={handleAdd}
+            onClick={handleSave}
             className="w-full rounded-2xl bg-rose-500 py-3.5 text-sm font-bold text-white hover:bg-rose-600 active:scale-[0.98] transition-all shadow-sm shadow-rose-200"
           >
-            {selected.size > 0
-              ? `Créer · ${selected.size} personne${selected.size > 1 ? 's' : ''}`
-              : 'Créer le groupe'}
+            {buttonLabel}
           </button>
         </div>
       </motion.div>
@@ -247,11 +243,20 @@ function AddGroupModal({ groupsCount, onAdd, onClose }) {
 }
 
 /* ─── GroupRow ───────────────────────────────────────────────── */
-function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete }) {
+function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete, people, onEdit }) {
   const controls = useDragControls()
+  const handleRef = useRef(null)
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(group.name)
   const inputRef = useRef(null)
+
+  useEffect(() => {
+    const el = handleRef.current
+    if (!el) return
+    const onDown = (e) => { e.preventDefault(); controls.start(e) }
+    el.addEventListener('pointerdown', onDown, { passive: false })
+    return () => el.removeEventListener('pointerdown', onDown)
+  }, [controls])
 
   function commitRename() {
     const trimmed = draft.trim()
@@ -261,6 +266,13 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete }) {
   }
 
   const memberCount = group.memberIds?.length ?? 0
+
+  const memberNames = useMemo(() => {
+    if (!group.memberIds?.length || !people.length) return []
+    return group.memberIds
+      .map(id => people.find(p => p.person_id === id)?.display_name)
+      .filter(Boolean)
+  }, [group.memberIds, people])
 
   return (
     <Reorder.Item
@@ -272,6 +284,7 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete }) {
       exit={{ opacity: 0, height: 0, marginBottom: 0 }}
       transition={{ duration: 0.18 }}
       className="touch-none"
+      style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
     >
       <div className={`flex items-center gap-3 rounded-2xl border px-4 py-3 transition-colors ${
         group.done ? 'border-stone-100 bg-stone-50 opacity-60' : 'border-stone-200 bg-white shadow-sm'
@@ -279,11 +292,11 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete }) {
 
         {/* Drag handle */}
         <button
-          onPointerDown={e => { e.preventDefault(); controls.start(e) }}
-          className="cursor-grab active:cursor-grabbing text-stone-300 hover:text-stone-500 touch-none shrink-0"
+          ref={handleRef}
+          className="cursor-grab active:cursor-grabbing touch-none shrink-0"
           aria-label="Réordonner"
         >
-          <GripVertical size={18} />
+          <GripVertical size={18} className="text-stone-300" />
         </button>
 
         {/* Index badge */}
@@ -324,7 +337,30 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete }) {
               </span>
             )}
           </p>
+          {memberNames.length > 0 && (
+            <div className="mt-1.5 flex -space-x-1.5">
+              {memberNames.slice(0, 4).map((name, i) => (
+                <div key={i} title={name} className="h-5 w-5 rounded-full bg-rose-100 border-2 border-white flex items-center justify-center text-[8px] font-bold text-rose-600">
+                  {name[0]?.toUpperCase() ?? '?'}
+                </div>
+              ))}
+              {memberNames.length > 4 && (
+                <div className="h-5 w-5 rounded-full bg-stone-100 border-2 border-white flex items-center justify-center text-[8px] font-bold text-stone-500">
+                  +{memberNames.length - 4}
+                </div>
+              )}
+            </div>
+          )}
         </div>
+
+        {/* Edit button */}
+        <button
+          onClick={onEdit}
+          className="shrink-0 flex h-8 w-8 items-center justify-center rounded-full text-stone-300 hover:bg-rose-50 hover:text-rose-400 transition-colors"
+          aria-label="Modifier les membres"
+        >
+          <Pencil size={14} />
+        </button>
 
         {/* Done toggle */}
         <button
@@ -368,11 +404,20 @@ export function AdminPage() {
   const [syncStatus, setSyncStatus] = useState('idle')
   const debounceRef = useRef(null)
   const [showModal, setShowModal] = useState(false)
+  const [editingGroup, setEditingGroup] = useState(null) // { group, idx } | null
 
   // Seeding
   const [seedNeeded, setSeedNeeded] = useState(false)
   const [seedStatus, setSeedStatus] = useState('idle')
   const [seedError, setSeedError] = useState(null)
+
+  // People for member display
+  const [people, setPeople] = useState([])
+
+  /* ── Load people on mount ── */
+  useEffect(() => {
+    loadSessionData().then(data => setPeople(data?.people || [])).catch(() => {})
+  }, [])
 
   /* ── Persist to localStorage ── */
   useEffect(() => {
@@ -445,6 +490,15 @@ export function AdminPage() {
   function resetToDefault() {
     setState(DEFAULT_STATE)
     scheduleSync(DEFAULT_STATE)
+  }
+
+  function handleEditGroup(group, idx) {
+    setEditingGroup({ group, idx })
+  }
+
+  function handleSaveEdit(updatedGroup) {
+    updateGroups(state.groups.map((g, i) => i === editingGroup.idx ? updatedGroup : g))
+    setEditingGroup(null)
   }
 
   async function handleSeed() {
@@ -611,6 +665,8 @@ export function AdminPage() {
                 onToggleDone={() => toggleDone(idx)}
                 onRename={name => renameGroup(idx, name)}
                 onDelete={() => deleteGroup(idx)}
+                people={people}
+                onEdit={() => handleEditGroup(group, idx)}
               />
             ))}
           </AnimatePresence>
@@ -664,13 +720,27 @@ export function AdminPage() {
         </div>
       )}
 
-      {/* ─── AddGroupModal ─── */}
+      {/* Modals */}
       <AnimatePresence>
         {showModal && (
-          <AddGroupModal
+          <GroupModal
+            mode="add"
             groupsCount={state.groups.length}
-            onAdd={addGroup}
+            people={people}
+            onSave={addGroup}
             onClose={() => setShowModal(false)}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {editingGroup && (
+          <GroupModal
+            mode="edit"
+            initialGroup={editingGroup.group}
+            groupsCount={state.groups.length}
+            people={people}
+            onSave={handleSaveEdit}
+            onClose={() => setEditingGroup(null)}
           />
         )}
       </AnimatePresence>
