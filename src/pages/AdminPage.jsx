@@ -506,6 +506,30 @@ export function AdminPage() {
     setSeedError(null)
     try {
       await seedFromGas(APP_CONFIG.photosApi)
+
+      // Sync admin groups from freshly seeded data
+      const data = await loadSessionData()
+      const newPeople = data?.people || []
+      setPeople(newPeople)
+
+      if (data?.groups?.length) {
+        const adminGroups = data.groups
+          .map(g => {
+            const slot = (data.slots || []).find(s => String(s.slot_id) === String(g.slot_id))
+            const baseEta = slot?.baseEta || slot?.eta || ''
+            const memberIds = newPeople
+              .filter(p =>
+                String(p.group_ids || '').split(/[;,\s]+/).map(s => s.trim()).includes(String(g.group_id))
+              )
+              .map(p => p.person_id)
+            return { _sort: baseEta, id: String(g.group_id), name: g.group_name, done: false, memberIds }
+          })
+          .sort((a, b) => (a._sort || '99:99').localeCompare(b._sort || '99:99'))
+          .map(({ _sort, ...g }) => g)
+
+        updateGroups(adminGroups)
+      }
+
       setSeedStatus('done')
       setSeedNeeded(false)
     } catch (err) {
