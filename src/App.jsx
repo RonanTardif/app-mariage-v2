@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { AppShell } from './components/layout/AppShell'
+import { ScrollToTop } from './components/layout/ScrollToTop'
 import { ErrorBoundary } from './components/shared/ErrorBoundary'
 import { PwaInstallPrompt } from './components/shared/PwaInstallPrompt'
 import { HomePage } from './pages/HomePage'
@@ -23,6 +24,7 @@ function RoutedErrorBoundary({ children }) {
 export default function App() {
   return (
     <AppShell>
+      <ScrollToTop />
       <RoutedErrorBoundary>
         <Routes>
           <Route path="/" element={<HomePage />} />
