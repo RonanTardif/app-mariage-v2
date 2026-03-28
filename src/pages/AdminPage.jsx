@@ -249,6 +249,7 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete, people,
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(group.name)
   const inputRef = useRef(null)
+  const [isDragging, setIsDragging] = useState(false)
 
   useEffect(() => {
     const el = handleRef.current
@@ -257,6 +258,20 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete, people,
     el.addEventListener('pointerdown', onDown, { passive: false })
     return () => el.removeEventListener('pointerdown', onDown)
   }, [controls])
+
+  /* auto-scroll when dragging near viewport edges */
+  useEffect(() => {
+    if (!isDragging) return
+    const EDGE = 80
+    const SPEED = 12
+    function onMove(e) {
+      const y = e.clientY ?? e.touches?.[0]?.clientY ?? 0
+      if (y < EDGE) window.scrollBy(0, -SPEED)
+      else if (y > window.innerHeight - EDGE) window.scrollBy(0, SPEED)
+    }
+    window.addEventListener('pointermove', onMove, { passive: true })
+    return () => window.removeEventListener('pointermove', onMove)
+  }, [isDragging])
 
   function commitRename() {
     const trimmed = draft.trim()
@@ -283,10 +298,15 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete, people,
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, height: 0, marginBottom: 0 }}
       transition={{ duration: 0.18 }}
+      whileDrag={{ scale: 1.03, zIndex: 50 }}
+      onDragStart={() => setIsDragging(true)}
+      onDragEnd={() => setIsDragging(false)}
       style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
     >
       <div className={`flex items-center gap-3 rounded-2xl border px-4 py-3 transition-colors ${
-        group.done ? 'border-stone-100 bg-stone-50 opacity-60' : 'border-stone-200 bg-white shadow-sm'
+        isDragging
+          ? 'border-rose-300 bg-rose-50/80 shadow-xl'
+          : group.done ? 'border-stone-100 bg-stone-50 opacity-60' : 'border-stone-200 bg-white shadow-sm'
       }`}>
 
         {/* Drag handle */}
@@ -295,7 +315,7 @@ function GroupRow({ group, index, eta, onToggleDone, onRename, onDelete, people,
           className="cursor-grab active:cursor-grabbing touch-none shrink-0"
           aria-label="Réordonner"
         >
-          <GripVertical size={18} className="text-stone-300" />
+          <GripVertical size={18} className={isDragging ? 'text-rose-400' : 'text-stone-300'} />
         </button>
 
         {/* Index badge */}
@@ -404,6 +424,7 @@ export function AdminPage() {
   const debounceRef = useRef(null)
   const [showModal, setShowModal] = useState(false)
   const [editingGroup, setEditingGroup] = useState(null) // { group, idx } | null
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
 
   // Seeding
   const [seedNeeded, setSeedNeeded] = useState(false)
@@ -484,11 +505,6 @@ export function AdminPage() {
 
   function addGroup(group) {
     updateGroups([...state.groups, group])
-  }
-
-  function resetToDefault() {
-    setState(DEFAULT_STATE)
-    scheduleSync(DEFAULT_STATE)
   }
 
   function handleEditGroup(group, idx) {
@@ -710,7 +726,7 @@ export function AdminPage() {
 
       {/* ─── Reset ─── */}
       <button
-        onClick={resetToDefault}
+        onClick={() => setShowResetConfirm(true)}
         className="flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 bg-white py-3.5 text-sm font-semibold text-stone-600 hover:bg-stone-50 transition-colors"
       >
         <RotateCcw size={15} /> Reset
@@ -765,6 +781,51 @@ export function AdminPage() {
             onSave={handleSaveEdit}
             onClose={() => setEditingGroup(null)}
           />
+        )}
+      </AnimatePresence>
+
+      {/* ─── Reset confirmation modal ─── */}
+      <AnimatePresence>
+        {showResetConfirm && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+              onClick={() => setShowResetConfirm(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.93, y: 16 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="fixed inset-x-4 bottom-8 z-50 rounded-3xl bg-white p-6 shadow-2xl sm:inset-x-auto sm:left-1/2 sm:w-80 sm:-translate-x-1/2"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 mb-4">
+                <RotateCcw size={22} className="text-rose-500" />
+              </div>
+              <p className="text-base font-bold text-stone-900">Réinitialiser depuis Google Sheets ?</p>
+              <p className="mt-1.5 text-sm text-stone-500">
+                Les groupes et membres actuels seront remplacés par les données du GSheet.
+              </p>
+              <div className="mt-5 flex gap-3">
+                <button
+                  onClick={() => setShowResetConfirm(false)}
+                  className="flex-1 rounded-2xl border border-stone-200 bg-white py-3 text-sm font-semibold text-stone-600 hover:bg-stone-50 transition-colors"
+                >
+                  Annuler
+                </button>
+                <button
+                  onClick={() => { setShowResetConfirm(false); handleSeed() }}
+                  className="flex-1 rounded-2xl bg-rose-500 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition-colors"
+                >
+                  Réinitialiser
+                </button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
