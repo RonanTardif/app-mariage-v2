@@ -1,7 +1,7 @@
 import { signInAnonymously } from 'firebase/auth'
 import {
   collection, doc, getDocs, setDoc, updateDoc, increment,
-  query, orderBy, serverTimestamp,
+  runTransaction, query, orderBy, serverTimestamp,
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { auth, db, storage } from '../lib/firebase'
@@ -106,22 +106,42 @@ export async function submitPhoto({ photo_id, file, author, caption = '' }) {
 
 /* ─── Reactions ──────────────────────────────────────────────── */
 export async function reactToPhoto(photo_id, emoji) {
+  const uid = await ensureAuth()
+  const photoRef = doc(db, 'photos', photo_id)
+  let newMyReaction = null
+
+  await runTransaction(db, async (tx) => {
+    const snap = await tx.get(photoRef)
+    if (!snap.exists()) throw new Error('Photo introuvable')
+
+    const { reactions = {}, reactionsByUid = {} } = snap.data()
+    const prevEmoji = reactionsByUid[uid] ?? null
+    const newReactions = { ...reactions }
+    const newByUid = { ...reactionsByUid }
+
+    if (prevEmoji === emoji) {
+      // Toggle off
+      newReactions[emoji] = Math.max(0, (newReactions[emoji] || 0) - 1)
+      delete newByUid[uid]
+      newMyReaction = null
+    } else {
+      // Remplacer ou nouvelle réaction
+      if (prevEmoji) newReactions[prevEmoji] = Math.max(0, (newReactions[prevEmoji] || 0) - 1)
+      newReactions[emoji] = (newReactions[emoji] || 0) + 1
+      newByUid[uid] = emoji
+      newMyReaction = emoji
+    }
+
+    tx.update(photoRef, { reactions: newReactions, reactionsByUid: newByUid })
+  })
+
+  // Sync localStorage pour l'affichage optimiste
   const myReactions = loadMyReactions()
-  const prevEmoji = myReactions[photo_id] ?? null
-
-  const updates = {}
-  if (prevEmoji === emoji) {
-    updates[`reactions.${emoji}`] = increment(-1)
-    delete myReactions[photo_id]
-  } else {
-    if (prevEmoji) updates[`reactions.${prevEmoji}`] = increment(-1)
-    updates[`reactions.${emoji}`] = increment(1)
-    myReactions[photo_id] = emoji
-  }
-
-  await updateDoc(doc(db, 'photos', photo_id), updates)
+  if (newMyReaction) myReactions[photo_id] = newMyReaction
+  else delete myReactions[photo_id]
   saveMyReactions(myReactions)
-  return { myReaction: myReactions[photo_id] ?? null }
+
+  return { myReaction: newMyReaction }
 }
 
 export function getMyReactions() { return loadMyReactions() }
