@@ -76,12 +76,16 @@ function GroupModal({ mode = 'add', initialGroup = null, groupsCount, people, on
   }, [])
 
   const filtered = useMemo(() => {
-    if (!search) return people
-    const q = normalizeName(search)
-    return people.filter(p =>
-      normalizeName(p.display_name || p.search_text || '').includes(q)
-    )
-  }, [search, people])
+    const list = search
+      ? people.filter(p => normalizeName(p.display_name || p.search_text || '').includes(normalizeName(search)))
+      : people
+    return [...list].sort((a, b) => {
+      const aSelected = selected.has(a.person_id)
+      const bSelected = selected.has(b.person_id)
+      if (aSelected === bSelected) return 0
+      return aSelected ? -1 : 1
+    })
+  }, [search, people, selected])
 
   function toggle(personId) {
     setSelected(prev => {
@@ -199,33 +203,50 @@ function GroupModal({ mode = 'add', initialGroup = null, groupsCount, people, on
             <div className="py-12 text-center text-sm text-stone-400">
               Aucun résultat pour « {search} »
             </div>
-          ) : (
-            filtered.map(person => {
-              const isSelected = selected.has(person.person_id)
-              return (
-                <button
-                  key={person.person_id}
-                  onClick={() => toggle(person.person_id)}
-                  className={`w-full flex items-center gap-3 rounded-2xl border px-4 py-2.5 text-left transition-all active:scale-[0.99] ${
-                    isSelected
-                      ? 'border-rose-200 bg-rose-50'
-                      : 'border-stone-100 bg-white hover:bg-stone-50'
-                  }`}
-                >
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
-                    isSelected ? 'bg-rose-500 text-white' : 'bg-stone-100 text-stone-500'
-                  }`}>
-                    {isSelected
-                      ? <Check size={14} strokeWidth={3} />
-                      : (person.display_name?.[0]?.toUpperCase() ?? '?')}
-                  </div>
-                  <span className={`flex-1 text-sm font-medium ${isSelected ? 'text-rose-700' : 'text-stone-700'}`}>
-                    {person.display_name}
-                  </span>
-                </button>
-              )
-            })
-          )}
+          ) : (() => {
+            const selectedCount = filtered.filter(p => selected.has(p.person_id)).length
+            return (
+              <>
+                {selectedCount > 0 && (
+                  <p className="pb-0.5 text-[10px] font-semibold uppercase tracking-widest text-rose-400 px-1">
+                    Sélectionnés
+                  </p>
+                )}
+                {filtered.map((person, i) => {
+                  const isSelected = selected.has(person.person_id)
+                  const showDivider = !isSelected && i === selectedCount && selectedCount > 0
+                  return (
+                    <div key={person.person_id}>
+                      {showDivider && (
+                        <p className="pt-2 pb-0.5 text-[10px] font-semibold uppercase tracking-widest text-stone-400 px-1">
+                          Tous les invités
+                        </p>
+                      )}
+                      <button
+                        onClick={() => toggle(person.person_id)}
+                        className={`w-full flex items-center gap-3 rounded-2xl border px-4 py-2.5 text-left transition-all active:scale-[0.99] ${
+                          isSelected
+                            ? 'border-rose-200 bg-rose-50'
+                            : 'border-stone-100 bg-white hover:bg-stone-50'
+                        }`}
+                      >
+                        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
+                          isSelected ? 'bg-rose-500 text-white' : 'bg-stone-100 text-stone-500'
+                        }`}>
+                          {isSelected
+                            ? <Check size={14} strokeWidth={3} />
+                            : (person.display_name?.[0]?.toUpperCase() ?? '?')}
+                        </div>
+                        <span className={`flex-1 text-sm font-medium ${isSelected ? 'text-rose-700' : 'text-stone-700'}`}>
+                          {person.display_name}
+                        </span>
+                      </button>
+                    </div>
+                  )
+                })}
+              </>
+            )
+          })()}
         </div>
 
         {/* Footer */}
