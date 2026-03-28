@@ -203,7 +203,7 @@ export function PlanPage() {
         <div className="absolute bottom-0 left-0 p-5 pointer-events-none">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/60">Plan du domaine</p>
           <p className="text-2xl font-bold text-white mt-0.5 leading-tight">
-            {selected?.title ?? 'Explore'}
+            {selected?.title ?? 'Le domaine'}
           </p>
           {places.length > 0 && (
             <p className="text-xs text-white/55 mt-1">

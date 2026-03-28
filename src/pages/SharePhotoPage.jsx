@@ -125,7 +125,7 @@ function StepPreview({ items, author, onAuthor, onRemove, onAddMore, onSubmit, c
         <input
           value={author}
           onChange={(e) => onAuthor(e.target.value)}
-          placeholder="Marie, Jean-Pierre…"
+          placeholder="Ton prénom (ex: Pierre, Camille…)"
           maxLength={40}
           className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-800 outline-none focus:border-rose-300 focus:ring-2 focus:ring-rose-100"
         />

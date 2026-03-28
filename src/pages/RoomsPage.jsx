@@ -226,7 +226,7 @@ export function RoomsPage() {
       </AnimatePresence>
 
       <p className="mt-4 text-xs text-stone-400">
-        Tu ne trouves pas ton nom ? Viens nous voir sur place.
+        Tu ne trouves pas ton nom ? Viens nous voir.
       </p>
     </>
   )

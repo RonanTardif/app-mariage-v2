@@ -122,7 +122,7 @@ function EmptyState() {
     >
       <Trophy size={36} className="text-stone-200" />
       <p className="font-semibold text-stone-500">Aucun score pour le moment</p>
-      <p className="text-sm text-stone-400">Les résultats du quiz apparaîtront ici.</p>
+      <p className="text-sm text-stone-400">Les scores s'afficheront dès les premiers quiz terminés.</p>
     </motion.div>
   )
 }

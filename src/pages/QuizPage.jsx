@@ -225,7 +225,7 @@ function ResultScreen({ score, total, questions, answers, onScoreSubmitted }) {
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="ex : Clément, Marie…"
+                placeholder="ex : Pierre, Camille…"
                 maxLength={30}
                 autoComplete="given-name"
                 autoCapitalize="words"

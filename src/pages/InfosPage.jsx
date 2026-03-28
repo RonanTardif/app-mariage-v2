@@ -39,7 +39,7 @@ export function InfosPage() {
 
   return (
     <>
-      <PageIntro eyebrow="Infos pratiques" title="Les essentiels sans charge mentale" description="Contenu synthétique, hiérarchisé, pensé pour les moments pressés." />
+      <PageIntro eyebrow="Infos pratiques" title="Les essentiels sans charge mentale" description="Tout ce qu'il faut savoir pour le week-end." />
       <div className="space-y-3">
         {infos.map((item) => (
           <Card key={item.title}><CardContent><item.icon className="text-sage-700" size={18} /><p className="mt-2 font-semibold">{item.title}</p><p className="text-sm text-stone-600">{item.text}</p></CardContent></Card>
@@ -56,7 +56,7 @@ export function InfosPage() {
           </Card>
         </button>
       </div>
-      <div className="mt-3 inline-flex items-center gap-2 text-sm text-stone-500"><Info size={14} /> Lisible même pendant l'événement.</div>
+
 
       {/* Password modal */}
       <AnimatePresence>
@@ -85,7 +85,7 @@ export function InfosPage() {
                   <X size={16} className="text-stone-400" />
                 </button>
               </div>
-              <p className="font-bold text-stone-900">{"Accès paramètres"}</p>
+              <p className="font-bold text-stone-900">{"Espace organisation"}</p>
               <p className="mt-1 text-sm text-stone-500">{"Entrez le mot de passe orga."}</p>
               <form onSubmit={handleSubmit} className="mt-4 space-y-3">
                 <input

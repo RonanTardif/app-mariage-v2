@@ -149,7 +149,7 @@ function PhotoCard({ photo, globalIndex, reactionCounts, onClick }) {
 function EmptyState({ tab, onShare }) {
   const msgs = {
     all:  { title: "Aucune photo pour l'instant", sub: 'Soyez les premiers à partager un souvenir !' },
-    mine: { title: "Tu n'as pas encore partagé de photo", sub: 'Prends le premier souvenir !' },
+    mine: { title: "Tu n'as pas encore partagé de photo", sub: 'Partage ton premier souvenir du week-end !' },
     top:  { title: "Aucune réaction pour l'instant", sub: 'Partagez et réagissez aux photos !' },
   }
   const { title, sub } = msgs[tab] || msgs.all
