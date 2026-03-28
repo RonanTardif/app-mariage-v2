@@ -105,10 +105,10 @@ function HeroPhoto({ photo, reactionCounts, myReaction, onClick }) {
 }
 
 /* ─── Masonry photo card ─────────────────────────────────────── */
-function PhotoCard({ photo, globalIndex, myReaction, reactionTotal, onClick }) {
-  const topEmoji = REACTION_EMOJIS
-    .map((e) => ({ e, n: (photo.reactions?.[e] || 0) }))
-    .sort((a, b) => b.n - a.n)[0]
+function PhotoCard({ photo, globalIndex, reactionCounts, onClick }) {
+  const activeReactions = REACTION_EMOJIS
+    .map((e) => ({ e, n: reactionCounts[e] || 0 }))
+    .filter((r) => r.n > 0)
 
   return (
     <motion.button
@@ -130,11 +130,15 @@ function PhotoCard({ photo, globalIndex, myReaction, reactionTotal, onClick }) {
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent px-2.5 pb-2 pt-8">
         <p className="text-xs font-semibold text-white truncate">{photo.author}</p>
       </div>
-      {/* Reaction badge */}
-      {reactionTotal > 0 && (
-        <div className="absolute top-2 right-2 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
-          <span>{myReaction ?? topEmoji?.e ?? '❤️'}</span>
-          <span>{reactionTotal}</span>
+      {/* Reaction detail badge */}
+      {activeReactions.length > 0 && (
+        <div className="absolute top-2 right-2 flex items-center gap-1.5 rounded-full bg-black/50 px-2 py-0.5 backdrop-blur-sm">
+          {activeReactions.map(({ e, n }) => (
+            <span key={e} className="flex items-center gap-0.5 text-xs font-bold text-white">
+              <span>{e}</span>
+              <span className="tabular-nums">{n}</span>
+            </span>
+          ))}
         </div>
       )}
     </motion.button>
@@ -279,8 +283,7 @@ export function AlbumPage() {
                     key={photo.photo_id}
                     photo={photo}
                     globalIndex={globalIndex(photo)}
-                    myReaction={getMyReaction(photo.photo_id)}
-                    reactionTotal={getTotal(photo)}
+                    reactionCounts={getReactionCounts(photo)}
                     onClick={() => setLightboxIndex(globalIndex(photo))}
                   />
                 ))}
@@ -291,8 +294,7 @@ export function AlbumPage() {
                     key={photo.photo_id}
                     photo={photo}
                     globalIndex={globalIndex(photo)}
-                    myReaction={getMyReaction(photo.photo_id)}
-                    reactionTotal={getTotal(photo)}
+                    reactionCounts={getReactionCounts(photo)}
                     onClick={() => setLightboxIndex(globalIndex(photo))}
                   />
                 ))}
@@ -309,8 +311,6 @@ export function AlbumPage() {
             photos={allPhotos}
             index={lightboxIndex}
             onClose={() => setLightboxIndex(null)}
-            onPrev={() => setLightboxIndex((i) => Math.max(0, i - 1))}
-            onNext={() => setLightboxIndex((i) => Math.min(allPhotos.length - 1, i + 1))}
             getReactionCounts={getReactionCounts}
             getMyReaction={getMyReaction}
             handleReact={handleReact}

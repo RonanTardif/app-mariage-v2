@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import useEmblaCarousel from 'embla-carousel-react'
 import { REACTION_EMOJIS } from '../../services/galleryService'
 
 /* ─── Floating heart animation on double-tap ─────────────────── */
@@ -47,31 +48,35 @@ function ReactionBar({ photo, myReaction, reactionCounts, onReact }) {
   )
 }
 
-const slideVariants = {
-  enter: (dir) => ({ x: dir * 60, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir) => ({ x: dir * -60, opacity: 0 }),
-}
-
 /* ─── Main Lightbox ──────────────────────────────────────────── */
-export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCounts, getMyReaction, handleReact }) {
-  const photo = photos[index]
-  const touchStartX = useRef(null)
+export function Lightbox({ photos, index, onClose, getReactionCounts, getMyReaction, handleReact }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, startIndex: index })
+  const [currentIndex, setCurrentIndex] = useState(index)
   const lastTapRef = useRef(0)
-  const imgRef = useRef(null)
-  const [heartPos, setHeartPos] = useState(null)
-  const [dir, setDir] = useState(0)
+  const [heart, setHeart] = useState(null) // { photoId, x, y }
+
+  /* sync index on select */
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    setCurrentIndex(emblaApi.selectedScrollSnap())
+  }, [emblaApi])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    emblaApi.on('select', onSelect)
+    return () => emblaApi.off('select', onSelect)
+  }, [emblaApi, onSelect])
 
   /* keyboard nav */
   useEffect(() => {
     function onKey(e) {
       if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft') { setDir(-1); onPrev() }
-      if (e.key === 'ArrowRight') { setDir(1); onNext() }
+      if (e.key === 'ArrowLeft') emblaApi?.scrollPrev()
+      if (e.key === 'ArrowRight') emblaApi?.scrollNext()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [onClose, onPrev, onNext])
+  }, [onClose, emblaApi])
 
   /* lock scroll */
   useEffect(() => {
@@ -79,38 +84,27 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  /* swipe */
-  function handleTouchStart(e) { touchStartX.current = e.touches[0].clientX }
-  function handleTouchEnd(e) {
-    if (touchStartX.current === null) return
-    const delta = e.changedTouches[0].clientX - touchStartX.current
-    if (Math.abs(delta) > 50) {
-      if (delta > 0) { setDir(-1); onPrev() }
-      else { setDir(1); onNext() }
-    }
-    touchStartX.current = null
-  }
-
   /* double-tap to ❤️ */
-  function handleImageTap(e) {
+  function handleImageTap(e, photo, imgEl) {
     const now = Date.now()
     if (now - lastTapRef.current < 320) {
-      const rect = imgRef.current?.getBoundingClientRect()
-      const clientX = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-      const clientY = e.clientY ?? e.touches?.[0]?.clientY ?? 0
-      setHeartPos({ x: clientX - (rect?.left ?? 0), y: clientY - (rect?.top ?? 0) })
+      const rect = imgEl?.getBoundingClientRect()
+      const clientX = e.clientX ?? e.changedTouches?.[0]?.clientX ?? 0
+      const clientY = e.clientY ?? e.changedTouches?.[0]?.clientY ?? 0
+      setHeart({ photoId: photo.photo_id, x: clientX - (rect?.left ?? 0), y: clientY - (rect?.top ?? 0) })
       handleReact(photo, '❤️')
-      setTimeout(() => setHeartPos(null), 800)
+      setTimeout(() => setHeart(null), 800)
     }
     lastTapRef.current = now
   }
 
+  const photo = photos[currentIndex]
   if (!photo) return null
 
   const reactionCounts = getReactionCounts(photo)
   const myReaction = getMyReaction(photo.photo_id)
-  const hasPrev = index > 0
-  const hasNext = index < photos.length - 1
+  const hasPrev = currentIndex > 0
+  const hasNext = currentIndex < photos.length - 1
 
   return (
     <>
@@ -130,12 +124,10 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
         exit={{ opacity: 0 }}
         transition={{ duration: 0.25 }}
         className="fixed inset-0 z-50 flex flex-col"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
       >
         {/* Top bar */}
         <div className="flex items-center justify-between px-4 py-3 shrink-0">
-          <span className="text-xs text-white/40 tabular-nums">{index + 1} / {photos.length}</span>
+          <span className="text-xs text-white/40 tabular-nums">{currentIndex + 1} / {photos.length}</span>
           <button
             onClick={onClose}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
@@ -144,53 +136,57 @@ export function Lightbox({ photos, index, onClose, onPrev, onNext, getReactionCo
           </button>
         </div>
 
-        {/* Image area */}
-        <div className="flex-1 flex items-center justify-center px-4 min-h-0 relative overflow-hidden">
-          <AnimatePresence mode="wait" custom={dir}>
-            <motion.div
-              key={photo.photo_id}
-              ref={imgRef}
-              custom={dir}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.22, ease: 'easeInOut' }}
-              className="relative"
-              onClick={handleImageTap}
-              onTouchEnd={handleImageTap}
-            >
-              <img
-                src={photo.thumb_url}
-                alt={photo.caption || photo.author}
-                className="max-h-[68vh] max-w-full rounded-2xl object-contain select-none"
-                draggable={false}
-              />
-              {/* Floating heart on double-tap */}
-              <AnimatePresence>
-                {heartPos && <FloatingHeart key={heartPos.x + heartPos.y} pos={heartPos} />}
-              </AnimatePresence>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Prev / Next */}
-          {hasPrev && (
-            <button
-              onClick={() => { setDir(-1); onPrev() }}
-              className="absolute left-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            >
-              <ChevronLeft size={22} />
-            </button>
-          )}
-          {hasNext && (
-            <button
-              onClick={() => { setDir(1); onNext() }}
-              className="absolute right-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            >
-              <ChevronRight size={22} />
-            </button>
-          )}
+        {/* Embla viewport */}
+        <div ref={emblaRef} className="flex-1 overflow-hidden min-h-0">
+          <div className="flex h-full">
+            {photos.map((p) => {
+              const imgRef = { current: null }
+              return (
+                <div
+                  key={p.photo_id}
+                  className="flex-[0_0_100%] flex items-center justify-center px-4"
+                >
+                  <div
+                    className="relative"
+                    onClick={(e) => handleImageTap(e, p, imgRef.current)}
+                    onTouchEnd={(e) => handleImageTap(e, p, imgRef.current)}
+                  >
+                    <img
+                      ref={(el) => { imgRef.current = el }}
+                      src={p.thumb_url}
+                      alt={p.caption || p.author}
+                      className="max-h-[68vh] max-w-full rounded-2xl object-contain select-none"
+                      draggable={false}
+                    />
+                    <AnimatePresence>
+                      {heart?.photoId === p.photo_id && (
+                        <FloatingHeart key={`${heart.x}-${heart.y}`} pos={heart} />
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
+
+        {/* Prev / Next buttons (desktop) */}
+        {hasPrev && (
+          <button
+            onClick={() => emblaApi?.scrollPrev()}
+            className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+          >
+            <ChevronLeft size={22} />
+          </button>
+        )}
+        {hasNext && (
+          <button
+            onClick={() => emblaApi?.scrollNext()}
+            className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+          >
+            <ChevronRight size={22} />
+          </button>
+        )}
 
         {/* Bottom info + reactions */}
         <div className="shrink-0 px-5 py-4 space-y-3">
