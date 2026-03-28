@@ -4,7 +4,7 @@ import { Camera, Images, RefreshCw } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAsyncData } from '../hooks/useAsyncData'
 import { useGalleryLikes } from '../hooks/useGalleryLikes'
-import { getGalleryPhotos, getMyName, totalReactions, REACTION_EMOJIS } from '../services/galleryService'
+import { getGalleryPhotos, getMyUid, ensureAuth, totalReactions, REACTION_EMOJIS } from '../services/galleryService'
 import { Lightbox } from '../components/shared/Lightbox'
 import { LoadingState } from '../components/shared/LoadingState'
 
@@ -182,7 +182,10 @@ export function AlbumPage() {
   const [newCount, setNewCount] = useState(0)
   const knownCountRef = useRef(0)
   const { handleReact, getReactionCounts, getMyReaction, getTotal } = useGalleryLikes()
-  const myName = getMyName()
+  const myUid = getMyUid()
+
+  /* ── Init Firebase auth (persiste l'UID dès la première visite) ── */
+  useEffect(() => { ensureAuth().catch(() => {}) }, [])
 
   /* ── Polling for new photos (30s) ── */
   useEffect(() => {
@@ -206,7 +209,7 @@ export function AlbumPage() {
 
   /* ── Filtered + sorted photos ── */
   const filteredPhotos = (() => {
-    if (tab === 'mine') return allPhotos.filter((p) => p.author === myName)
+    if (tab === 'mine') return allPhotos.filter((p) => myUid && p.uid === myUid)
     if (tab === 'top')  return [...allPhotos].sort((a, b) => totalReactions(b) - totalReactions(a))
     return allPhotos
   })()

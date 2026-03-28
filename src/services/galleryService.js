@@ -10,15 +10,24 @@ export const REACTION_EMOJIS = ['❤️', '🔥', '😂', '😍', '🥹']
 
 const LS_MY_REACTIONS = 'mariage_my_reactions_proto_v1'
 const LS_MY_NAME      = 'mariage_my_name_proto_v1'
+const LS_MY_UID       = 'mariage_my_uid_v1'
+
+export function getMyUid() {
+  try { return localStorage.getItem(LS_MY_UID) || null } catch { return null }
+}
+function saveMyUid(uid) {
+  try { localStorage.setItem(LS_MY_UID, uid) } catch {}
+}
 
 /* ─── Auth anonyme ───────────────────────────────────────────── */
 let _uid = null
 
 export async function ensureAuth() {
   if (_uid) return _uid
-  if (auth.currentUser) { _uid = auth.currentUser.uid; return _uid }
+  if (auth.currentUser) { _uid = auth.currentUser.uid; saveMyUid(_uid); return _uid }
   const { user } = await signInAnonymously(auth)
   _uid = user.uid
+  saveMyUid(_uid)
   return _uid
 }
 
