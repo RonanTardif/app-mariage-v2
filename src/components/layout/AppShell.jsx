@@ -1,16 +1,38 @@
+import { useState, useEffect } from 'react'
 import { Heart } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '../../utils/cn'
 
-const navItems = [
+const NAV_BASE = [
   { to: '/', label: 'Accueil' },
   { to: '/programme', label: 'Programme' },
   { to: '/plan', label: 'Plan' },
   { to: '/chambres', label: 'Chambres' },
-  { to: '/album', label: 'Album' },
 ]
 
+const PHOTOS_ITEM = { to: '/photos', label: 'Photos groupe', pulse: true }
+const ALBUM_ITEM  = { to: '/album',  label: 'Album' }
+
+function getNavItems() {
+  const now = new Date()
+  const min = now.getHours() * 60 + now.getMinutes()
+  // Photos groupe (pulsing) avant 17h15, Album après 18h15
+  const showPhotos = min < 17 * 60 + 15
+  const showAlbum  = min >= 18 * 60 + 15
+  if (showAlbum) return [...NAV_BASE, ALBUM_ITEM]
+  if (showPhotos) return [...NAV_BASE, PHOTOS_ITEM]
+  // Entre 17h15 et 18h15 : Photos groupe sans clignotement
+  return [...NAV_BASE, { ...PHOTOS_ITEM, pulse: false }]
+}
+
 export function AppShell({ children }) {
+  const [navItems, setNavItems] = useState(getNavItems)
+
+  useEffect(() => {
+    const id = setInterval(() => setNavItems(getNavItems()), 60_000)
+    return () => clearInterval(id)
+  }, [])
+
   return (
     <div className="mx-auto min-h-screen max-w-5xl pb-28">
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
@@ -35,12 +57,16 @@ export function AppShell({ children }) {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  'rounded-xl py-2 text-center text-xs font-medium transition',
+                  'flex min-h-10 items-center justify-center rounded-xl px-1 py-2 text-center text-xs font-medium transition leading-tight',
                   isActive ? 'bg-sage-100 text-sage-700' : 'text-stone-500 hover:bg-stone-100',
                 )
               }
             >
-              {item.label}
+              {item.pulse ? (
+                <span className="animate-pulse text-rose-500">{item.label}</span>
+              ) : (
+                item.label
+              )}
             </NavLink>
           ))}
         </div>

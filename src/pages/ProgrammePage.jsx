@@ -63,6 +63,8 @@ export function ProgrammePage() {
       ) : !weddingStarted && next ? (
         /* Avant le début */
         <div className="rounded-3xl border border-stone-200 bg-white p-5">
+          <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-1">Mariage de Ronan &amp; Lorie</p>
+          <p className="font-bold text-stone-800 text-lg mb-4">Retrouvez le programme du week-end ci-dessous</p>
           <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">Prochain moment</p>
           <div className="flex items-center gap-4">
             <span className="text-3xl">{next.icon}</span>
