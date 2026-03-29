@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, ChevronUp, Trophy } from 'lucide-react'
+import { ChevronDown, ChevronUp, ChevronLeft, Trophy } from 'lucide-react'
 import { useFirestoreSnapshot } from '../hooks/useFirestoreSnapshot'
 import { subscribeToLeaderboard } from '../services/leaderboardService'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
@@ -152,10 +153,15 @@ export function LeaderboardPage() {
   return (
     <div className="space-y-6 pb-8">
       {/* ─── Header ─── */}
-      <div className="text-center pt-2">
-        <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-1">Quiz</p>
-        <h1 className="text-2xl font-bold text-stone-900">Classement</h1>
-        <p className="text-sm text-stone-500 mt-1">{scores.length} participant{scores.length > 1 ? 's' : ''}</p>
+      <div>
+        <Link to="/quiz" className="inline-flex items-center gap-1 text-sm font-semibold text-stone-400 hover:text-stone-600 transition-colors mb-3">
+          <ChevronLeft size={16} /> Retour au quiz
+        </Link>
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-1">Quiz</p>
+          <h1 className="text-2xl font-bold text-stone-900">Classement</h1>
+          <p className="text-sm text-stone-500 mt-1">{scores.length} participant{scores.length > 1 ? 's' : ''}</p>
+        </div>
       </div>
 
       {/* ─── Podium ─── */}

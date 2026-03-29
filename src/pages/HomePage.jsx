@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { CalendarDays, Camera, CircleHelp, MapPinned, MessageCircle, Trophy, BedDouble, Info, Images, Gift } from 'lucide-react'
+import { CalendarDays, Camera, CircleHelp, MapPinned, BedDouble, Info, Images, Gift } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Card, CardContent } from '../components/ui/card'
 
@@ -8,12 +8,10 @@ const links = [
   { to: '/plan',        title: 'Plan',           icon: MapPinned,     desc: 'Lieux et repères',                  color: 'bg-sage-100 text-sage-700' },
   { to: '/chambres',    title: 'Chambres',       icon: BedDouble,     desc: 'Trouver son hébergement',           color: 'bg-sand/60 text-stone-600' },
   { to: '/photos',      title: 'Photos groupe',  icon: Camera,        desc: 'Retrouver son créneau',             color: 'bg-rose-100 text-rose-700' },
-  { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'Jeu mariés + score',                color: 'bg-sage-100 text-sage-700' },
-  { to: '/leaderboard', title: 'Leaderboard',    icon: Trophy,        desc: 'Classement en direct',              color: 'bg-sand/60 text-stone-600' },
-  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Photos partagées par les invités',  color: 'bg-rose-100 text-rose-700' },
-  { to: '/infos',       title: 'Infos',          icon: Info,          desc: 'Tout ce qu\'il faut savoir',        color: 'bg-sage-100 text-sage-700' },
-  { to: '/whatsapp',    title: 'WhatsApp',       icon: MessageCircle, desc: 'Contacter l\'équipe',               color: 'bg-sand/60 text-stone-600' },
-  { to: '/cadeaux',     title: 'Cadeaux',        icon: Gift,          desc: 'Notre liste de mariage',            color: 'bg-rose-100 text-rose-700' },
+  { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'Quiz + classement',                 color: 'bg-sage-100 text-sage-700' },
+  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Photos partagées par les invités',  color: 'bg-sand/60 text-stone-600' },
+  { to: '/infos',       title: 'Infos',          icon: Info,          desc: 'Tout ce qu\'il faut savoir',        color: 'bg-rose-100 text-rose-700' },
+  { to: '/cadeaux',     title: 'Cadeaux',        icon: Gift,          desc: 'Notre liste de mariage',            color: 'bg-sage-100 text-sage-700' },
 ]
 
 const container = {

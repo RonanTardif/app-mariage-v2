@@ -13,7 +13,7 @@ import { LoadingState, ErrorState } from '../components/shared/LoadingState'
 const FEEDBACK_DELAY = 1100
 const OPTION_LETTERS = ['A', 'B', 'C', 'D', 'E']
 
-function tier(score, total) {
+export function tier(score, total) {
   const pct = score / total
   if (pct >= 0.9) return { label: 'Meilleur ami des mariés', emoji: '🏆', color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200' }
   if (pct >= 0.7) return { label: 'Expert Ronan & Lorie',   emoji: '🎉', color: 'text-sage-700',  bg: 'bg-sage-50',  border: 'border-sage-200'  }
@@ -256,7 +256,7 @@ function ResultScreen({ score, total, questions, answers, onScoreSubmitted }) {
 
 const LS_PROGRESS = 'mariage_quiz_progress_v1'
 
-function loadProgress() {
+export function loadProgress() {
   try { return JSON.parse(localStorage.getItem(LS_PROGRESS) || 'null') } catch { return null }
 }
 function saveProgress(state) {
@@ -268,7 +268,7 @@ export function clearQuizProgress() {
 
 // ─── Page principale ──────────────────────────────────────────────────────────
 
-export function QuizPage() {
+export function QuizGamePage() {
   const { data, loading, error } = useAsyncData(getQuiz, [])
   const questions = data?.questions ?? []
 
@@ -280,9 +280,11 @@ export function QuizPage() {
   // Sauvegarde automatique à chaque changement
   useEffect(() => {
     if (!loading && questions.length > 0) {
-      saveProgress({ index, answers, done })
+      const _total = questions.length
+      const _score = answers.filter((a, i) => a === questions[i]?.answer_index).length
+      saveProgress({ index, answers, done, ...(done ? { score: _score, total: _total } : {}) })
     }
-  }, [index, answers, done, loading, questions.length])
+  }, [index, answers, done, loading, questions])
 
   if (loading) return <LoadingState message="Chargement du quiz…" />
   if (error)   return <ErrorState  message="Impossible de charger le quiz. Réessaie plus tard." />
@@ -300,12 +302,6 @@ export function QuizPage() {
 
   return (
     <>
-      <PageIntro
-        eyebrow="Ronan & Lorie"
-        title="Les connaissez-vous vraiment ?"
-        description={`${total} questions sur leur histoire. Jouez en équipe, battez-vous sur le leaderboard.`}
-      />
-
       <AnimatePresence mode="wait">
         {!done ? (
           <motion.div

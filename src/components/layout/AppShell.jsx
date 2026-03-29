@@ -3,26 +3,36 @@ import { Heart } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '../../utils/cn'
 
-const NAV_BASE = [
+const NAV_BASE_SAT = [
   { to: '/', label: 'Accueil' },
   { to: '/programme', label: 'Programme' },
   { to: '/plan', label: 'Plan' },
   { to: '/chambres', label: 'Chambres' },
 ]
 
+const NAV_BASE_SUN = [
+  { to: '/', label: 'Accueil' },
+  { to: '/programme', label: 'Programme' },
+  { to: '/plan', label: 'Plan' },
+  { to: '/quiz', label: 'Quiz' },
+]
+
+const SUNDAY_MORNING = new Date('2026-03-30T08:00:00')
+
 const PHOTOS_ITEM = { to: '/photos', label: 'Photos groupe', pulse: true }
 const ALBUM_ITEM  = { to: '/album',  label: 'Album' }
 
 function getNavItems() {
   const now = new Date()
+  const base = now >= SUNDAY_MORNING ? NAV_BASE_SUN : NAV_BASE_SAT
   const min = now.getHours() * 60 + now.getMinutes()
   // Photos groupe (pulsing) avant 17h15, Album après 18h15
   const showPhotos = min < 17 * 60 + 15
   const showAlbum  = min >= 18 * 60 + 15
-  if (showAlbum) return [...NAV_BASE, ALBUM_ITEM]
-  if (showPhotos) return [...NAV_BASE, PHOTOS_ITEM]
+  if (showAlbum) return [...base, ALBUM_ITEM]
+  if (showPhotos) return [...base, PHOTOS_ITEM]
   // Entre 17h15 et 18h15 : Photos groupe sans clignotement
-  return [...NAV_BASE, { ...PHOTOS_ITEM, pulse: false }]
+  return [...base, { ...PHOTOS_ITEM, pulse: false }]
 }
 
 export function AppShell({ children }) {

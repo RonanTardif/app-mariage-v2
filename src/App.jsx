@@ -8,7 +8,8 @@ import { ProgrammePage } from './pages/ProgrammePage'
 import { PlanPage } from './pages/PlanPage'
 import { RoomsPage } from './pages/RoomsPage'
 import { PhotosPage } from './pages/PhotosPage'
-import { QuizPage } from './pages/QuizPage'
+import { QuizGamePage } from './pages/QuizPage'
+import { QuizHubPage } from './pages/QuizHubPage'
 import { LeaderboardPage } from './pages/LeaderboardPage'
 import { InfosPage } from './pages/InfosPage'
 import { WhatsAppPage } from './pages/WhatsAppPage'
@@ -33,7 +34,8 @@ export default function App() {
           <Route path="/plan" element={<PlanPage />} />
           <Route path="/chambres" element={<RoomsPage />} />
           <Route path="/photos" element={<PhotosPage />} />
-          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/quiz" element={<QuizHubPage />} />
+          <Route path="/quiz/jouer" element={<QuizGamePage />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="/infos" element={<InfosPage />} />
           <Route path="/whatsapp" element={<WhatsAppPage />} />
