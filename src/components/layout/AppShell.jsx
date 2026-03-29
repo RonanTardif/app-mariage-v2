@@ -12,7 +12,7 @@ const navItems = [
 
 export function AppShell({ children }) {
   return (
-    <div className="mx-auto min-h-screen max-w-5xl pb-24">
+    <div className="mx-auto min-h-screen max-w-5xl pb-28">
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
@@ -27,7 +27,7 @@ export function AppShell({ children }) {
         </div>
       </header>
       <main className="px-4 py-5">{children}</main>
-      <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-white/95 px-2 py-2 backdrop-blur">
+      <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-white/95 px-2 py-3 backdrop-blur">
         <div className="mx-auto grid max-w-5xl grid-cols-5 gap-1">
           {navItems.map((item) => (
             <NavLink

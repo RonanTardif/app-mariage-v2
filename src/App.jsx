@@ -15,6 +15,7 @@ import { WhatsAppPage } from './pages/WhatsAppPage'
 import { AdminPage } from './pages/AdminPage'
 import { AlbumPage } from './pages/AlbumPage'
 import { SharePhotoPage } from './pages/SharePhotoPage'
+import { CadeauxPage } from './pages/CadeauxPage'
 
 function RoutedErrorBoundary({ children }) {
   const { pathname } = useLocation()
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/album" element={<AlbumPage />} />
           <Route path="/partager" element={<SharePhotoPage />} />
+          <Route path="/cadeaux" element={<CadeauxPage />} />
         </Routes>
       </RoutedErrorBoundary>
       <PwaInstallPrompt />

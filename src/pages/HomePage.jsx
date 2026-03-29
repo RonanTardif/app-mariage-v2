@@ -1,17 +1,19 @@
 import { motion } from 'framer-motion'
-import { CalendarDays, Camera, CircleHelp, MapPinned, MessageCircle, Trophy, BedDouble, Info } from 'lucide-react'
+import { CalendarDays, Camera, CircleHelp, MapPinned, MessageCircle, Trophy, BedDouble, Info, Images, Gift } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Card, CardContent } from '../components/ui/card'
 
 const links = [
-  { to: '/programme',   title: 'Programme',      icon: CalendarDays,  desc: 'Timeline du week-end',     color: 'bg-rose-100 text-rose-700' },
-  { to: '/plan',        title: 'Plan',           icon: MapPinned,     desc: 'Lieux et repères',         color: 'bg-sage-100 text-sage-700' },
-  { to: '/chambres',    title: 'Chambres',       icon: BedDouble,     desc: 'Trouver son hébergement',  color: 'bg-sand/60 text-stone-600' },
-  { to: '/photos',      title: 'Photos groupe',  icon: Camera,        desc: 'Retrouver son créneau',    color: 'bg-rose-100 text-rose-700' },
-  { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'Jeu mariés + score',       color: 'bg-sage-100 text-sage-700' },
-  { to: '/leaderboard', title: 'Leaderboard',    icon: Trophy,        desc: 'Classement en direct',     color: 'bg-sand/60 text-stone-600' },
-  { to: '/infos',       title: 'Infos',          icon: Info,          desc: 'Kit de survie invités',    color: 'bg-rose-100 text-rose-700' },
-  { to: '/whatsapp',    title: 'WhatsApp',       icon: MessageCircle, desc: 'Contacter la team orga',   color: 'bg-sage-100 text-sage-700' },
+  { to: '/programme',   title: 'Programme',      icon: CalendarDays,  desc: 'Timeline du week-end',        color: 'bg-rose-100 text-rose-700' },
+  { to: '/plan',        title: 'Plan',           icon: MapPinned,     desc: 'Lieux et repères',             color: 'bg-sage-100 text-sage-700' },
+  { to: '/chambres',    title: 'Chambres',       icon: BedDouble,     desc: 'Trouver son hébergement',      color: 'bg-sand/60 text-stone-600' },
+  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Photos partagées par les invités', color: 'bg-rose-100 text-rose-700' },
+  { to: '/photos',      title: 'Photos groupe',  icon: Camera,        desc: 'Retrouver son créneau',        color: 'bg-sage-100 text-sage-700' },
+  { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'Jeu mariés + score',           color: 'bg-sand/60 text-stone-600' },
+  { to: '/leaderboard', title: 'Leaderboard',    icon: Trophy,        desc: 'Classement en direct',         color: 'bg-rose-100 text-rose-700' },
+  { to: '/infos',       title: 'Infos',          icon: Info,          desc: 'Tout ce qu\'il faut savoir',   color: 'bg-sage-100 text-sage-700' },
+  { to: '/whatsapp',    title: 'WhatsApp',       icon: MessageCircle, desc: 'Contacter l\'équipe',          color: 'bg-sand/60 text-stone-600' },
+  { to: '/cadeaux',     title: 'Cadeaux',        icon: Gift,          desc: 'Notre liste de mariage',       color: 'bg-sand/60 text-stone-600' },
 ]
 
 const container = {
@@ -55,21 +57,32 @@ export function HomePage() {
         animate="show"
         className="mt-4 grid grid-cols-2 gap-3"
       >
-        {links.map((link) => (
-          <motion.div key={link.to} variants={item}>
-            <Link to={link.to} className="block h-full active:scale-95 transition-transform duration-100">
-              <Card className="h-full hover:-translate-y-0.5 hover:shadow-premium transition-all duration-200">
-                <CardContent className="p-4">
-                  <div className={`inline-flex rounded-xl p-2.5 ${link.color}`}>
-                    <link.icon size={20} />
-                  </div>
-                  <p className="mt-3 font-semibold text-sm leading-snug">{link.title}</p>
-                  <p className="mt-0.5 text-xs text-stone-500 line-clamp-2">{link.desc}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          </motion.div>
-        ))}
+        {links.map((link) => {
+          const cardContent = (
+            <Card className="h-full hover:-translate-y-0.5 hover:shadow-premium transition-all duration-200">
+              <CardContent className="p-4">
+                <div className={`inline-flex rounded-xl p-2.5 ${link.color}`}>
+                  <link.icon size={20} />
+                </div>
+                <p className="mt-3 font-semibold text-sm leading-snug">{link.title}</p>
+                <p className="mt-0.5 text-xs text-stone-500 line-clamp-2">{link.desc}</p>
+              </CardContent>
+            </Card>
+          )
+          return (
+            <motion.div key={link.href ?? link.to} variants={item}>
+              {link.href ? (
+                <a href={link.href} target="_blank" rel="noreferrer" className="block h-full active:scale-95 transition-transform duration-100">
+                  {cardContent}
+                </a>
+              ) : (
+                <Link to={link.to} className="block h-full active:scale-95 transition-transform duration-100">
+                  {cardContent}
+                </Link>
+              )}
+            </motion.div>
+          )
+        })}
       </motion.div>
     </>
   )
