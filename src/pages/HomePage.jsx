@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 import { Card, CardContent } from '../components/ui/card'
 
 const links = [
-  { to: '/programme',   title: 'Programme',      icon: CalendarDays,  desc: 'Timeline du week-end',             color: 'bg-rose-100 text-rose-700' },
-  { to: '/plan',        title: 'Plan',           icon: MapPinned,     desc: 'Lieux et repères',                  color: 'bg-sage-100 text-sage-700' },
+  { to: '/programme',   title: 'Programme',      icon: CalendarDays,  desc: 'Le déroulé du week-end',           color: 'bg-rose-100 text-rose-700' },
+  { to: '/plan',        title: 'Plan',           icon: MapPinned,     desc: 'Se repérer sur le domaine',         color: 'bg-sage-100 text-sage-700' },
   { to: '/chambres',    title: 'Ma chambre',     icon: BedDouble,     desc: 'Trouver mon hébergement',           color: 'bg-sand/60 text-stone-600' },
   { to: '/photos',      title: 'Photos de groupe', icon: Camera,     desc: 'Mon heure de passage',              color: 'bg-rose-100 text-rose-700' },
-  { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'Quiz + classement',                 color: 'bg-sage-100 text-sage-700' },
-  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Photos partagées par les invités',  color: 'bg-sand/60 text-stone-600' },
+  { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'À vous de jouer !',                color: 'bg-sage-100 text-sage-700' },
+  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Partagez vos photos du week-end',   color: 'bg-sand/60 text-stone-600' },
   { to: '/infos',       title: 'Infos',          icon: Info,          desc: 'Tout ce qu\'il faut savoir',        color: 'bg-rose-100 text-rose-700' },
   { to: '/cadeaux',     title: 'Cadeaux',        icon: Gift,          desc: 'Notre liste de mariage',            color: 'bg-sage-100 text-sage-700' },
 ]
