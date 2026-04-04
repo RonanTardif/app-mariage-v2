@@ -106,10 +106,10 @@ export function QuizHubPage() {
       >
         <p className="text-6xl mb-5">🎯</p>
         <h1 className="text-2xl font-bold text-stone-900 leading-snug">
-          Les connaissez-vous<br />vraiment ?
+          Ils n'ont (presque) plus de secrets pour vous ?
         </h1>
         <p className="mt-2 text-sm text-stone-500">
-          Testez vos connaissances sur Ronan & Lorie.<br />Battez-vous sur le classement.
+          30 questions sur leur histoire. À vous de jouer.
         </p>
       </motion.div>
 
