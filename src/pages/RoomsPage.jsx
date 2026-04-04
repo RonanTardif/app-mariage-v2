@@ -102,8 +102,8 @@ export function RoomsPage() {
     <>
       <PageIntro
         eyebrow="Hébergement"
-        title="Trouver sa chambre"
-        description="Tape ton prénom + nom pour retrouver ta chambre et tes colocataires."
+        title="Ta chambre pour le week-end"
+        description="Retrouve ta chambre et tes colocataires pour le week-end."
       />
 
       <Input
@@ -226,7 +226,7 @@ export function RoomsPage() {
       </AnimatePresence>
 
       <p className="mt-4 text-xs text-stone-400">
-        Tu ne trouves pas ton nom ? Viens nous voir.
+        Tu ne trouves pas ton nom ? Viens nous voir, on s'occupe de toi !
       </p>
     </>
   )

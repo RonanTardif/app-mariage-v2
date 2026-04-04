@@ -19,6 +19,8 @@ const MAP_SPOTS = [
   { id: 'lac',        label: 'Lac',               points: '1022.562,462.444 984.372,465.428 946.182,476.169 913.959,485.716 881.139,498.247 891.098,503.252 895.886,505.406 898.52,508.758 906.421,505.646 914.083,504.928 918.393,513.068 923.9,517.378 926.294,517.139 929.167,513.068 938.984,526.716 943.772,528.631 944.251,531.026 948.8,537.011 959.35,536.433 967.279,538.911 973.225,532.469 981.154,531.974 985.614,539.902 992.056,536.929 994.534,546.344 1006.427,544.362 1012.373,552.291 1025.753,556.255' },
 ]
 
+const SHOW_SPOT_LABELS = false
+
 const SPOT_IDS = new Set(MAP_SPOTS.map((s) => s.id))
 
 // Centroïde d'un polygone SVG (moyenne des sommets)
@@ -88,13 +90,20 @@ export function PlanPage() {
     triggerHaptic()
     setSelectedId(id)
     const placeIdx = places.findIndex(p => p.id === id)
-    if (placeIdx >= 0) scrollToDisplayIdx(REAL_OFFSET + placeIdx)
+    if (placeIdx >= 0) {
+      isJumping.current = true
+      scrollToDisplayIdx(REAL_OFFSET + placeIdx)
+      setTimeout(() => { isJumping.current = false }, 600)
+    }
   }
 
   function selectFromCarousel(id, displayIdx) {
     triggerHaptic()
     setSelectedId(id)
+    setHoveredId(null)
+    isJumping.current = true
     scrollToDisplayIdx(displayIdx)
+    setTimeout(() => { isJumping.current = false }, 600)
   }
 
   function handleScroll() {
@@ -113,7 +122,7 @@ export function PlanPage() {
         if (dist < minDist) { minDist = dist; closestIdx = i }
       })
       const item = displayItems[closestIdx]
-      if (item) setSelectedId(item.id)
+      if (item) { setSelectedId(item.id); setHoveredId(null) }
       if (closestIdx === 0) {
         isJumping.current = true
         scrollToDisplayIdx(displayItems.length - 2, 'instant')
@@ -164,16 +173,16 @@ export function PlanPage() {
                 <polygon
                   points={spot.points}
                   fill={isActive ? 'rgba(225,100,120,0.45)' : isHovered ? 'rgba(225,100,120,0.12)' : 'transparent'}
-                  stroke={isActive ? 'rgba(225,80,100,0.9)' : 'transparent'}
-                  strokeWidth="4"
-                  style={{ transition: 'fill 0.15s, stroke 0.15s' }}
+                  stroke="none"
+                  strokeWidth="0"
+                  style={{ transition: 'fill 0.15s' }}
                 />
               </g>
             )
           })}
 
           {/* Label flottant sur le bâtiment sélectionné */}
-          {selectedSpot && (() => {
+          {SHOW_SPOT_LABELS && selectedSpot && (() => {
             const [cx, cy] = centroid(selectedSpot.points)
             const label = selectedSpot.label
             const w = Math.max(80, label.length * 9 + 24)

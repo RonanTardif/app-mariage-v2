@@ -48,6 +48,9 @@ export function ProgrammePage() {
   const current = currentIdx >= 0 ? programmeEvents[currentIdx] : null
   const next = nextIdx >= 0 ? programmeEvents[nextIdx] : null
 
+  const WEDDING_DONE_AT = new Date('2026-04-05T19:00:00+02:00').getTime()
+  const pastFinale = !PROTOTYPE_MODE && now >= WEDDING_DONE_AT
+
   const weddingOver = !PROTOTYPE_MODE && currentIdx === n - 1 && nextIdx === -1
   const weddingStarted = PROTOTYPE_MODE || currentIdx >= 0
 
@@ -62,16 +65,21 @@ export function ProgrammePage() {
         </div>
       ) : !weddingStarted && next ? (
         /* Avant le début */
-        <div className="rounded-3xl border border-stone-200 bg-white p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-1">Mariage de Ronan &amp; Lorie</p>
-          <p className="font-bold text-stone-800 text-lg mb-4">Retrouvez le programme du week-end ci-dessous</p>
-          <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">Prochain moment</p>
-          <div className="flex items-center gap-4">
-            <span className="text-3xl">{next.icon}</span>
-            <div>
-              <p className="font-bold text-xl text-stone-900">{next.title}</p>
-              <p className="text-sm text-stone-500 mt-0.5">{next.timeLabel} · {next.place}</p>
-              {next.baseText && <p className="mt-2 text-sm text-stone-500">{next.baseText}</p>}
+        <div className="overflow-hidden rounded-3xl border border-rose-200 shadow-sm">
+          <div className="bg-gradient-to-r from-rose-500 to-rose-400 p-5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-rose-200 mb-1">Mariage de Ronan &amp; Lorie</p>
+            <p className="font-bold text-white text-xl mb-4">Le grand jour arrive bientôt 💛</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-rose-200 mb-3">Premier moment</p>
+            <div className="flex items-start gap-4">
+              <span className="text-3xl mt-0.5">{next.icon}</span>
+              <div>
+                <p className="font-bold text-xl text-white leading-tight">{next.title}</p>
+                <p className="text-rose-100 text-sm mt-0.5">{next.timeLabel} · {next.place}</p>
+                {next.baseText && <p className="mt-2 text-sm text-rose-100 leading-snug">{next.baseText}</p>}
+                {formatTimeUntil(next.startsAt, now) && (
+                  <p className="mt-2 text-sm font-semibold text-white/80">{formatTimeUntil(next.startsAt, now)}</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -143,7 +151,7 @@ export function ProgrammePage() {
       {/* ─── Timeline complète ───────────────────────────── */}
       <ProgrammeTimeline
         events={programmeEvents}
-        currentIdx={currentIdx}
+        currentIdx={pastFinale ? n : currentIdx}
         nextIdx={nextIdx}
       />
     </div>

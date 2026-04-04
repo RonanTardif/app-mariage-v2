@@ -15,10 +15,16 @@ const OPTION_LETTERS = ['A', 'B', 'C', 'D', 'E']
 
 export function tier(score, total) {
   const pct = score / total
-  if (pct >= 0.9) return { label: 'Meilleur ami des mariés', emoji: '🏆', color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200' }
-  if (pct >= 0.7) return { label: 'Expert Ronan & Lorie',   emoji: '🎉', color: 'text-sage-700',  bg: 'bg-sage-50',  border: 'border-sage-200'  }
-  if (pct >= 0.5) return { label: 'Bonne connaissance',      emoji: '💐', color: 'text-rose-700',  bg: 'bg-rose-50',  border: 'border-rose-200'  }
-  return           { label: 'Encore un effort !',            emoji: '😄', color: 'text-stone-600', bg: 'bg-stone-50', border: 'border-stone-200' }
+  if (pct >= 0.95) return { label: 'Quasi parfait — chapeau',      subtitle: "On vous soupçonne d'avoir eu les réponses à l'avance.", emoji: '🏆', color: 'text-amber-700', bg: 'bg-amber-50',  border: 'border-amber-200' }
+  if (pct >= 0.90) return { label: 'Inséparable',                  subtitle: 'Vous faites clairement partie du premier cercle.',     emoji: '🥇', color: 'text-amber-600', bg: 'bg-amber-50',  border: 'border-amber-200' }
+  if (pct >= 0.80) return { label: 'Grand connaisseur',            subtitle: 'Peu de secrets vous résistent.',                       emoji: '🎉', color: 'text-sage-700',  bg: 'bg-sage-50',   border: 'border-sage-200'  }
+  if (pct >= 0.70) return { label: 'Proche de la perfection',      subtitle: "Un bon score qui ne s'improvise pas.",                 emoji: '✨', color: 'text-sage-600',  bg: 'bg-sage-50',   border: 'border-sage-200'  }
+  if (pct >= 0.60) return { label: 'Bonne pioche',                 subtitle: 'Vous avez les bases — et de bons souvenirs à venir.',  emoji: '💐', color: 'text-rose-700',  bg: 'bg-rose-50',   border: 'border-rose-200'  }
+  if (pct >= 0.50) return { label: 'En bonne voie',                subtitle: "Vous connaissez l'essentiel.",                         emoji: '🌿', color: 'text-rose-600',  bg: 'bg-rose-50',   border: 'border-rose-200'  }
+  if (pct >= 0.40) return { label: 'Pas mal du tout',              subtitle: 'Vous avez retenu les grandes lignes.',                 emoji: '🙂', color: 'text-stone-600', bg: 'bg-stone-50',  border: 'border-stone-200' }
+  if (pct >= 0.30) return { label: 'Vous vous en sortez',          subtitle: "Il reste des choses à découvrir — c'est une bonne nouvelle.", emoji: '😄', color: 'text-stone-600', bg: 'bg-stone-50', border: 'border-stone-200' }
+  if (pct >= 0.20) return { label: "C'est un début",               subtitle: "Il y a de la marge, mais on y croit.",                 emoji: '😬', color: 'text-stone-500', bg: 'bg-stone-50',  border: 'border-stone-200' }
+  return                   { label: 'Vous venez de les rencontrer ?', subtitle: "Bienvenue dans leur vie — il était temps !",         emoji: '😅', color: 'text-stone-500', bg: 'bg-stone-50',  border: 'border-stone-200' }
 }
 
 // ─── Écran question ───────────────────────────────────────────────────────────
@@ -166,6 +172,7 @@ function ResultScreen({ score, total, questions, answers, onScoreSubmitted }) {
       >
         <p className="text-3xl">{t.emoji}</p>
         <p className={`mt-1.5 font-bold ${t.color}`}>{t.label}</p>
+        <p className={`mt-1 text-xs ${t.color} opacity-75`}>{t.subtitle}</p>
       </motion.div>
 
       {/* Récap correct / incorrect */}
@@ -255,12 +262,19 @@ function ResultScreen({ score, total, questions, answers, onScoreSubmitted }) {
 // ─── Persistence localStorage ─────────────────────────────────────────────────
 
 const LS_PROGRESS = 'mariage_quiz_progress_v1'
+const LS_RESULT   = 'mariage_quiz_result_v1'
 
 export function loadProgress() {
   try { return JSON.parse(localStorage.getItem(LS_PROGRESS) || 'null') } catch { return null }
 }
+export function loadResult() {
+  try { return JSON.parse(localStorage.getItem(LS_RESULT) || 'null') } catch { return null }
+}
 function saveProgress(state) {
   try { localStorage.setItem(LS_PROGRESS, JSON.stringify(state)) } catch {}
+}
+function saveResult(score, total) {
+  try { localStorage.setItem(LS_RESULT, JSON.stringify({ score, total })) } catch {}
 }
 export function clearQuizProgress() {
   try { localStorage.removeItem(LS_PROGRESS) } catch {}
@@ -283,6 +297,7 @@ export function QuizGamePage() {
       const _total = questions.length
       const _score = answers.filter((a, i) => a === questions[i]?.answer_index).length
       saveProgress({ index, answers, done, ...(done ? { score: _score, total: _total } : {}) })
+      if (done) saveResult(_score, _total)
     }
   }, [index, answers, done, loading, questions])
 
@@ -312,6 +327,7 @@ export function QuizGamePage() {
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           >
             <QuestionScreen
+              key={index}
               q={questions[index]}
               index={index}
               total={total}
