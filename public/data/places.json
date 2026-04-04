@@ -2,58 +2,58 @@
   {
     "id": "chateau",
     "title": "Le Château",
-    "description": "Vous pouvez visiter et profiter des salons du château. Un billard ou une partie d’échecs ?",
+    "description": "Vous pourrez profiter des salons du château tout au long du week-end.",
     "links": [{ "label": "Trouver ma chambre", "href": "#/chambre" }]
   },
   {
     "id": "gites",
     "title": "Les Gîtes",
-    "description": "C’est aussi le plan B abrité pour le Vin d’Honneur.",
+    "description": "En cas de pluie, le vin d’honneur pourra également s’y tenir.",
     "links": [{ "label": "Trouver ma chambre", "href": "#/chambre" }]
   },
   {
     "id": "refresh",
     "title": "Le coin rafraîchissement",
-    "description": "Ouvert le samedi à votre arrivée sur le domaine. Servez-vous un jus détox ou un sirop, et profitez des chaises pour souffler."
+    "description": "Le samedi, à votre arrivée sur le domaine, de l’eau et des sirops seront à votre disposition avant le vin d’honneur."
   },
   {
     "id": "vin",
-    "title": "Le Vin d’Honneur",
-    "description": "Ici se déroulera le vin d’honneur de 17h à 20h."
+    "title": "Le vin d’honneur",
+    "description": "Nous nous y retrouverons de 17h30 à 20h pour le vin d’honneur."
   },
   {
     "id": "chapelle",
     "title": "La Chapelle",
-    "description": "Venez nous laisser un petit mot dans notre bouteille à souvenirs."
+    "description": "Vous pourrez y glisser un petit mot ou un vœu que nous ouvrirons plus tard."
   },
   {
     "id": "saloon",
     "title": "Le Saloon",
-    "description": "After (après 4h) pour les plus courageux. Brunch du dimanche à partir de 11h."
+    "description": "C’est ici que se poursuivra la fête à partir de 4h pour les plus courageux. Le brunch du dimanche y sera servi à partir de 11h."
   },
   {
     "id": "orangerie",
     "title": "L’Orangerie",
-    "description": "Ouverture à partir de 20h pour faire la fête jusqu’au bout de la nuit."
+    "description": "Nous nous y retrouverons à partir de 20h pour le dîner, puis pour la soirée jusqu’au bout de la nuit."
   },
   {
     "id": "jardin",
-    "title": "Le jardin Français",
-    "description": "Balade + molky ou palet vendéen."
+    "title": "Le Jardin à la française",
+    "description": "Vous pourrez y faire un tour ou lancer une partie de palet vendéen ou de palet breton — selon les affinités."
   },
   {
     "id": "lac",
     "title": "Le lac",
-    "description": "Très sympa pour une balade. C’est ici que se dérouleront les photos de groupe."
+    "description": "Nous nous retrouverons aussi au bord du lac pour les photos de groupe."
   },
   {
     "id": "foret",
     "title": "La forêt",
-    "description": "Elle appartient au domaine : n’hésitez pas à faire votre petite balade du dimanche matin."
+    "description": "Pour ceux qui en auront envie, la forêt se prête aussi à un petit tour pendant le week-end."
   },
   {
     "id": "piscine",
     "title": "La piscine",
-    "description": "Fermée samedi. Ouverture dimanche à 10h. Pool Party dimanche à partir de 14h. N’oublie pas ton maillot !"
+    "description": "La piscine sera fermée le samedi, puis ouverte le dimanche à partir de 10h. Rendez-vous à 14h pour la pool party — pensez à prendre votre maillot."
   }
 ]
