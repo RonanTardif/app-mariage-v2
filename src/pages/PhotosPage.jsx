@@ -187,8 +187,8 @@ export function PhotosPage() {
     <>
       <PageIntro
         eyebrow="Photos"
-        title="Ton créneau photo"
-        description="Retrouve ton groupe et ton créneau photo."
+        title="Ton créneau pour les photos de groupe"
+        description="Retrouve l'heure de ton passage et ton groupe."
       />
 
       <Input
@@ -244,7 +244,7 @@ export function PhotosPage() {
               <div className="rounded-2xl border border-dashed border-stone-200 p-6 text-center">
                 <p className="text-2xl mb-2">📷</p>
                 <p className="text-sm font-semibold text-stone-600">Aucun créneau trouvé</p>
-                <p className="text-xs text-stone-400 mt-1">Viens nous voir !</p>
+                <p className="text-xs text-stone-400 mt-1">Viens nous voir, on s'occupe de toi !</p>
               </div>
             ) : (
               personSlots.map((slot, idx) => (
