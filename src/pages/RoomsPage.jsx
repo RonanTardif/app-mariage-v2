@@ -16,11 +16,11 @@ function isNonEmpty(v) {
   return String(v || '').trim() !== ''
 }
 
-function buildingTheme(building) {
-  const b = (building || '').toLowerCase()
-  if (b.includes('château') || b.includes('chateau'))
+function buildingTheme(category) {
+  const c = (category || '').toLowerCase()
+  if (c.includes('château') || c.includes('chateau'))
     return { bg: 'bg-rose-100', text: 'text-rose-700', border: 'border-rose-200', icon: '🏰' }
-  if (b.includes('gîte') || b.includes('gite'))
+  if (c.includes('gîte') || c.includes('gite'))
     return { bg: 'bg-sage-100', text: 'text-sage-700', border: 'border-sage-300', icon: '🏡' }
   return { bg: 'bg-sand/60', text: 'text-stone-600', border: 'border-stone-200', icon: '🏠' }
 }
@@ -80,10 +80,14 @@ export function RoomsPage() {
 
   const roommates = useMemo(() => {
     if (!selected) return []
-    return rooms.filter(
-      (room) =>
-        normalizeName(room.room_name || '') === normalizeName(selected.room_name || '') &&
-        normalizeName(room.building || '') === normalizeName(selected.building || '')
+    const sameBuilding = (r) =>
+      normalizeName(r.building || '') === normalizeName(selected.building || '')
+    const château = (selected.category || selected.building || '').toLowerCase().includes('château') ||
+      (selected.category || selected.building || '').toLowerCase().includes('chateau')
+    return rooms.filter((r) =>
+      château
+        ? sameBuilding(r) && normalizeName(r.room_name || '') === normalizeName(selected.room_name || '')
+        : sameBuilding(r)
     )
   }, [selected, rooms])
 
@@ -96,7 +100,11 @@ export function RoomsPage() {
     setShowDropdown(false)
   }
 
-  const theme = selected ? buildingTheme(selected.building) : null
+  const theme = selected ? buildingTheme(selected.category || selected.building) : null
+  const isChateau = selected
+    ? (selected.category || selected.building || '').toLowerCase().includes('château') ||
+      (selected.category || selected.building || '').toLowerCase().includes('chateau')
+    : false
 
   return (
     <>
@@ -128,7 +136,7 @@ export function RoomsPage() {
             className="mt-2 space-y-1.5"
           >
             {matches.map((room, idx) => {
-              const t = buildingTheme(room.building)
+              const t = buildingTheme(room.category || room.building)
               return (
                 <button key={idx} onClick={() => selectRoom(room)} className="w-full text-left">
                   <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 hover:bg-stone-50 active:scale-[0.99] transition-all">
@@ -143,9 +151,9 @@ export function RoomsPage() {
                         </p>
                       )}
                     </div>
-                    {room.building && (
+                    {(room.category || room.building) && (
                       <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${t.bg} ${t.text}`}>
-                        {room.building}
+                        {room.category || room.building}
                       </span>
                     )}
                   </div>
@@ -175,13 +183,37 @@ export function RoomsPage() {
 
                 {/* Zone B — Chambre hero */}
                 <div className={`mt-4 rounded-2xl p-4 ${theme.bg}`}>
-                  <p className={`text-xs font-bold uppercase tracking-widest ${theme.text}`}>
-                    {theme.icon} {selected.building}
-                  </p>
-                  {isNonEmpty(selected.room_name) && (
-                    <p className={`text-xl font-bold mt-1 leading-tight ${theme.text}`}>
-                      {selected.room_name}
-                    </p>
+                  {isChateau ? (
+                    <>
+                      <p className={`text-xs font-bold uppercase tracking-widest ${theme.text}`}>
+                        {theme.icon} {selected.category || selected.building}
+                      </p>
+                      {isNonEmpty(selected.room_name) && (
+                        <p className={`text-xl font-bold mt-1 leading-tight ${theme.text}`}>
+                          {selected.room_name}
+                        </p>
+                      )}
+                      {isNonEmpty(selected.bed_type) && (
+                        <p className={`mt-1 text-sm font-medium ${theme.text} opacity-70`}>
+                          🛏 {selected.bed_type}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <p className={`text-xs font-bold uppercase tracking-widest ${theme.text} opacity-70`}>
+                        {theme.icon} {selected.category || 'Gîtes'}
+                      </p>
+                      <p className={`text-xl font-bold mt-1 leading-tight ${theme.text}`}>
+                        {selected.building}
+                      </p>
+                      {isNonEmpty(selected.room_name) && (
+                        <p className={`mt-1 text-sm font-medium ${theme.text} opacity-70`}>
+                          {selected.room_name}
+                          {isNonEmpty(selected.bed_type) && ` · 🛏 ${selected.bed_type}`}
+                        </p>
+                      )}
+                    </>
                   )}
                   {isNonEmpty(selected.notes) && (
                     <p className={`mt-1.5 text-sm ${theme.text} opacity-70`}>
@@ -191,9 +223,8 @@ export function RoomsPage() {
                 </div>
 
                 {/* Zone C — Pills détails optionnels */}
-                {(isNonEmpty(selected.bed_type) || isNonEmpty(selected.bathroom) || isNonEmpty(selected.capacity) || isNonEmpty(selected.extra)) && (
+                {(isNonEmpty(selected.bathroom) || isNonEmpty(selected.capacity) || isNonEmpty(selected.extra)) && (
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {isNonEmpty(selected.bed_type) && <Pill icon="🛏" label={selected.bed_type} />}
                     {isNonEmpty(selected.bathroom) && <Pill icon="🚿" label={selected.bathroom} />}
                     {isNonEmpty(selected.capacity) && <Pill icon="👥" label={`${selected.capacity} pers.`} />}
                     {isNonEmpty(selected.extra) && <Pill icon="✨" label={selected.extra} />}
@@ -205,17 +236,19 @@ export function RoomsPage() {
                   <>
                     <div className="mt-4 border-t border-border" />
                     <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
-                      Dans cette chambre
+                      {isChateau ? 'Dans cette chambre' : 'Dans ce gîte'}
                     </p>
                     <div className="mt-3 flex flex-wrap gap-3">
-                      {roommates.map((mate, idx) => (
-                        <Avatar
-                          key={idx}
-                          name={personLabel(mate)}
-                          isYou={normalizeName(personLabel(mate)) === normalizeName(personLabel(selected))}
-                          theme={theme}
-                        />
-                      ))}
+                      {roommates.map((mate, idx) => {
+                        const isYou = normalizeName(personLabel(mate)) === normalizeName(personLabel(selected))
+                        return isYou ? (
+                          <Avatar key={idx} name={personLabel(mate)} isYou theme={theme} />
+                        ) : (
+                          <button key={idx} onClick={() => selectRoom(mate)} className="hover:scale-105 active:scale-95 transition-transform">
+                            <Avatar name={personLabel(mate)} isYou={false} theme={theme} />
+                          </button>
+                        )
+                      })}
                     </div>
                   </>
                 )}
