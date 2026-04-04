@@ -11,6 +11,7 @@ export function computeEta(baseEta, delayMinutes = 0) {
     const base = new Date()
     base.setHours(Number(m[1]), Number(m[2]), 0, 0)
     base.setMinutes(base.getMinutes() + Number(delayMinutes || 0))
+    base.setMinutes(Math.round(base.getMinutes() / 5) * 5)
     return base.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
   } catch {
     return '—'
@@ -29,6 +30,7 @@ export function computeGroupEta(photoStart, delayMinutes, groupIntervalMinutes, 
   try {
     const base = new Date(photoStart)
     base.setMinutes(base.getMinutes() + Number(delayMinutes || 0) + index * Number(groupIntervalMinutes || 0))
+    base.setMinutes(Math.round(base.getMinutes() / 5) * 5)
     return base.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
   } catch {
     return '—'
