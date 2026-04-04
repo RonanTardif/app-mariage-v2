@@ -9,7 +9,7 @@ const links = [
   { to: '/chambres',    title: 'Ma chambre',     icon: BedDouble,     desc: 'Trouver mon hébergement',           color: 'bg-sand/60 text-stone-600' },
   { to: '/photos',      title: 'Photos de groupe', icon: Camera,     desc: 'Mon heure de passage',              color: 'bg-rose-100 text-rose-700' },
   { to: '/quiz',        title: 'Quiz',           icon: CircleHelp,    desc: 'À vous de jouer !',                color: 'bg-sage-100 text-sage-700' },
-  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Partagez vos photos du week-end',   color: 'bg-sand/60 text-stone-600' },
+  { to: '/album',       title: 'Album',          icon: Images,        desc: 'Partagez vos photos',   color: 'bg-sand/60 text-stone-600' },
   { to: '/infos',       title: 'Infos',          icon: Info,          desc: 'Tout ce qu\'il faut savoir',        color: 'bg-rose-100 text-rose-700' },
   { to: '/cadeaux',     title: 'Cadeaux',        icon: Gift,          desc: 'Notre liste de mariage',            color: 'bg-sage-100 text-sage-700' },
 ]
