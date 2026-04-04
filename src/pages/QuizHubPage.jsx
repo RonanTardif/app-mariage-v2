@@ -34,9 +34,12 @@ export function QuizHubPage() {
           <p className="text-[5rem] font-black tabular-nums leading-none">{score}</p>
           <p className="text-xl font-semibold text-rose-200 mt-1">/ {total} · {pct}%</p>
 
-          <div className={`mx-auto mt-5 inline-flex items-center gap-2 rounded-full px-4 py-2 ${t.bg} ${t.border} border`}>
-            <span className="text-xl">{t.emoji}</span>
-            <span className={`text-sm font-bold ${t.color}`}>{t.label}</span>
+          <div className={`mx-auto mt-5 rounded-2xl px-4 py-3 ${t.bg} ${t.border} border text-center`}>
+            <div className="inline-flex items-center gap-2">
+              <span className="text-xl">{t.emoji}</span>
+              <span className={`text-sm font-bold ${t.color}`}>{t.label}</span>
+            </div>
+            <p className={`mt-1 text-xs ${t.color} opacity-75`}>{t.subtitle}</p>
           </div>
         </motion.div>
 
