@@ -48,6 +48,9 @@ export function ProgrammePage() {
   const current = currentIdx >= 0 ? programmeEvents[currentIdx] : null
   const next = nextIdx >= 0 ? programmeEvents[nextIdx] : null
 
+  const WEDDING_DONE_AT = new Date('2026-04-05T19:00:00+02:00').getTime()
+  const pastFinale = !PROTOTYPE_MODE && now >= WEDDING_DONE_AT
+
   const weddingOver = !PROTOTYPE_MODE && currentIdx === n - 1 && nextIdx === -1
   const weddingStarted = PROTOTYPE_MODE || currentIdx >= 0
 
@@ -143,7 +146,7 @@ export function ProgrammePage() {
       {/* ─── Timeline complète ───────────────────────────── */}
       <ProgrammeTimeline
         events={programmeEvents}
-        currentIdx={currentIdx}
+        currentIdx={pastFinale ? n : currentIdx}
         nextIdx={nextIdx}
       />
     </div>
