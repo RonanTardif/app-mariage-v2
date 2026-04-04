@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Trophy, RotateCcw, ChevronRight, CheckCircle, XCircle } from 'lucide-react'
-import { tier, loadProgress, clearQuizProgress } from './QuizPage'
+import { tier, loadProgress, loadResult, clearQuizProgress } from './QuizPage'
 
 export function QuizHubPage() {
   const navigate = useNavigate()
@@ -96,7 +96,10 @@ export function QuizHubPage() {
     )
   }
 
-  /* ── Quiz non commencé ──────────────────────────────────────── */
+  /* ── Quiz non commencé (ou score déjà soumis) ───────────────── */
+  const result = loadResult()
+  const rt = result ? tier(result.score, result.total) : null
+
   return (
     <div className="space-y-4">
 
@@ -115,6 +118,28 @@ export function QuizHubPage() {
           30 questions sur leur histoire. À vous de jouer.
         </p>
       </motion.div>
+
+      {/* Badge résultat persistant */}
+      {rt && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className={`rounded-2xl border px-4 py-3 ${rt.bg} ${rt.border}`}
+        >
+          <p className={`text-xs font-semibold uppercase tracking-wide ${rt.color} opacity-60 mb-2`}>Mon score</p>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{rt.emoji}</span>
+            <div className="min-w-0 flex-1">
+              <p className={`text-sm font-bold ${rt.color}`}>{rt.label}</p>
+              <p className={`text-xs mt-0.5 ${rt.color} opacity-75`}>{rt.subtitle}</p>
+            </div>
+            <span className={`shrink-0 text-xs font-semibold tabular-nums ${rt.color} opacity-60`}>
+              {result.score}/{result.total}
+            </span>
+          </div>
+        </motion.div>
+      )}
 
       {/* Actions */}
       <motion.div

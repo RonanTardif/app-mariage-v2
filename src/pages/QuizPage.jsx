@@ -262,12 +262,19 @@ function ResultScreen({ score, total, questions, answers, onScoreSubmitted }) {
 // ─── Persistence localStorage ─────────────────────────────────────────────────
 
 const LS_PROGRESS = 'mariage_quiz_progress_v1'
+const LS_RESULT   = 'mariage_quiz_result_v1'
 
 export function loadProgress() {
   try { return JSON.parse(localStorage.getItem(LS_PROGRESS) || 'null') } catch { return null }
 }
+export function loadResult() {
+  try { return JSON.parse(localStorage.getItem(LS_RESULT) || 'null') } catch { return null }
+}
 function saveProgress(state) {
   try { localStorage.setItem(LS_PROGRESS, JSON.stringify(state)) } catch {}
+}
+function saveResult(score, total) {
+  try { localStorage.setItem(LS_RESULT, JSON.stringify({ score, total })) } catch {}
 }
 export function clearQuizProgress() {
   try { localStorage.removeItem(LS_PROGRESS) } catch {}
@@ -290,6 +297,7 @@ export function QuizGamePage() {
       const _total = questions.length
       const _score = answers.filter((a, i) => a === questions[i]?.answer_index).length
       saveProgress({ index, answers, done, ...(done ? { score: _score, total: _total } : {}) })
+      if (done) saveResult(_score, _total)
     }
   }, [index, answers, done, loading, questions])
 
