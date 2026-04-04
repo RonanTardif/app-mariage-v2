@@ -100,6 +100,7 @@ export function PlanPage() {
   function selectFromCarousel(id, displayIdx) {
     triggerHaptic()
     setSelectedId(id)
+    setHoveredId(null)
     isJumping.current = true
     scrollToDisplayIdx(displayIdx)
     setTimeout(() => { isJumping.current = false }, 600)
@@ -121,7 +122,7 @@ export function PlanPage() {
         if (dist < minDist) { minDist = dist; closestIdx = i }
       })
       const item = displayItems[closestIdx]
-      if (item) setSelectedId(item.id)
+      if (item) { setSelectedId(item.id); setHoveredId(null) }
       if (closestIdx === 0) {
         isJumping.current = true
         scrollToDisplayIdx(displayItems.length - 2, 'instant')
