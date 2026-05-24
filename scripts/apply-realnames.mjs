@@ -70,7 +70,7 @@ const corrections = {
   'guest-57':  { firstName: 'Khanh' },
   'guest-64':  {                                   lastName: 'Louazel' },
   'guest-66':  {                                   lastName: 'Menant' },
-  'guest-75':  { firstName: 'Paul Marie' },
+  'guest-75':  { firstName: 'Paul-Marie' },
   'guest-77':  {                                   lastName: 'Gourtaud' },
   'guest-88':  { firstName: 'Stanislas' },
   'guest-94':  { firstName: 'Alilé',              lastName: 'Akono-Ebanga' },

@@ -150,7 +150,7 @@ const GROUPS = [
       'guest-75', 'guest-74', 'guest-53', 'guest-55', 'guest-27',
       'guest-25', 'guest-26', 'guest-12', 'guest-11', 'guest-54', 'guest-57',
     ]),
-    // Paul Marie Munier, Marianne Gogat, Camille Mailharrou, Camille Frémont de Reboul,
+    // Paul-Marie Munier, Marianne Gogat, Camille Mailharrou, Camille Frémont de Reboul,
     // Timothy Bellaiche, Anna Laure, Sophie Lacaze, Nicolas Poifol, Aurore Lefebvre,
     // Alban Frémont de Reboul, Khanh Nguyen
   },
