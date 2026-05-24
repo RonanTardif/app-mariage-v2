@@ -1,97 +1,173 @@
-# app-react — migration front moderne
+# App Mariage — Ronan & Lorie
 
-Nouvelle implémentation **parallèle** de l'application mariage (sans toucher la version HTML/CSS/JS actuelle).
+Application web mobile-first pour le mariage de Ronan & Lorie, **13–14 juin 2026** au Domaine de la Corbe.
 
-## Audit rapide de l'existant
-Pages détectées : `home`, `programme`, `plan`, `chambre`, `photos`, `quiz`, `leaderboard`, `infos`, `whatsapp`, `admin`.
+Version actuelle : **v0.5.0**
 
-Fonctionnalités migrées dans cette base React :
-- navigation mobile avec pages dédiées,
-- programme du week-end avec mise en avant du prochain moment,
-- plan + fiches lieux,
-- recherche chambre par nom + colocataires,
-- recherche créneaux photos,
-- quiz + stockage score,
-- leaderboard Top 10,
-- infos pratiques,
-- CTA WhatsApp.
+---
 
-Sources de données couvertes :
-- JSON locaux (`/public/data/*.json`),
-- APIs Google Apps Script via JSONP (rooms/photos/leaderboard),
-- fallback localStorage pour scores quiz.
+## Stack technique
 
-## Stack
-- React + Vite
-- Tailwind CSS
-- base shadcn/ui (composants `ui/` + `cn` util)
-- Lucide icons
-- Framer Motion
+| Couche | Technologie |
+|---|---|
+| Framework | React 18 + Vite |
+| Styles | Tailwind CSS + shadcn/ui |
+| Animations | Framer Motion |
+| Icônes | Lucide React |
+| Backend temps réel | Firebase (Firestore + Auth + Storage) |
+| Données statiques | JSON locaux (`/public/data/*.json`) |
+| Données dynamiques | Google Apps Script (GAS) via JSONP |
+| Hébergement | GitHub Pages (CI/CD sur branche `dev`) |
+
+---
+
+## Pages de l'application
+
+| Route | Page | Description |
+|---|---|---|
+| `/` | Home | Grille de tuiles d'accès aux sections |
+| `/programme` | Programme | Timeline dynamique du week-end |
+| `/plan` | Plan | Carte interactive du domaine avec fiches lieux |
+| `/chambres` | Chambres | Plan-couchage, recherche par nom |
+| `/photos` | Photos | Créneaux photo de groupe avec ETA dynamique |
+| `/quiz` | Quiz Hub | Portail du quiz + badge résultat persistant |
+| `/quiz/jouer` | Quiz | Quiz en 10 paliers de score |
+| `/leaderboard` | Leaderboard | Top 10 scores Firebase |
+| `/album` | Album | Galerie photo partagée (Embla Carousel) |
+| `/partager` | Partager | Page d'upload photo |
+| `/infos` | Infos | Infos pratiques + QR code + install PWA |
+| `/whatsapp` | WhatsApp | Redirection groupe WhatsApp |
+| `/cadeaux` | Cadeaux | Urne sur place + liste voyage optionnelle |
+| `/admin` | Admin Photos | Gestion des groupes et retards (voir ci-dessous) |
+
+---
+
+## Programme du week-end
+
+Données dans [src/data/programme.js](src/data/programme.js).
+
+### Samedi 13 juin 2026
+| Heure | Événement | Lieu |
+|---|---|---|
+| 14h30 | Messe | Cathédrale de Luçon |
+| 16h30 | Arrivée au domaine | Domaine |
+| 17h00 | Photos de groupe | Le lac |
+| 17h30 | Vin d'honneur | Devant le Château |
+| 20h00 | Réception — dîner | Orangerie |
+| 23h00 | Dancefloor | Orangerie |
+| 04h00 | After | Saloon |
+
+### Dimanche 14 juin 2026
+| Heure | Événement | Lieu |
+|---|---|---|
+| 10h00 | Ouverture piscine | Piscine |
+| 11h00 | Brunch | Saloon |
+| 14h00 | Pool Party | Piscine |
+| 17h00 | Fin du mariage | Domaine |
+
+### Paramètres importants — page Programme
+
+- **Rafraîchissement** : toutes les **30 secondes** (mode réel) — `setInterval 30_000` dans [src/pages/ProgrammePage.jsx](src/pages/ProgrammePage.jsx)
+- **PROTOTYPE_MODE** : `false` en production. Passer à `true` dans [src/data/programme.js](src/data/programme.js) pour tester la rotation des états (cycle toutes les **15 s**)
+- **Fin du mariage déclarée** : `2026-06-14T19:00:00+02:00` — après cette heure, la page affiche le message de remerciement
+- **Calcul "prochain"** : basé sur `Date.now()` comparé aux `startsAt` ISO 8601 de chaque événement
+
+---
+
+## Page Admin — Gestion des photos de groupe
+
+Route : `/admin` — accès réservé aux mariés / organisateurs.
+
+### Fonctionnement
+
+L'admin gère les groupes de photos en temps réel, synchronisé sur Firestore.
+
+- **Début des photos** (défaut : `2026-06-13T17:00`) — modifiable dans l'interface
+- **Intervalle entre groupes** : 10 min par défaut (modifiable, 1–60 min)
+- **Retard global** : slider de **-30 à +90 min** par pas de 5 — répercuté sur tous les ETAs instantanément
+- **ETA calculé** : arrondi au multiple de 5 min le plus proche ([src/utils/etaUtils.js](src/utils/etaUtils.js))
+- **Heure d'arrivée conseillée** affichée aux invités sur `/photos` : ETA − 5 min
+
+### Synchronisation
+
+- **Firestore** : collection `photoSession`, documents `state` (groupes + retard) et `data` (personnes, groupes GAS, créneaux)
+- **Debounce** : 800 ms entre la dernière modification et l'écriture Firestore
+- **localStorage** : clé `mariage_admin_state_v8` — cache local pour reprise rapide
+
+### Import depuis Google Sheets
+
+Le bouton "Importer depuis Google Sheets" appelle l'API GAS définie dans [src/utils/constants.js](src/utils/constants.js) (`APP_CONFIG.photosApi`). Il écrase le document `photoSession/data` avec les personnes, groupes et créneaux issus du Google Sheet.
+
+---
+
+## Page Photos — Vue invité
+
+Route : `/photos` — chaque invité recherche son nom pour voir son créneau.
+
+- Données lues en **temps réel** depuis Firestore (`onSnapshot`) — mise à jour automatique quand l'admin modifie l'ordre ou le retard
+- Statuts possibles : `PENDING` · `NOW` (dot pulsant) · `DONE` · `SKIP` · `REPLAN`
+- L'ETA affiché intègre le retard global positionné par l'admin
+
+---
+
+## Firebase
+
+Configuration via variables d'environnement (`.env.local` en local, secrets GitHub en CI) :
+
+```
+VITE_FIREBASE_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN
+VITE_FIREBASE_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID
+VITE_FIREBASE_APP_ID
+```
+
+Collections Firestore utilisées :
+
+| Collection | Document | Contenu |
+|---|---|---|
+| `photoSession` | `state` | Groupes admin, retard, heure de début |
+| `photoSession` | `data` | Personnes, groupes GAS, créneaux (seed depuis GAS) |
+| `gallery` | — | Photos partagées par les invités |
+| `leaderboard` | — | Scores quiz |
+| `reactions` | — | Réactions sur les photos (unicité par UID, via transaction) |
+
+---
+
+## Données statiques
+
+| Fichier | Contenu |
+|---|---|
+| `public/data/rooms.json` | Plan-couchage — 133 entrées (sync depuis GAS via `scripts/sync-rooms.js`) |
+| `public/data/rooms-old.json` | Ancienne version — non tracké, à supprimer |
+
+---
+
+## CI/CD — Déploiement GitHub Pages
+
+- **Déclencheur** : push sur la branche `dev` (ou déclenchement manuel)
+- **Workflow** : [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
+- **Node** : version 20
+- **Build** : `npm run build` avec `GITHUB_PAGES=true` + injection des secrets Firebase
+- **Publication** : dossier `dist/` → GitHub Pages
+
+Pour activer GitHub Pages : `Settings → Pages → Source: GitHub Actions`
+
+---
 
 ## Démarrage local
+
 ```bash
-cd app-react
 npm install
 npm run dev
 ```
 
-## Assets binaires (copie manuelle)
-Les fichiers image binaires **ne sont plus versionnés** dans `app-react/public/assets/`.
+Créer un fichier `.env.local` à la racine avec les variables Firebase (voir section Firebase ci-dessus).
 
-Tu dois les copier manuellement depuis la racine du projet existant vers le nouveau front :
+---
 
-- source : `assets/plan-domaine.jpg`
-  - destination : `app-react/public/assets/plan-domaine.jpg`
-- source : `assets/plan-domaine-color.jpg`
-  - destination : `app-react/public/assets/plan-domaine-color.jpg`
-- source : `assets/domaine_de_la_corbe_all_good_black_andwhite.jpg`
-  - destination : `app-react/public/assets/domaine_de_la_corbe_all_good_black_andwhite.jpg`
+## Liens importants
 
-Exemple de commande :
-```bash
-cp assets/plan-domaine.jpg app-react/public/assets/
-cp assets/plan-domaine-color.jpg app-react/public/assets/
-cp assets/domaine_de_la_corbe_all_good_black_andwhite.jpg app-react/public/assets/
-```
-
-## Build GitHub Pages
-`vite.config.js` gère un `base` compatible Pages via variables d'environnement (`GITHUB_PAGES`, `GITHUB_REPOSITORY`).
-
-
-## Déploiement GitHub Pages (pas à pas)
-
-### 1) Pré-requis
-- Le dépôt doit être sur GitHub.
-- La branche de référence est `main` (adapte le workflow si tu utilises une autre branche).
-- Les assets binaires doivent être présents localement dans `app-react/public/assets/` avant build.
-
-### 2) Installer le workflow CI/CD
-Un workflow prêt est fourni dans :
-- `.github/workflows/deploy-app-react-pages.yml`
-
-Il va :
-1. installer les dépendances dans `app-react/` (`npm install`),
-2. builder avec `GITHUB_PAGES=true` (pour activer le bon `base` Vite),
-3. publier `app-react/dist` sur GitHub Pages.
-
-### 3) Activer GitHub Pages dans les settings
-Sur GitHub :
-- `Settings` → `Pages`
-- `Build and deployment` → `Source: GitHub Actions`
-
-### 4) Lancer un premier déploiement
-- Push sur `main`, ou lance le workflow manuellement via l’onglet `Actions`.
-- URL attendue : `https://<owner>.github.io/<repo>/app-react/`
-
-### 5) Vérification locale avant push
-```bash
-cd app-react
-npm install
-npm run build
-```
-Puis vérifie que le build contient bien les assets nécessaires.
-
-### 6) Dépannage rapide
-- **Page blanche / assets 404**: vérifier que l’URL inclut bien `/app-react/`.
-- **Workflow échoue sur npm install**: vérifier la présence de `package-lock.json` et la version Node.
-- **Images manquantes**: vérifier la copie manuelle dans `app-react/public/assets/`.
+- **Groupe WhatsApp invités** : défini dans `APP_CONFIG.whatsappLink` ([src/utils/constants.js](src/utils/constants.js))
+- **API Google Apps Script** : définie dans `APP_CONFIG.photosApi` — endpoint JSONP pour les personnes/groupes/créneaux photos
