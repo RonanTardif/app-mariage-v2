@@ -1,0 +1,1995 @@
+{
+  "guests": [
+    {
+      "id": "guest-1",
+      "firstName": "Pierre",
+      "lastName": "Luciat",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-2",
+      "firstName": "Zara",
+      "lastName": "Luciat",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-3",
+      "firstName": "Raymond",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-4",
+      "firstName": "SalomÃ©",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-5",
+      "firstName": "Sandrine",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-6",
+      "firstName": "Vincent",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-7",
+      "firstName": "AnaÃ¯s",
+      "lastName": "Picquenot",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-8",
+      "firstName": "Bastien",
+      "lastName": "Jammes",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-9",
+      "firstName": "MaÃ«lynn",
+      "lastName": "Le Goff",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-10",
+      "firstName": "Maxime",
+      "lastName": "Le Goff",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-11",
+      "firstName": "Aurore",
+      "lastName": "Lefebvre",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-12",
+      "firstName": "Nicolas",
+      "lastName": "Poifol",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-13",
+      "firstName": "Laurence",
+      "lastName": "Lafosse",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-14",
+      "firstName": "Antoine",
+      "lastName": "Lagadec",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-15",
+      "firstName": "Guillaume",
+      "lastName": "Le Meudec",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-16",
+      "firstName": "Gwennoline",
+      "lastName": "Tertrais",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-17",
+      "firstName": "Sarah",
+      "lastName": "Valenti",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-18",
+      "firstName": "Lorie",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-19",
+      "firstName": "Ronan",
+      "lastName": "Tardif",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-20",
+      "firstName": "Mathieu",
+      "lastName": "Boulestreau-Lannier",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-21",
+      "firstName": "Pauline",
+      "lastName": "Boulestreau-Lannier",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-22",
+      "firstName": "Alix",
+      "lastName": "Vandenabeele",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-23",
+      "firstName": "Antonin",
+      "lastName": "Le Goallec",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-24",
+      "firstName": "Caroline",
+      "lastName": "Slimani",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-25",
+      "firstName": "Anna",
+      "lastName": "Laure",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-26",
+      "firstName": "Sophie",
+      "lastName": "Lacaze",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-27",
+      "firstName": "Tim",
+      "lastName": "Bellaiche",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-28",
+      "firstName": "Romuald",
+      "lastName": "Metellus",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-29",
+      "firstName": "Isabelle",
+      "lastName": "MahÃ©",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-30",
+      "firstName": "Antoine",
+      "lastName": "Fleury",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-31",
+      "firstName": "Pablo",
+      "lastName": "Giboire Redondo",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-32",
+      "firstName": "Quentin",
+      "lastName": "Le Dissez",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-33",
+      "firstName": "Guillaume",
+      "lastName": "LÃ©ard",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-34",
+      "firstName": "Conny",
+      "lastName": "Schmolke",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-35",
+      "firstName": "Frieder",
+      "lastName": "Philipps",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-36",
+      "firstName": "Antoine",
+      "lastName": "Laize",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-37",
+      "firstName": "Romane",
+      "lastName": "Ruelleux",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-38",
+      "firstName": "Tristan",
+      "lastName": "Carudel",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-39",
+      "firstName": "Yasmine",
+      "lastName": "Cheba",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-40",
+      "firstName": "Clara",
+      "lastName": "Duchemin",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-41",
+      "firstName": "Johan",
+      "lastName": "Rivoire",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-42",
+      "firstName": "Marine",
+      "lastName": "CÃ©vaer",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-43",
+      "firstName": "MarlÃ¨ne",
+      "lastName": "Niobey",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-44",
+      "firstName": "Ninon",
+      "lastName": "Orhant",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-45",
+      "firstName": "Amaya",
+      "lastName": "London",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-46",
+      "firstName": "Lucas",
+      "lastName": "Lallemant",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-47",
+      "firstName": "Olivia",
+      "lastName": "Carlos",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-48",
+      "firstName": "Etienne",
+      "lastName": "Phillipe",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-49",
+      "firstName": "Laura",
+      "lastName": "CarrÃ©",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-50",
+      "firstName": "Romain",
+      "lastName": "Gontier",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-51",
+      "firstName": "Camille",
+      "lastName": "Mailharrou",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-52",
+      "firstName": "Laure-Anne",
+      "lastName": "Halay",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-53",
+      "firstName": "Diane",
+      "lastName": "Karcher Mourgues",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-54",
+      "firstName": "Alban",
+      "lastName": "Reboul",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-55",
+      "firstName": "Camille",
+      "lastName": "Reboul-Hunault",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-56",
+      "firstName": "ThaÃ¯s",
+      "lastName": "NumÃ©ric",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-57",
+      "firstName": "Khan",
+      "lastName": "Nguyen",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-58",
+      "firstName": "CÃ©lestine",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-59",
+      "firstName": "ClÃ©ment",
+      "lastName": "Payen",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-60",
+      "firstName": "Corinne",
+      "lastName": "Tardif",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-61",
+      "firstName": "Florane",
+      "lastName": "Mainfray",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-62",
+      "firstName": "JÃ©han",
+      "lastName": "Levrel",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-63",
+      "firstName": "Laurence",
+      "lastName": "Brisseau",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-64",
+      "firstName": "Marie",
+      "lastName": "Levrel",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-65",
+      "firstName": "Marion",
+      "lastName": "Mainfray",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-66",
+      "firstName": "Mathieu",
+      "lastName": "Mainfray",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-67",
+      "firstName": "Maxence",
+      "lastName": "Levrel",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-68",
+      "firstName": "Myriam",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-69",
+      "firstName": "Noeline",
+      "lastName": "Brisseau",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-70",
+      "firstName": "Oliver",
+      "lastName": "Brisseau",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-71",
+      "firstName": "Romain",
+      "lastName": "Mainfray",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-72",
+      "firstName": "SÃ©raphin",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-73",
+      "firstName": "Yannick",
+      "lastName": "Garcia",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-74",
+      "firstName": "Marianne",
+      "lastName": "Gogat",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-75",
+      "firstName": "Paul",
+      "lastName": "Munier",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-76",
+      "firstName": "Nathalie",
+      "lastName": "Poyvre",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-77",
+      "firstName": "Marie-Laure",
+      "lastName": "Nganda",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-78",
+      "firstName": "Claudie",
+      "lastName": "Dabin",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-79",
+      "firstName": "Jean",
+      "lastName": "Dabin",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-80",
+      "firstName": "Josette",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-81",
+      "firstName": "ClÃ©lia",
+      "lastName": "Laurent",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-82",
+      "firstName": "Alexis",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-83",
+      "firstName": "Anne",
+      "lastName": "Heck",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-84",
+      "firstName": "Anne",
+      "lastName": "Saussaye",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-85",
+      "firstName": "Bertrand",
+      "lastName": "Heck",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-86",
+      "firstName": "Dimitri",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-87",
+      "firstName": "Phillipe",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-88",
+      "firstName": "Stan",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-89",
+      "firstName": "FrÃ©dÃ©ric",
+      "lastName": "Tardif",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-90",
+      "firstName": "Josiane",
+      "lastName": "Tardif",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-91",
+      "firstName": "Maryline",
+      "lastName": "Tardif",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-92",
+      "firstName": "Nolwenn",
+      "lastName": "Tardif",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-93",
+      "firstName": "Quentin",
+      "lastName": "Le Floch",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-94",
+      "firstName": "AllilÃ©",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-95",
+      "firstName": "ClÃ©ment",
+      "lastName": "Pietri",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-96",
+      "firstName": "Jean-Paul",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-97",
+      "firstName": "LÃ©a",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-98",
+      "firstName": "Rose",
+      "lastName": "Pietri",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-99",
+      "firstName": "Sophie",
+      "lastName": "Ebanga",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-100",
+      "firstName": "Alice",
+      "lastName": "Ballot-LÃ©na",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-101",
+      "firstName": "Lionel",
+      "lastName": "Gourtaud",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-102",
+      "firstName": "Auriane",
+      "lastName": "Lafarge",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-103",
+      "firstName": "Cristian",
+      "lastName": "Meneghello",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-104",
+      "firstName": "Alexandra",
+      "lastName": "Thomas",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "PrÃ©sent"
+    },
+    {
+      "id": "guest-105",
+      "firstName": "Adel",
+      "lastName": "Aribi",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-106",
+      "firstName": "Alba",
+      "lastName": "Mainfray",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-107",
+      "firstName": "Claire",
+      "lastName": "Saussaye",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-108",
+      "firstName": "Julia",
+      "lastName": "Chalaye",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-109",
+      "firstName": "Juliette",
+      "lastName": "Saussaye",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-110",
+      "firstName": "LaurÃ¨ne",
+      "lastName": "Saussaye",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-111",
+      "firstName": "Laurent",
+      "lastName": "Saussaye",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-112",
+      "firstName": "LÃ©na",
+      "lastName": "SaÃ¯zonou",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-113",
+      "firstName": "Lia",
+      "lastName": "Mainfray",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "id": "guest-114",
+      "firstName": "Sami",
+      "lastName": "Hammoudi",
+      "inviteDe": "Ronan",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "N'a pas rÃ©pondu"
+    },
+    {
+      "id": "guest-115",
+      "firstName": "Victor",
+      "lastName": "SaÃ¯zonou",
+      "inviteDe": "Lorie",
+      "presentSamedi": "PrÃ©sent",
+      "presentVendredi": "Absent"
+    },
+    {
+      "firstName": "Julien",
+      "lastName": "Robert",
+      "id": "guest-10001"
+    }
+  ],
+  "accommodations": [
+    {
+      "id": "chateau",
+      "name": "ChÃ¢teau",
+      "category": "chateau",
+      "bathroomCount": 4,
+      "wcCount": 5,
+      "notes": "Linge de lit et de toilette fournis. SDB et WC partagÃ©s dans les couloirs.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-2",
+          "name": "Chambre 01",
+          "sleepingSpots": [
+            {
+              "id": "spot-1",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-75",
+                "guest-74"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 2 â Aile droite"
+        },
+        {
+          "id": "room-4",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-3",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-55",
+                "guest-54"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 2 â Aile droite"
+        },
+        {
+          "id": "room-6",
+          "name": "Chambre 11",
+          "sleepingSpots": [
+            {
+              "id": "spot-5",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-7",
+                "guest-8"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 2 â Aile gauche"
+        },
+        {
+          "id": "room-11",
+          "name": "Chambre 12",
+          "sleepingSpots": [
+            {
+              "id": "spot-7",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-15",
+                "guest-17"
+              ]
+            },
+            {
+              "id": "spot-8",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-14",
+                "guest-16"
+              ]
+            },
+            {
+              "id": "spot-9",
+              "type": "double_bed",
+              "label": "Lit C",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-114",
+                "guest-10001"
+              ]
+            },
+            {
+              "id": "spot-10",
+              "type": "double_bed",
+              "label": "Lit D",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-31",
+                "guest-108"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 2 â Aile gauche"
+        },
+        {
+          "id": "room-13",
+          "name": "Chambre 13",
+          "sleepingSpots": [
+            {
+              "id": "spot-12",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-38",
+                "guest-39"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 2 â Aile gauche"
+        },
+        {
+          "id": "room-16",
+          "name": "Chambre 03",
+          "sleepingSpots": [
+            {
+              "id": "spot-14",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-22",
+                "guest-24"
+              ]
+            },
+            {
+              "id": "spot-15",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-23"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-19",
+          "name": "Chambre 04",
+          "sleepingSpots": [
+            {
+              "id": "spot-17",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-52",
+                "guest-51"
+              ]
+            },
+            {
+              "id": "spot-18",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-22",
+          "name": "Chambre 05",
+          "sleepingSpots": [
+            {
+              "id": "spot-20",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-20",
+                "guest-21"
+              ]
+            },
+            {
+              "id": "spot-21",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-28",
+                "guest-81"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-25",
+          "name": "Chambre 06",
+          "sleepingSpots": [
+            {
+              "id": "spot-23",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-34",
+                "guest-35"
+              ]
+            },
+            {
+              "id": "spot-24",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-27",
+          "name": "Chambre 07",
+          "sleepingSpots": [
+            {
+              "id": "spot-26",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-56"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-30",
+          "name": "Chambre 08",
+          "sleepingSpots": [
+            {
+              "id": "spot-28",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-32",
+                "guest-33"
+              ]
+            },
+            {
+              "id": "spot-29",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-36",
+                "guest-37"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-33",
+          "name": "Chambre 09",
+          "sleepingSpots": [
+            {
+              "id": "spot-31",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": []
+            },
+            {
+              "id": "spot-32",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-35",
+          "name": "Chambre 10",
+          "sleepingSpots": [
+            {
+              "id": "spot-34",
+              "type": "double_bed",
+              "label": "Lit double â Chambre des mariÃ©s",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-18",
+                "guest-19"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-40",
+          "name": "Chambre 14",
+          "sleepingSpots": [
+            {
+              "id": "spot-36",
+              "type": "double_bed",
+              "label": "Lit A",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-25",
+                "guest-27"
+              ]
+            },
+            {
+              "id": "spot-37",
+              "type": "double_bed",
+              "label": "Lit B",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-53"
+              ]
+            },
+            {
+              "id": "spot-38",
+              "type": "double_bed",
+              "label": "Lit C",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-57"
+              ]
+            },
+            {
+              "id": "spot-39",
+              "type": "double_bed",
+              "label": "Lit D",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-26"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        },
+        {
+          "id": "room-42",
+          "name": "Chambre 15",
+          "sleepingSpots": [
+            {
+              "id": "spot-41",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-12",
+                "guest-11"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "Ãtage 1"
+        }
+      ]
+    },
+    {
+      "id": "gite-champetre",
+      "name": "GÃ®te ChampÃªtre (PMR)",
+      "category": "gite",
+      "bathroomCount": 1,
+      "notes": "Plain-pied, accÃ¨s PMR. Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-44",
+          "name": "Chambre 01 (RDC)",
+          "sleepingSpots": [
+            {
+              "id": "spot-43",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-59",
+                "guest-65"
+              ]
+            },
+            {
+              "id": "spot-10003",
+              "type": "mattress",
+              "label": "Matelas 1",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-106"
+              ],
+              "isTemporary": true
+            },
+            {
+              "id": "spot-10005",
+              "type": "mattress",
+              "label": "Matelas 2",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-113"
+              ],
+              "isTemporary": true
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "RDC"
+        },
+        {
+          "id": "room-47",
+          "name": "Chambre 02 (RDC)",
+          "sleepingSpots": [
+            {
+              "id": "spot-45",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-60"
+              ]
+            },
+            {
+              "id": "spot-46",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-71"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "RDC"
+        },
+        {
+          "id": "room-49",
+          "name": "Salon",
+          "sleepingSpots": [
+            {
+              "id": "spot-48",
+              "type": "sofa_bed",
+              "label": "CanapÃ© convertible",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-61",
+                "guest-66"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "gite-bretagne",
+      "name": "GÃ®te Bretagne",
+      "category": "gite",
+      "bathroomCount": 1,
+      "notes": "Plain-pied. Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-51",
+          "name": "Chambre 01 (RDC)",
+          "sleepingSpots": [
+            {
+              "id": "spot-50",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-80"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "RDC"
+        },
+        {
+          "id": "room-54",
+          "name": "Chambre 02 (RDC)",
+          "sleepingSpots": [
+            {
+              "id": "spot-52",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-90"
+              ]
+            },
+            {
+              "id": "spot-53",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "RDC"
+        }
+      ]
+    },
+    {
+      "id": "gite-suites-or-bronze",
+      "name": "GÃ®te Suites Or/Bronze",
+      "category": "gite",
+      "bathroomCount": 2,
+      "notes": "Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-56",
+          "name": "Chambre 01",
+          "sleepingSpots": [
+            {
+              "id": "spot-55",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-67",
+                "guest-64"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-58",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-57",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-3"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-60",
+          "name": "Chambre 03",
+          "sleepingSpots": [
+            {
+              "id": "spot-59",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-63",
+                "guest-70"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-63",
+          "name": "Chambre 04",
+          "sleepingSpots": [
+            {
+              "id": "spot-61",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-62"
+              ]
+            },
+            {
+              "id": "spot-62",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-69"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-65",
+          "name": "Chambre 05",
+          "sleepingSpots": [
+            {
+              "id": "spot-64",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-68",
+                "guest-73"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-68",
+          "name": "Chambre 06",
+          "sleepingSpots": [
+            {
+              "id": "spot-66",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-58"
+              ]
+            },
+            {
+              "id": "spot-67",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-72"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "gite-new-york",
+      "name": "GÃ®te New-York",
+      "category": "gite",
+      "bathroomCount": 2,
+      "notes": "Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-70",
+          "name": "Chambre 01 (RDC)",
+          "sleepingSpots": [
+            {
+              "id": "spot-69",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-50",
+                "guest-49"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "RDC"
+        },
+        {
+          "id": "room-72",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-71",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-46",
+                "guest-47"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-75",
+          "name": "Chambre 03",
+          "sleepingSpots": [
+            {
+              "id": "spot-73",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-45"
+              ]
+            },
+            {
+              "id": "spot-74",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-48"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-77",
+          "name": "Salon",
+          "sleepingSpots": [
+            {
+              "id": "spot-76",
+              "type": "sofa_bed",
+              "label": "CanapÃ© convertible",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "gite-afrique",
+      "name": "GÃ®te Afrique",
+      "category": "gite",
+      "bathroomCount": 1,
+      "notes": "Plain-pied. Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-79",
+          "name": "Chambre 01 (RDC)",
+          "sleepingSpots": [
+            {
+              "id": "spot-78",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-2",
+                "guest-1"
+              ]
+            }
+          ],
+          "bathroomCount": 0,
+          "floor": "RDC"
+        }
+      ]
+    },
+    {
+      "id": "gite-romance",
+      "name": "GÃ®te Romance",
+      "category": "gite",
+      "bathroomCount": 1,
+      "notes": "Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-81",
+          "name": "Chambre 01",
+          "sleepingSpots": [
+            {
+              "id": "spot-80",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-44",
+                "guest-42"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-83",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-82",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-40",
+                "guest-41"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-85",
+          "name": "Salon",
+          "sleepingSpots": [
+            {
+              "id": "spot-84",
+              "type": "sofa_bed",
+              "label": "CanapÃ© convertible",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-104",
+                "guest-43"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "gite-ethnie",
+      "name": "GÃ®te Ethnie",
+      "category": "gite",
+      "bathroomCount": 1,
+      "notes": "Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-87",
+          "name": "Chambre 01",
+          "sleepingSpots": [
+            {
+              "id": "spot-86",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-89",
+                "guest-91"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-90",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-88",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-92"
+              ]
+            },
+            {
+              "id": "spot-89",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-93"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-92",
+          "name": "Salon",
+          "sleepingSpots": [
+            {
+              "id": "spot-91",
+              "type": "sofa_bed",
+              "label": "CanapÃ© convertible",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "la-tour",
+      "name": "GÃ®te La Tour",
+      "category": "gite",
+      "bathroomCount": 1,
+      "notes": "Linge fourni.",
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-94",
+          "name": "Chambre 01",
+          "sleepingSpots": [
+            {
+              "id": "spot-93",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-99",
+                "guest-96"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-97",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-95",
+              "type": "single_bed",
+              "label": "Lit A",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-97"
+              ]
+            },
+            {
+              "id": "spot-96",
+              "type": "single_bed",
+              "label": "Lit B",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-95"
+              ]
+            },
+            {
+              "id": "spot-10002",
+              "type": "mattress",
+              "label": "Matelas 1",
+              "capacity": 1,
+              "assignedGuestIds": [
+                "guest-98"
+              ],
+              "isTemporary": true
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-99",
+          "name": "Salon",
+          "sleepingSpots": [
+            {
+              "id": "spot-98",
+              "type": "sofa_bed",
+              "label": "CanapÃ© convertible",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-94"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "ferme",
+      "name": "Ferme",
+      "category": "gite",
+      "bathroomCount": 1,
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-107",
+          "name": "Chambre Double 1",
+          "sleepingSpots": [
+            {
+              "id": "spot-106",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-9",
+                "guest-10"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-109",
+          "name": "Chambre Double 2",
+          "sleepingSpots": [
+            {
+              "id": "spot-108",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": [
+                "guest-30",
+                "guest-29"
+              ]
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    },
+    {
+      "id": "chambre-retraites",
+      "name": "Les Pinneaux",
+      "category": "gite",
+      "bathroomCount": 1,
+      "isExpanded": false,
+      "rooms": [
+        {
+          "id": "room-101",
+          "name": "Chambre 01",
+          "sleepingSpots": [
+            {
+              "id": "spot-100",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-103",
+          "name": "Chambre 02",
+          "sleepingSpots": [
+            {
+              "id": "spot-102",
+              "type": "double_bed",
+              "label": "Lit double",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0
+        },
+        {
+          "id": "room-105",
+          "name": "Salon",
+          "sleepingSpots": [
+            {
+              "id": "spot-104",
+              "type": "sofa_bed",
+              "label": "CanapÃ© convertible",
+              "capacity": 2,
+              "assignedGuestIds": []
+            }
+          ],
+          "bathroomCount": 0
+        }
+      ]
+    }
+  ]
+}

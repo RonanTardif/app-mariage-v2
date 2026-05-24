@@ -4,11 +4,11 @@ export const programmeEvents = [
   {
     id: 'samedi-messe',
     day: 'Samedi',
-    timeLabel: '14h30',
+    timeLabel: '14h',
     title: 'Messe',
     subtitle: 'Cathédrale de Luçon',
     place: 'Cathédrale de Luçon',
-    startsAt: '2026-06-13T14:30:00+02:00',
+    startsAt: '2026-06-13T14:00:00+02:00',
     icon: '⛪',
     baseText: 'Le week-end commence bientôt. Prépare ta tenue, ton sourire et ton énergie 💛',
     specialText: 'Ouverture officielle de cette belle journée 💒',

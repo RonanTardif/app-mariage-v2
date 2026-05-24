@@ -67,7 +67,7 @@ export function InfosPage() {
   async function handleShare() {
     const url = window.location.origin
     if (navigator.share) {
-      await navigator.share({ title: 'Mariage Ronan & Lorie', url })
+      await navigator.share({ title: 'Mariage Lorie & Ronan', url })
     } else {
       await navigator.clipboard.writeText(url)
       setCopied(true)

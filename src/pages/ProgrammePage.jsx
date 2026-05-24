@@ -61,13 +61,13 @@ export function ProgrammePage() {
         <div className="rounded-3xl bg-gradient-to-br from-rose-50 to-amber-50 border border-rose-100 p-5 text-center">
           <p className="text-3xl mb-2">💛</p>
           <p className="font-bold text-lg text-stone-800">Merci d'avoir été là !</p>
-          <p className="text-sm text-stone-500 mt-1">Le mariage de Ronan &amp; Lorie est terminé.</p>
+          <p className="text-sm text-stone-500 mt-1">Le mariage de Lorie &amp; Ronan est terminé.</p>
         </div>
       ) : !weddingStarted && next ? (
         /* Avant le début */
         <div className="overflow-hidden rounded-3xl border border-rose-200 shadow-sm">
           <div className="bg-gradient-to-r from-rose-500 to-rose-400 p-5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-rose-200 mb-1">Mariage de Ronan &amp; Lorie</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-rose-200 mb-1">Mariage de Lorie &amp; Ronan</p>
             <p className="font-bold text-white text-xl mb-4">Le grand jour arrive bientôt 💛</p>
             <p className="text-xs font-semibold uppercase tracking-widest text-rose-200 mb-3">Premier moment</p>
             <div className="flex items-start gap-4">

@@ -52,7 +52,7 @@ export function AppShell({ children }) {
               <Heart size={16} />
             </div>
             <div>
-              <p className="text-sm font-semibold">Ronan & Lorie</p>
+              <p className="text-sm font-semibold">Lorie & Ronan</p>
               <p className="text-xs text-stone-500">13 juin 2026 · Domaine de la Corbe</p>
             </div>
           </div>

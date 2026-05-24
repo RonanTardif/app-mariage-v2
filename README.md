@@ -49,7 +49,7 @@ Données dans [src/data/programme.js](src/data/programme.js).
 ### Samedi 13 juin 2026
 | Heure | Événement | Lieu |
 |---|---|---|
-| 14h30 | Messe | Cathédrale de Luçon |
+| 14h | Messe | Cathédrale de Luçon |
 | 16h30 | Arrivée au domaine | Domaine |
 | 17h00 | Photos de groupe | Le lac |
 | 17h30 | Vin d'honneur | Devant le Château |

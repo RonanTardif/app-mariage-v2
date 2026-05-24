@@ -1,0 +1,118 @@
+PRÉNOM	NOM	Invité de	Présent samedi	Présent vendredi
+Julien	Robert	Ronan	Présent	Présent
+Pierre	Luciat	Ronan	Présent	Présent
+Zahra	Shah	Ronan	Présent	Présent
+Raymond	Garcia	Ronan	Présent	Absent
+Salomé	Duval	Ronan	Présent	Absent
+Sandrine	Garcia	Ronan	Présent	Absent
+Vincent	Duval	Ronan	Présent	Absent
+Anaïs	Picquenot	Ronan	Présent	Présent
+Bastien	Jammes	Ronan	Présent	Présent
+Maëlynn	Le Goff	Ronan	Présent	Présent
+Maxime	Le Goff	Ronan	Présent	Présent
+Aurore	Lefebvre	Lorie	Présent	Présent
+Nicolas	Poifol	Lorie	Présent	Présent
+Laurence	Lafosse	Lorie	Présent	Absent
+Antoine	Lagadec	Ronan	Présent	Présent
+Guillaume	Le Meudec	Ronan	Présent	Présent
+Gwennoline	Lagadec Tertrais	Ronan	Présent	Présent
+Sarah	Valenti	Ronan	Présent	Présent
+Lorie	Ebanga	Lorie	Présent	Présent
+Ronan	Tardif	Ronan	Présent	Présent
+Mathieu	Boulestreau-Lannier	Lorie	Présent	Absent
+Pauline	Boulestreau-Lannier	Lorie	Présent	Absent
+Alix	Vandenabeele	Lorie	Présent	Présent
+Antonin	Le Goallec	Lorie	Présent	Présent
+Caroline	Slimani	Lorie	Présent	Présent
+Anna	Laure	Lorie	Présent	Absent
+Sophie	Lacaze	Lorie	Présent	Absent
+Timothy	Bellaiche	Lorie	Présent	Absent
+Romuald	Metellus	Lorie	Présent	Présent
+Isabelle	Mahé	Ronan	Présent	Absent
+Antoine	Fleury	Ronan	Présent	Absent
+Pablo	Giboire	Ronan	Présent	Absent
+Quentin	Le Dissez	Lorie	Présent	Présent
+Guillaume	Léard	Ronan	Présent	Présent
+Cornelia “Conny”	Schmolke	Lorie	Présent	Présent
+Frieder	Philipps	Lorie	Présent	Présent
+Antoine	Laize	Ronan	Présent	Absent
+Romane	Ruelleux	Ronan	Présent	Absent
+Tristan	Carudel	Ronan	Présent	Présent
+Yasmine	Chebah	Ronan	Présent	Présent
+Clara	Duchemin	Ronan	Présent	Présent
+Johan	Rivoire	Ronan	Présent	Présent
+Marine	Cévaer	Ronan	Présent	Présent
+Marlène	Niobey	Ronan	Présent	Présent
+Ninon	Orhant	Ronan	Présent	Présent
+Amaya	London	Lorie	Présent	Présent
+Lucas	Lallemant	Lorie	Présent	Absent
+Olivia	Carlos	Lorie	Présent	Absent
+Etienne	Phillipe	Lorie	Présent	Présent
+Laura	Carré	Lorie	Présent	Présent
+Romain	Gontier	Lorie	Présent	Présent
+Camille	Mailharrou	Lorie	Présent	Présent
+Laure-Anne	Halay	Lorie	Présent	Présent
+Diane	Karcher Mourgues	Lorie	Présent	Présent
+Alban	Frémont de Reboul	Lorie	Présent	Présent
+Camille	Frémont de Reboul	Lorie	Présent	Présent
+Thaïs	Numéric	Lorie	Présent	Présent
+Khanh	Nguyen	Lorie	Présent	Présent
+Célestine	Garcia	Ronan	Présent	Absent
+Clément	Payen	Ronan	Présent	Absent
+Corinne	Tardif	Ronan	Présent	Absent
+Florane	Mainfray	Ronan	Présent	Absent
+Jéhan	Levrel	Ronan	Présent	Absent
+Laurence	Brisseau	Ronan	Présent	Absent
+Marie	Louazel	Ronan	Présent	Absent
+Marion	Mainfray	Ronan	Présent	Absent
+Mathieu	Menant	Ronan	Présent	Absent
+Maxence	Levrel	Ronan	Présent	Absent
+Myriam	Garcia	Ronan	Présent	Absent
+Noeline	Brisseau	Ronan	Présent	Absent
+Oliver	Brisseau	Ronan	Présent	Absent
+Romain	Mainfray	Ronan	Présent	Absent
+Séraphin	Garcia	Ronan	Présent	Absent
+Yannick	Garcia	Ronan	Présent	Absent
+Marianne	Gogat	Lorie	Présent	Présent
+Paul Marie	Munier	Lorie	Présent	Présent
+Nathalie	Poyvre	Lorie	Présent	Absent
+Marie-Laure	Gourtaud	Lorie	Présent	Absent
+Josette	Ebanga	Lorie	Présent	Présent
+Clélia	Laurent	Lorie	Présent	Présent
+Alexis	Ebanga	Lorie	Présent	Absent
+Anne	Heck	Lorie	Présent	Absent
+Anne	Saussaye	Lorie	Présent	Absent
+Bertrand	Heck	Lorie	Présent	Absent
+Dimitri	Ebanga	Lorie	Présent	Absent
+Phillipe	Ebanga	Lorie	Présent	Absent
+Stanislas	Ebanga	Lorie	Présent	Absent
+Frédéric	Tardif	Ronan	Présent	Présent
+Josiane	Tardif	Ronan	Présent	Présent
+Maryline	Tardif	Ronan	Présent	Présent
+Nolwenn	Tardif	Ronan	Présent	Présent
+Quentin	Le FLoch	Ronan	Présent	Présent
+Alilé	Akono-Ebanga	Lorie	Présent	Présent
+Clément	Pietri	Lorie	Présent	Présent
+Jean-Paul	Ebanga	Lorie	Présent	Présent
+Léa	Ebanga	Lorie	Présent	Présent
+Rose	Pietri	Lorie	Présent	Présent
+Sophie	Ebanga	Lorie	Présent	Présent
+Alice	Ballot-Léna	Lorie	Présent	Absent
+Lionel “Noah”	Gourtaud	Lorie	Présent	Absent
+Auriane	Garretti	Lorie	Présent	Absent
+Cristian	Meneghello	Lorie	Présent	Absent
+Alexandra	Thomas	Ronan	Présent	Présent
+Adel	Aribi	Lorie	Présent	Absent
+Alba	Payen	Ronan	Présent	Absent
+Claire	Saussaye	Lorie	Présent	Absent
+Julia	Chalaye	Ronan	Présent	Absent
+Juliette	Saussaye	Lorie	Présent	Absent
+Laurène	Saussaye	Lorie	Présent	Absent
+Laurent	Saussaye	Lorie	Présent	Absent
+Léna	Saïzonou	Lorie	Présent	Absent
+Lia	Payen	Ronan	Présent	Absent
+Sami	Hammoudi	Ronan	Présent	Absent
+Victor	Saïzonou	Lorie	Présent	Absent
+Joséphine	Frémont de Reboul	Lorie	Présent	
+Joachim	Aribi	Lorie	Présent	
+				

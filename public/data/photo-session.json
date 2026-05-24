@@ -1,0 +1,961 @@
+{
+  "data": {
+    "people": [
+      {
+        "person_id": "guest-1",
+        "display_name": "Pierre Luciat",
+        "search_text": "pierre luciat"
+      },
+      {
+        "person_id": "guest-2",
+        "display_name": "Zahra Shah",
+        "search_text": "zahra shah"
+      },
+      {
+        "person_id": "guest-3",
+        "display_name": "Raymond Garcia",
+        "search_text": "raymond garcia"
+      },
+      {
+        "person_id": "guest-4",
+        "display_name": "Salomé Duval",
+        "search_text": "salome duval"
+      },
+      {
+        "person_id": "guest-5",
+        "display_name": "Sandrine Garcia",
+        "search_text": "sandrine garcia"
+      },
+      {
+        "person_id": "guest-6",
+        "display_name": "Vincent Duval",
+        "search_text": "vincent duval"
+      },
+      {
+        "person_id": "guest-7",
+        "display_name": "Anaïs Picquenot",
+        "search_text": "anais picquenot"
+      },
+      {
+        "person_id": "guest-8",
+        "display_name": "Bastien Jammes",
+        "search_text": "bastien jammes"
+      },
+      {
+        "person_id": "guest-9",
+        "display_name": "Maëlynn Le Goff",
+        "search_text": "maelynn le goff"
+      },
+      {
+        "person_id": "guest-10",
+        "display_name": "Maxime Le Goff",
+        "search_text": "maxime le goff"
+      },
+      {
+        "person_id": "guest-11",
+        "display_name": "Aurore Lefebvre",
+        "search_text": "aurore lefebvre"
+      },
+      {
+        "person_id": "guest-12",
+        "display_name": "Nicolas Poifol",
+        "search_text": "nicolas poifol"
+      },
+      {
+        "person_id": "guest-13",
+        "display_name": "Laurence Lafosse",
+        "search_text": "laurence lafosse"
+      },
+      {
+        "person_id": "guest-14",
+        "display_name": "Antoine Lagadec",
+        "search_text": "antoine lagadec"
+      },
+      {
+        "person_id": "guest-15",
+        "display_name": "Guillaume Le Meudec",
+        "search_text": "guillaume le meudec"
+      },
+      {
+        "person_id": "guest-16",
+        "display_name": "Gwennoline Lagadec Tertrais",
+        "search_text": "gwennoline lagadec tertrais"
+      },
+      {
+        "person_id": "guest-17",
+        "display_name": "Sarah Valenti",
+        "search_text": "sarah valenti"
+      },
+      {
+        "person_id": "guest-18",
+        "display_name": "Lorie Ebanga",
+        "search_text": "lorie ebanga"
+      },
+      {
+        "person_id": "guest-19",
+        "display_name": "Ronan Tardif",
+        "search_text": "ronan tardif"
+      },
+      {
+        "person_id": "guest-20",
+        "display_name": "Mathieu Boulestreau-Lannier",
+        "search_text": "mathieu boulestreau-lannier"
+      },
+      {
+        "person_id": "guest-21",
+        "display_name": "Pauline Boulestreau-Lannier",
+        "search_text": "pauline boulestreau-lannier"
+      },
+      {
+        "person_id": "guest-22",
+        "display_name": "Alix Vandenabeele",
+        "search_text": "alix vandenabeele"
+      },
+      {
+        "person_id": "guest-23",
+        "display_name": "Antonin Le Goallec",
+        "search_text": "antonin le goallec"
+      },
+      {
+        "person_id": "guest-24",
+        "display_name": "Caroline Slimani",
+        "search_text": "caroline slimani"
+      },
+      {
+        "person_id": "guest-25",
+        "display_name": "Anna Laure",
+        "search_text": "anna laure"
+      },
+      {
+        "person_id": "guest-26",
+        "display_name": "Sophie Lacaze",
+        "search_text": "sophie lacaze"
+      },
+      {
+        "person_id": "guest-27",
+        "display_name": "Timothy Bellaiche",
+        "search_text": "timothy bellaiche"
+      },
+      {
+        "person_id": "guest-28",
+        "display_name": "Romuald Metellus",
+        "search_text": "romuald metellus"
+      },
+      {
+        "person_id": "guest-29",
+        "display_name": "Isabelle Mahé",
+        "search_text": "isabelle mahe"
+      },
+      {
+        "person_id": "guest-30",
+        "display_name": "Antoine Fleury",
+        "search_text": "antoine fleury"
+      },
+      {
+        "person_id": "guest-31",
+        "display_name": "Pablo Giboire",
+        "search_text": "pablo giboire"
+      },
+      {
+        "person_id": "guest-32",
+        "display_name": "Quentin Le Dissez",
+        "search_text": "quentin le dissez"
+      },
+      {
+        "person_id": "guest-33",
+        "display_name": "Guillaume Léard",
+        "search_text": "guillaume leard"
+      },
+      {
+        "person_id": "guest-34",
+        "display_name": "Cornelia \"Conny\" Schmolke",
+        "search_text": "cornelia \"conny\" schmolke"
+      },
+      {
+        "person_id": "guest-35",
+        "display_name": "Frieder Philipps",
+        "search_text": "frieder philipps"
+      },
+      {
+        "person_id": "guest-36",
+        "display_name": "Antoine Laize",
+        "search_text": "antoine laize"
+      },
+      {
+        "person_id": "guest-37",
+        "display_name": "Romane Ruelleux",
+        "search_text": "romane ruelleux"
+      },
+      {
+        "person_id": "guest-38",
+        "display_name": "Tristan Carudel",
+        "search_text": "tristan carudel"
+      },
+      {
+        "person_id": "guest-39",
+        "display_name": "Yasmine Chebah",
+        "search_text": "yasmine chebah"
+      },
+      {
+        "person_id": "guest-40",
+        "display_name": "Clara Duchemin",
+        "search_text": "clara duchemin"
+      },
+      {
+        "person_id": "guest-41",
+        "display_name": "Johan Rivoire",
+        "search_text": "johan rivoire"
+      },
+      {
+        "person_id": "guest-42",
+        "display_name": "Marine Cévaer",
+        "search_text": "marine cevaer"
+      },
+      {
+        "person_id": "guest-43",
+        "display_name": "Marlène Niobey",
+        "search_text": "marlene niobey"
+      },
+      {
+        "person_id": "guest-44",
+        "display_name": "Ninon Orhant",
+        "search_text": "ninon orhant"
+      },
+      {
+        "person_id": "guest-45",
+        "display_name": "Amaya London",
+        "search_text": "amaya london"
+      },
+      {
+        "person_id": "guest-46",
+        "display_name": "Lucas Lallemant",
+        "search_text": "lucas lallemant"
+      },
+      {
+        "person_id": "guest-47",
+        "display_name": "Olivia Carlos",
+        "search_text": "olivia carlos"
+      },
+      {
+        "person_id": "guest-48",
+        "display_name": "Etienne Phillipe",
+        "search_text": "etienne phillipe"
+      },
+      {
+        "person_id": "guest-49",
+        "display_name": "Laura Carré",
+        "search_text": "laura carre"
+      },
+      {
+        "person_id": "guest-50",
+        "display_name": "Romain Gontier",
+        "search_text": "romain gontier"
+      },
+      {
+        "person_id": "guest-51",
+        "display_name": "Camille Mailharrou",
+        "search_text": "camille mailharrou"
+      },
+      {
+        "person_id": "guest-52",
+        "display_name": "Laure-Anne Halay",
+        "search_text": "laure-anne halay"
+      },
+      {
+        "person_id": "guest-53",
+        "display_name": "Diane Karcher Mourgues",
+        "search_text": "diane karcher mourgues"
+      },
+      {
+        "person_id": "guest-54",
+        "display_name": "Alban Frémont de Reboul",
+        "search_text": "alban fremont de reboul"
+      },
+      {
+        "person_id": "guest-55",
+        "display_name": "Camille Frémont de Reboul",
+        "search_text": "camille fremont de reboul"
+      },
+      {
+        "person_id": "guest-56",
+        "display_name": "Thaïs Numéric",
+        "search_text": "thais numeric"
+      },
+      {
+        "person_id": "guest-57",
+        "display_name": "Khanh Nguyen",
+        "search_text": "khanh nguyen"
+      },
+      {
+        "person_id": "guest-58",
+        "display_name": "Célestine Garcia",
+        "search_text": "celestine garcia"
+      },
+      {
+        "person_id": "guest-59",
+        "display_name": "Clément Payen",
+        "search_text": "clement payen"
+      },
+      {
+        "person_id": "guest-60",
+        "display_name": "Corinne Tardif",
+        "search_text": "corinne tardif"
+      },
+      {
+        "person_id": "guest-61",
+        "display_name": "Florane Mainfray",
+        "search_text": "florane mainfray"
+      },
+      {
+        "person_id": "guest-62",
+        "display_name": "Jéhan Levrel",
+        "search_text": "jehan levrel"
+      },
+      {
+        "person_id": "guest-63",
+        "display_name": "Laurence Brisseau",
+        "search_text": "laurence brisseau"
+      },
+      {
+        "person_id": "guest-64",
+        "display_name": "Marie Louazel",
+        "search_text": "marie louazel"
+      },
+      {
+        "person_id": "guest-65",
+        "display_name": "Marion Mainfray",
+        "search_text": "marion mainfray"
+      },
+      {
+        "person_id": "guest-66",
+        "display_name": "Mathieu Menant",
+        "search_text": "mathieu menant"
+      },
+      {
+        "person_id": "guest-67",
+        "display_name": "Maxence Levrel",
+        "search_text": "maxence levrel"
+      },
+      {
+        "person_id": "guest-68",
+        "display_name": "Myriam Garcia",
+        "search_text": "myriam garcia"
+      },
+      {
+        "person_id": "guest-69",
+        "display_name": "Noeline Brisseau",
+        "search_text": "noeline brisseau"
+      },
+      {
+        "person_id": "guest-70",
+        "display_name": "Oliver Brisseau",
+        "search_text": "oliver brisseau"
+      },
+      {
+        "person_id": "guest-71",
+        "display_name": "Romain Mainfray",
+        "search_text": "romain mainfray"
+      },
+      {
+        "person_id": "guest-72",
+        "display_name": "Séraphin Garcia",
+        "search_text": "seraphin garcia"
+      },
+      {
+        "person_id": "guest-73",
+        "display_name": "Yannick Garcia",
+        "search_text": "yannick garcia"
+      },
+      {
+        "person_id": "guest-74",
+        "display_name": "Marianne Gogat",
+        "search_text": "marianne gogat"
+      },
+      {
+        "person_id": "guest-75",
+        "display_name": "Paul Marie Munier",
+        "search_text": "paul marie munier"
+      },
+      {
+        "person_id": "guest-76",
+        "display_name": "Nathalie Poyvre",
+        "search_text": "nathalie poyvre"
+      },
+      {
+        "person_id": "guest-77",
+        "display_name": "Marie-Laure Gourtaud",
+        "search_text": "marie-laure gourtaud"
+      },
+      {
+        "person_id": "guest-80",
+        "display_name": "Josette Ebanga",
+        "search_text": "josette ebanga"
+      },
+      {
+        "person_id": "guest-81",
+        "display_name": "Clélia Laurent",
+        "search_text": "clelia laurent"
+      },
+      {
+        "person_id": "guest-82",
+        "display_name": "Alexis Ebanga",
+        "search_text": "alexis ebanga"
+      },
+      {
+        "person_id": "guest-83",
+        "display_name": "Anne Heck",
+        "search_text": "anne heck"
+      },
+      {
+        "person_id": "guest-84",
+        "display_name": "Anne Saussaye",
+        "search_text": "anne saussaye"
+      },
+      {
+        "person_id": "guest-85",
+        "display_name": "Bertrand Heck",
+        "search_text": "bertrand heck"
+      },
+      {
+        "person_id": "guest-86",
+        "display_name": "Dimitri Ebanga",
+        "search_text": "dimitri ebanga"
+      },
+      {
+        "person_id": "guest-87",
+        "display_name": "Phillipe Ebanga",
+        "search_text": "phillipe ebanga"
+      },
+      {
+        "person_id": "guest-88",
+        "display_name": "Stanislas Ebanga",
+        "search_text": "stanislas ebanga"
+      },
+      {
+        "person_id": "guest-89",
+        "display_name": "Frédéric Tardif",
+        "search_text": "frederic tardif"
+      },
+      {
+        "person_id": "guest-90",
+        "display_name": "Josiane Tardif",
+        "search_text": "josiane tardif"
+      },
+      {
+        "person_id": "guest-91",
+        "display_name": "Maryline Tardif",
+        "search_text": "maryline tardif"
+      },
+      {
+        "person_id": "guest-92",
+        "display_name": "Nolwenn Tardif",
+        "search_text": "nolwenn tardif"
+      },
+      {
+        "person_id": "guest-93",
+        "display_name": "Quentin Le Floch",
+        "search_text": "quentin le floch"
+      },
+      {
+        "person_id": "guest-94",
+        "display_name": "Alilé Akono-Ebanga",
+        "search_text": "alile akono-ebanga"
+      },
+      {
+        "person_id": "guest-95",
+        "display_name": "Clément Pietri",
+        "search_text": "clement pietri"
+      },
+      {
+        "person_id": "guest-96",
+        "display_name": "Jean-Paul Ebanga",
+        "search_text": "jean-paul ebanga"
+      },
+      {
+        "person_id": "guest-97",
+        "display_name": "Léa Ebanga",
+        "search_text": "lea ebanga"
+      },
+      {
+        "person_id": "guest-98",
+        "display_name": "Rose Pietri",
+        "search_text": "rose pietri"
+      },
+      {
+        "person_id": "guest-99",
+        "display_name": "Sophie Ebanga",
+        "search_text": "sophie ebanga"
+      },
+      {
+        "person_id": "guest-100",
+        "display_name": "Alice Ballot-Léna",
+        "search_text": "alice ballot-lena"
+      },
+      {
+        "person_id": "guest-101",
+        "display_name": "Lionel \"Noah\" Gourtaud",
+        "search_text": "lionel \"noah\" gourtaud"
+      },
+      {
+        "person_id": "guest-102",
+        "display_name": "Auriane Garretti",
+        "search_text": "auriane garretti"
+      },
+      {
+        "person_id": "guest-103",
+        "display_name": "Cristian Meneghello",
+        "search_text": "cristian meneghello"
+      },
+      {
+        "person_id": "guest-104",
+        "display_name": "Alexandra Thomas",
+        "search_text": "alexandra thomas"
+      },
+      {
+        "person_id": "guest-105",
+        "display_name": "Adel Aribi",
+        "search_text": "adel aribi"
+      },
+      {
+        "person_id": "guest-106",
+        "display_name": "Alba Payen",
+        "search_text": "alba payen"
+      },
+      {
+        "person_id": "guest-107",
+        "display_name": "Claire Saussaye",
+        "search_text": "claire saussaye"
+      },
+      {
+        "person_id": "guest-108",
+        "display_name": "Julia Chalaye",
+        "search_text": "julia chalaye"
+      },
+      {
+        "person_id": "guest-109",
+        "display_name": "Juliette Saussaye",
+        "search_text": "juliette saussaye"
+      },
+      {
+        "person_id": "guest-110",
+        "display_name": "Laurène Saussaye",
+        "search_text": "laurene saussaye"
+      },
+      {
+        "person_id": "guest-111",
+        "display_name": "Laurent Saussaye",
+        "search_text": "laurent saussaye"
+      },
+      {
+        "person_id": "guest-112",
+        "display_name": "Léna Saïzonou",
+        "search_text": "lena saizonou"
+      },
+      {
+        "person_id": "guest-113",
+        "display_name": "Lia Payen",
+        "search_text": "lia payen"
+      },
+      {
+        "person_id": "guest-114",
+        "display_name": "Sami Hammoudi",
+        "search_text": "sami hammoudi"
+      },
+      {
+        "person_id": "guest-115",
+        "display_name": "Victor Saïzonou",
+        "search_text": "victor saizonou"
+      },
+      {
+        "person_id": "guest-10001",
+        "display_name": "Julien Robert",
+        "search_text": "julien robert"
+      },
+      {
+        "person_id": "guest-10002",
+        "display_name": "Joséphine Frémont de Reboul",
+        "search_text": "josephine fremont de reboul"
+      },
+      {
+        "person_id": "guest-10003",
+        "display_name": "Joachim Aribi",
+        "search_text": "joachim aribi"
+      },
+      {
+        "person_id": "guest-10004",
+        "display_name": "Joseph Pietri",
+        "search_text": "joseph pietri"
+      }
+    ],
+    "groups": [],
+    "slots": []
+  },
+  "state": {
+    "photoStart": "2026-06-13T16:30",
+    "delayMinutes": 0,
+    "groupIntervalMinutes": 10,
+    "groups": [
+      {
+        "id": "group-1a",
+        "name": "Famille proche de Ronan",
+        "memberIds": [
+          "guest-91",
+          "guest-89",
+          "guest-92",
+          "guest-93",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-1b",
+        "name": "Famille Tardif avec Josiane",
+        "memberIds": [
+          "guest-90",
+          "guest-91",
+          "guest-89",
+          "guest-92",
+          "guest-93",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-1c",
+        "name": "Famille proche de Lorie",
+        "memberIds": [
+          "guest-96",
+          "guest-99",
+          "guest-97",
+          "guest-95",
+          "guest-98",
+          "guest-10004",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-1d",
+        "name": "Famille de Lorie élargie",
+        "memberIds": [
+          "guest-80",
+          "guest-94",
+          "guest-96",
+          "guest-99",
+          "guest-97",
+          "guest-95",
+          "guest-98",
+          "guest-10004",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-1e",
+        "name": "Les deux familles",
+        "memberIds": [
+          "guest-91",
+          "guest-89",
+          "guest-92",
+          "guest-93",
+          "guest-90",
+          "guest-96",
+          "guest-99",
+          "guest-97",
+          "guest-95",
+          "guest-98",
+          "guest-10004",
+          "guest-80",
+          "guest-94",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-2a",
+        "name": "Témoins de Lorie",
+        "memberIds": [
+          "guest-56",
+          "guest-97",
+          "guest-95",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-2b",
+        "name": "Témoins de Ronan",
+        "memberIds": [
+          "guest-33",
+          "guest-1",
+          "guest-38",
+          "guest-31",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-2c",
+        "name": "Tous les témoins",
+        "memberIds": [
+          "guest-56",
+          "guest-97",
+          "guest-95",
+          "guest-33",
+          "guest-1",
+          "guest-38",
+          "guest-31",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-7a",
+        "name": "Famille Ebanga",
+        "memberIds": [
+          "guest-96",
+          "guest-99",
+          "guest-80",
+          "guest-97",
+          "guest-82",
+          "guest-98",
+          "guest-86",
+          "guest-87",
+          "guest-88",
+          "guest-10004",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-7b",
+        "name": "Grande famille Ebanga",
+        "memberIds": [
+          "guest-96",
+          "guest-99",
+          "guest-80",
+          "guest-97",
+          "guest-82",
+          "guest-98",
+          "guest-86",
+          "guest-87",
+          "guest-88",
+          "guest-10004",
+          "guest-111",
+          "guest-84",
+          "guest-107",
+          "guest-109",
+          "guest-110",
+          "guest-100",
+          "guest-95",
+          "guest-115",
+          "guest-112",
+          "guest-76",
+          "guest-105",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-7c",
+        "name": "Ebanga & amis proches",
+        "memberIds": [
+          "guest-83",
+          "guest-85",
+          "guest-13",
+          "guest-99",
+          "guest-96",
+          "guest-97",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-4c",
+        "name": "Les Doudous",
+        "memberIds": [
+          "guest-45",
+          "guest-46",
+          "guest-47",
+          "guest-48",
+          "guest-49",
+          "guest-50",
+          "guest-97",
+          "guest-95",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-4a",
+        "name": "Amis de Lorie — 1er groupe",
+        "memberIds": [
+          "guest-22",
+          "guest-23",
+          "guest-24",
+          "guest-81",
+          "guest-28",
+          "guest-20",
+          "guest-21",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-4b",
+        "name": "Amis de Lorie — 2e groupe",
+        "memberIds": [
+          "guest-75",
+          "guest-74",
+          "guest-53",
+          "guest-55",
+          "guest-27",
+          "guest-25",
+          "guest-26",
+          "guest-12",
+          "guest-11",
+          "guest-54",
+          "guest-57",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-4d",
+        "name": "Amis de Lorie — 3e groupe",
+        "memberIds": [
+          "guest-102",
+          "guest-103",
+          "guest-34",
+          "guest-35",
+          "guest-77",
+          "guest-32",
+          "guest-101",
+          "guest-52",
+          "guest-51",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-3a",
+        "name": "Amis de Ronan Pacé — garçons",
+        "memberIds": [
+          "guest-14",
+          "guest-15",
+          "guest-8",
+          "guest-10",
+          "guest-114",
+          "guest-30",
+          "guest-1",
+          "guest-33",
+          "guest-38",
+          "guest-31",
+          "guest-36",
+          "guest-10001",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-3b",
+        "name": "Amis de Ronan Pacé — tous",
+        "memberIds": [
+          "guest-14",
+          "guest-15",
+          "guest-8",
+          "guest-10",
+          "guest-114",
+          "guest-30",
+          "guest-1",
+          "guest-33",
+          "guest-38",
+          "guest-31",
+          "guest-36",
+          "guest-10001",
+          "guest-16",
+          "guest-17",
+          "guest-37",
+          "guest-7",
+          "guest-9",
+          "guest-39",
+          "guest-2",
+          "guest-29",
+          "guest-108",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-5",
+        "name": "Amies de Ronan",
+        "memberIds": [
+          "guest-40",
+          "guest-42",
+          "guest-44",
+          "guest-104",
+          "guest-43",
+          "guest-33",
+          "guest-1",
+          "guest-41",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      },
+      {
+        "id": "group-6a",
+        "name": "Famille de Ronan",
+        "memberIds": [
+          "guest-60",
+          "guest-61",
+          "guest-65",
+          "guest-66",
+          "guest-71",
+          "guest-106",
+          "guest-113",
+          "guest-63",
+          "guest-70",
+          "guest-69",
+          "guest-64",
+          "guest-62",
+          "guest-67",
+          "guest-3",
+          "guest-5",
+          "guest-6",
+          "guest-4",
+          "guest-58",
+          "guest-68",
+          "guest-72",
+          "guest-73",
+          "guest-59",
+          "guest-89",
+          "guest-91",
+          "guest-92",
+          "guest-93",
+          "guest-90",
+          "guest-18",
+          "guest-19"
+        ],
+        "done": false
+      }
+    ]
+  }
+}

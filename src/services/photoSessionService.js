@@ -35,6 +35,17 @@ export async function saveSessionState(state) {
   await setDoc(STATE_REF(), { ...state, updatedAt: serverTimestamp() })
 }
 
+/* ─── Seed depuis un JSON local ─────────────────────────────── */
+export async function seedFromJson(jsonUrl) {
+  const res = await fetch(jsonUrl)
+  if (!res.ok) throw new Error(`Impossible de charger ${jsonUrl} (${res.status})`)
+  const { data, state } = await res.json()
+  await Promise.all([
+    setDoc(DATA_REF(),  { ...data,  updatedAt: serverTimestamp() }),
+    setDoc(STATE_REF(), { ...state, updatedAt: serverTimestamp() }),
+  ])
+}
+
 /* ─── Seed depuis l'API GAS ──────────────────────────────────── */
 export async function seedFromGas(gasApiUrl) {
   const payload = await fetchJsonp(gasApiUrl)
