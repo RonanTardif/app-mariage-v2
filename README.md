@@ -62,7 +62,7 @@ Données dans [src/data/programme.js](src/data/programme.js).
 |---|---|---|
 | 10h00 | Ouverture piscine | Piscine |
 | 11h00 | Brunch | Saloon |
-| 14h00 | Pool Party | Piscine |
+| 13h | Pool Party | Piscine |
 | 17h00 | Fin du mariage | Domaine |
 
 ### Paramètres importants — page Programme

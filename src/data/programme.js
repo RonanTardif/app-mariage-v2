@@ -114,13 +114,13 @@ export const programmeEvents = [
   {
     id: 'dimanche-pool',
     day: 'Dimanche',
-    timeLabel: '14h00',
+    timeLabel: '13h',
     title: 'Pool Party',
     subtitle: "N'oublie pas ton maillot !",
     place: 'Piscine',
-    startsAt: '2026-06-14T14:00:00+02:00',
+    startsAt: '2026-06-14T13:00:00+02:00',
     icon: '🏊',
-    baseText: 'La pool party commence à 14h — maillot de bain obligatoire !',
+    baseText: 'La pool party commence à 13h — maillot de bain obligatoire !',
     specialText: 'La fête continue autour de la piscine 🎉',
   },
   {
