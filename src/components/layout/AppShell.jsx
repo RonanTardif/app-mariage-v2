@@ -17,7 +17,8 @@ const NAV_BASE_SUN = [
   { to: '/quiz', label: 'Quiz' },
 ]
 
-// Dimanche 14 juin 2026 à 8h heure de Paris (UTC+2 en été)
+// Bornes du week-end mariage (heure Paris)
+const SATURDAY_START = new Date('2026-06-13T00:00:00+02:00')
 const SUNDAY_MORNING = new Date('2026-06-14T08:00:00+02:00')
 
 const PHOTOS_ITEM = { to: '/photos', label: 'Photos groupe', pulse: true }
@@ -38,6 +39,10 @@ function getParisMinutes() {
 function getNavItems() {
   const now = new Date()
   const base = now >= SUNDAY_MORNING ? NAV_BASE_SUN : NAV_BASE_SAT
+
+  // Hors week-end mariage : Photos groupe fixe, sans pulse
+  if (now < SATURDAY_START) return [...base, { ...PHOTOS_ITEM, pulse: false }]
+
   const min = getParisMinutes()
   // Photos groupe (pulsing) avant 17h15, Album après 18h15
   const showPhotos = min < 17 * 60 + 15
