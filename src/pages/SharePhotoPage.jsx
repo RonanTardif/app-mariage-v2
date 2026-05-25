@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Camera, Images, Check, AlertCircle, X, Plus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { submitPhoto } from '../services/galleryService'
+import { submitPhoto, getMyName } from '../services/galleryService'
 
 function genId() {
   return `photo_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
@@ -225,7 +225,7 @@ export function SharePhotoPage() {
   const [step, setStep] = useState('pick')
   // items = [{ id, file, preview }]
   const [items, setItems] = useState([])
-  const [author, setAuthor] = useState('')
+  const [author, setAuthor] = useState(() => getMyName() || '')
   const [progress, setProgress] = useState({ current: 0, total: 0 })
   const [doneCount, setDoneCount] = useState(0)
   const [error, setError] = useState(null)

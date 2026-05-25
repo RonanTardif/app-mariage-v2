@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { Reorder, useDragControls, motion, AnimatePresence } from 'framer-motion'
-import { GripVertical, Check, RotateCcw, Clock, Users, Camera, Trash2, Plus, Database, Search, X, Pencil } from 'lucide-react'
+import { GripVertical, Check, RotateCcw, Clock, Users, Camera, Trash2, Plus, Database, Search, X, Pencil, Lock, Unlock } from 'lucide-react'
 import { APP_CONFIG } from '../utils/constants'
 import { computeGroupEta } from '../utils/etaUtils'
 import { normalizeName } from '../utils/text'
@@ -9,6 +9,7 @@ import {
   saveSessionState,
   hasSessionData,
   seedFromGas,
+  seedFromJson,
   loadSessionData,
 } from '../services/photoSessionService'
 
@@ -27,6 +28,7 @@ const DEFAULT_STATE = {
   delayMinutes: 0,
   photoStart: '2026-06-13T16:30',
   groupIntervalMinutes: 10,
+  quizLocked: true,
   groups: [
     { id: 'g1', name: 'Groupe 1', done: false, memberIds: [] },
     { id: 'g2', name: 'Groupe 2', done: false, memberIds: [] },
@@ -574,6 +576,22 @@ export function AdminPage() {
     }
   }
 
+  async function handleSeedFromJson() {
+    setSeedStatus('seeding')
+    setSeedError(null)
+    try {
+      await seedFromJson('/data/photo-session.json')
+      const [data, remoteState] = await Promise.all([loadSessionData(), loadSessionState()])
+      setPeople(data?.people || [])
+      if (remoteState) setState({ ...remoteState, groups: ensureIds(remoteState.groups) })
+      setSeedStatus('done')
+      setSeedNeeded(false)
+    } catch (err) {
+      setSeedError(err?.message || 'Erreur lors du chargement JSON.')
+      setSeedStatus('error')
+    }
+  }
+
   const doneCount = state.groups.filter(g => g.done).length
   const progress  = state.groups.length > 0 ? (doneCount / state.groups.length) * 100 : 0
 
@@ -604,19 +622,29 @@ export function AdminPage() {
                 <p className="text-sm font-semibold text-blue-800">Données créneaux non initialisées</p>
               </div>
               <p className="text-xs text-blue-600">
-                Importe les personnes, groupes et créneaux depuis Google Sheets.
+                Charge les groupes photos et la liste des invités dans Firestore.
               </p>
-              <button
-                onClick={handleSeed}
-                disabled={seedStatus === 'seeding'}
-                className="flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 disabled:opacity-50 transition-colors"
-              >
-                {seedStatus === 'seeding'
-                  ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  : <Database size={14} />}
-                {seedStatus === 'seeding' ? 'Import en cours…' : 'Importer depuis Google Sheets'}
-              </button>
-              {seedStatus === 'done'  && <p className="text-xs font-semibold text-green-600">✓ Import réussi !</p>}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={handleSeedFromJson}
+                  disabled={seedStatus === 'seeding'}
+                  className="flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 disabled:opacity-50 transition-colors"
+                >
+                  {seedStatus === 'seeding'
+                    ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    : <Database size={14} />}
+                  {seedStatus === 'seeding' ? 'Chargement…' : 'Charger depuis JSON local'}
+                </button>
+                <button
+                  onClick={handleSeed}
+                  disabled={seedStatus === 'seeding'}
+                  className="flex items-center gap-2 rounded-xl border border-blue-300 bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-50 transition-colors"
+                >
+                  <Database size={14} />
+                  Google Sheets
+                </button>
+              </div>
+              {seedStatus === 'done'  && <p className="text-xs font-semibold text-green-600">✓ Chargement réussi !</p>}
               {seedStatus === 'error' && <p className="text-xs text-red-500">{seedError}</p>}
             </div>
           </motion.div>
@@ -696,6 +724,23 @@ export function AdminPage() {
                   : `⏩ Programme avancé de ${Math.abs(state.delayMinutes)} min`}
               </p>
             )}
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${state.quizLocked ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-500'}`}>
+            {state.quizLocked ? <Lock size={16} /> : <Unlock size={16} />}
+          </span>
+          <div className="flex flex-1 items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold text-stone-600">Quiz</p>
+              <p className="text-xs text-stone-400">{state.quizLocked ? 'Accès verrouillé' : 'Accès ouvert'}</p>
+            </div>
+            <button
+              onClick={() => update({ quizLocked: !state.quizLocked })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${state.quizLocked ? 'bg-red-400' : 'bg-green-400'}`}
+            >
+              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${state.quizLocked ? 'translate-x-1' : 'translate-x-6'}`} />
+            </button>
           </div>
         </div>
       </div>
@@ -827,22 +872,28 @@ export function AdminPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 mb-4">
                 <RotateCcw size={22} className="text-rose-500" />
               </div>
-              <p className="text-base font-bold text-stone-900">Réinitialiser depuis Google Sheets ?</p>
+              <p className="text-base font-bold text-stone-900">Réinitialiser les groupes ?</p>
               <p className="mt-1.5 text-sm text-stone-500">
-                Les groupes et membres actuels seront remplacés par les données du GSheet.
+                Les groupes et membres actuels seront remplacés.
               </p>
-              <div className="mt-5 flex gap-3">
+              <div className="mt-5 flex flex-col gap-2">
                 <button
-                  onClick={() => setShowResetConfirm(false)}
-                  className="flex-1 rounded-2xl border border-stone-200 bg-white py-3 text-sm font-semibold text-stone-600 hover:bg-stone-50 transition-colors"
+                  onClick={() => { setShowResetConfirm(false); handleSeedFromJson() }}
+                  className="w-full rounded-2xl bg-rose-500 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition-colors"
                 >
-                  Annuler
+                  Depuis JSON local
                 </button>
                 <button
                   onClick={() => { setShowResetConfirm(false); handleSeed() }}
-                  className="flex-1 rounded-2xl bg-rose-500 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition-colors"
+                  className="w-full rounded-2xl border border-stone-200 bg-white py-3 text-sm font-semibold text-stone-600 hover:bg-stone-50 transition-colors"
                 >
-                  Réinitialiser
+                  Depuis Google Sheets
+                </button>
+                <button
+                  onClick={() => setShowResetConfirm(false)}
+                  className="w-full rounded-2xl py-2 text-sm text-stone-400 hover:text-stone-600 transition-colors"
+                >
+                  Annuler
                 </button>
               </div>
             </motion.div>
