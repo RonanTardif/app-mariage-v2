@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MessageCircleMore, Settings, X, Download, Share2, Copy, Check, Phone, Car, Clock, Castle, Waves } from 'lucide-react'
+import { MessageCircleMore, Settings, X, Download, Share2, Copy, Check, Phone, Car, Clock, Castle, Waves, MapPin } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PageIntro } from '../components/shared/PageIntro'
 import { Card, CardContent } from '../components/ui/card'
@@ -30,7 +30,7 @@ const INFOS_PRATIQUES = [
   {
     icon: Clock,
     title: 'La messe',
-    text: "Rejoignez-nous sur le parvis de la cathédrale entre 14h et 14h15 : la messe débutera à 14h30 précises. Nous souhaitions que cette messe soit la plus joyeuse et accueillante possible ; aussi, le livret a été rédigé afin que vous pussiez suivre et participer à nos côtés !",
+    text: "Rejoignez-nous sur le parvis de la cathédrale entre 14h et 14h15 : la messe débutera à 14h30 précises. Nous souhaitions que cette messe soit la plus joyeuse et accueillante possible ; aussi, le livret a été rédigé afin que vous puissiez suivre et participer à nos côtés !",
   },
   {
     icon: Waves,
@@ -132,6 +132,39 @@ export function InfosPage() {
             </CardContent>
           </Card>
         ))}
+
+        {/* Adresses */}
+        <Card>
+          <CardContent>
+            <MapPin className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Cathédrale de Luçon</p>
+            <p className="text-sm text-stone-500">Place de l'Évêché, 85400 Luçon</p>
+            <a
+              href="https://maps.google.com/?q=Cathédrale+Saint-Pierre+de+Luçon,+Place+de+l'Évêché,+85400+Luçon"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-sage-700 hover:text-sage-500"
+            >
+              <MapPin size={14} /> Ouvrir dans Maps
+            </a>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <MapPin className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Domaine de la Corbe</p>
+            <p className="text-sm text-stone-500">La Corbedommère, 85480 Bournezeau</p>
+            <a
+              href="https://maps.google.com/?q=46.61720085396394,-1.1643862971748231"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-sage-700 hover:text-sage-500"
+            >
+              <MapPin size={14} /> Ouvrir dans Maps
+            </a>
+          </CardContent>
+        </Card>
 
         {/* WhatsApp */}
         <Card>
