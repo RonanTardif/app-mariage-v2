@@ -171,3 +171,6 @@ Créer un fichier `.env.local` à la racine avec les variables Firebase (voir se
 
 - **Groupe WhatsApp invités** : défini dans `APP_CONFIG.whatsappLink` ([src/utils/constants.js](src/utils/constants.js))
 - **API Google Apps Script** : définie dans `APP_CONFIG.photosApi` — endpoint JSONP pour les personnes/groupes/créneaux photos
+
+
+#Axes d'améliorations : 

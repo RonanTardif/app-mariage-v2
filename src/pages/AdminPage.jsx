@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { Reorder, useDragControls, motion, AnimatePresence } from 'framer-motion'
-import { GripVertical, Check, RotateCcw, Clock, Users, Camera, Trash2, Plus, Database, Search, X, Pencil } from 'lucide-react'
+import { GripVertical, Check, RotateCcw, Clock, Users, Camera, Trash2, Plus, Database, Search, X, Pencil, Lock, Unlock } from 'lucide-react'
 import { APP_CONFIG } from '../utils/constants'
 import { computeGroupEta } from '../utils/etaUtils'
 import { normalizeName } from '../utils/text'
@@ -28,6 +28,7 @@ const DEFAULT_STATE = {
   delayMinutes: 0,
   photoStart: '2026-06-13T16:30',
   groupIntervalMinutes: 10,
+  quizLocked: true,
   groups: [
     { id: 'g1', name: 'Groupe 1', done: false, memberIds: [] },
     { id: 'g2', name: 'Groupe 2', done: false, memberIds: [] },
@@ -723,6 +724,23 @@ export function AdminPage() {
                   : `⏩ Programme avancé de ${Math.abs(state.delayMinutes)} min`}
               </p>
             )}
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${state.quizLocked ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-500'}`}>
+            {state.quizLocked ? <Lock size={16} /> : <Unlock size={16} />}
+          </span>
+          <div className="flex flex-1 items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold text-stone-600">Quiz</p>
+              <p className="text-xs text-stone-400">{state.quizLocked ? 'Accès verrouillé' : 'Accès ouvert'}</p>
+            </div>
+            <button
+              onClick={() => update({ quizLocked: !state.quizLocked })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${state.quizLocked ? 'bg-red-400' : 'bg-green-400'}`}
+            >
+              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${state.quizLocked ? 'translate-x-1' : 'translate-x-6'}`} />
+            </button>
           </div>
         </div>
       </div>

@@ -1,12 +1,44 @@
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Trophy, RotateCcw, ChevronRight, CheckCircle, XCircle } from 'lucide-react'
+import { Trophy, RotateCcw, ChevronRight, CheckCircle, XCircle, Lock } from 'lucide-react'
 import { tier, loadProgress, loadResult, clearQuizProgress } from './QuizPage'
+import { subscribeToSessionState } from '../services/photoSessionService'
 
 export function QuizHubPage() {
   const navigate = useNavigate()
   const saved = loadProgress()
   const done = saved?.done === true
+
+  const [quizLocked, setQuizLocked] = useState(null)
+
+  useEffect(() => {
+    const unsub = subscribeToSessionState(
+      (data) => setQuizLocked(data?.quizLocked ?? true),
+      () => setQuizLocked(false),
+    )
+    return unsub
+  }, [])
+
+  if (quizLocked === null) return null
+
+  if (quizLocked) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center justify-center gap-4 py-20 text-center"
+      >
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-stone-100">
+          <Lock size={28} className="text-stone-400" />
+        </div>
+        <div>
+          <p className="text-lg font-bold text-stone-800">Quiz bientôt disponible</p>
+          <p className="mt-1 text-sm text-stone-500">Revenez un peu plus tard dans la journée !</p>
+        </div>
+      </motion.div>
+    )
+  }
 
   function handleRestart() {
     clearQuizProgress()

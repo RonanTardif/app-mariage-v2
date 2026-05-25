@@ -35,7 +35,7 @@ export const programmeEvents = [
     startsAt: '2026-06-13T17:00:00+02:00',
     icon: '📸',
     baseText: 'Retrouve ton créneau sur la page Photos pour ne pas le manquer.',
-    specialText: 'Direction le lac pour immortaliser les premiers moments ensemble 📸',
+    specialText: 'Rejoins-nous pour immortaliser les premiers moments ensemble 📸',
     ctaLabel: 'Voir mon créneau photo',
     ctaTo: '/photos',
   },

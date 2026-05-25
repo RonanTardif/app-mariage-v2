@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Sparkles, ShowerHead, MessageCircleMore, Settings, X, Download, Share2, Copy, Check } from 'lucide-react'
+import { MessageCircleMore, Settings, X, Download, Share2, Copy, Check, Phone, Car, Clock, Castle, Waves } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PageIntro } from '../components/shared/PageIntro'
 import { Card, CardContent } from '../components/ui/card'
@@ -20,10 +20,40 @@ function isInStandaloneMode() {
   )
 }
 
-/* ─── Infos statiques ─────────────────────────────────────────── */
-const infos = [
-  { title: 'Kit de survie',      text: 'Un kit pratique vous attend directement dans votre chambre.', icon: Sparkles },
-  { title: 'Essentiels sur place', text: 'Toilettes et salles de bain équipées pour tout le week-end.', icon: ShowerHead },
+/* ─── Données ─────────────────────────────────────────────────── */
+const INFOS_PRATIQUES = [
+  {
+    icon: Castle,
+    title: 'Départ du domaine',
+    text: 'À celles et ceux qui seront au domaine le samedi matin, nous vous serions très reconnaissants de bien vouloir quitter les lieux à 13h maximum afin que les mariés puissent rejoindre le lieu de cérémonie en toute discrétion : un grand merci par avance ! 🙏'
+  },
+  {
+    icon: Clock,
+    title: 'La messe',
+    text: "Rejoignez-nous sur le parvis de la cathédrale entre 14h et 14h15 : la messe débutera à 14h30 précises. Nous souhaitions que cette messe soit la plus joyeuse et accueillante possible ; aussi, le livret a été rédigé afin que vous pussiez suivre et participer à nos côtés !",
+  },
+  {
+    icon: Waves,
+    title: 'La piscine',
+    text: "Pour des raisons de sécurité, la piscine sera fermée le samedi. Elle ouvrira le dimanche matin dès 10h. N'oubliez pas vos maillots !",
+  },
+]
+
+const TEMOINS = [
+  { name: 'Léa',       tel: '+33650838840' },
+  { name: 'Guillaume', tel: '+33629479399' },
+  { name: 'Pierre',    tel: '+447961918516' },
+  { name: 'Thaïs',     tel: '+33648927076' },
+  { name: 'Lorie',     tel: '+33674664373' },
+  { name: 'Ronan',     tel: '+33630120546' },
+]
+
+const TAXIS = [
+  { name: 'Taxi réhortais',       tel: '0603263396' },
+  { name: 'Allo Radio taxis',     tel: '0251064480' },
+  { name: 'Taxi Anthony Gervais', tel: '0633968023' },
+  { name: 'Taxis Duprat',         tel: '0607593905' },
+  { name: 'AF Taxi Vendéen',      tel: '0625906521' },
 ]
 
 /* ─── Page ────────────────────────────────────────────────────── */
@@ -92,8 +122,8 @@ export function InfosPage() {
 
       <div className="space-y-3">
 
-        {/* Infos statiques */}
-        {infos.map((item) => (
+        {/* Infos pratiques */}
+        {INFOS_PRATIQUES.map((item) => (
           <Card key={item.title}>
             <CardContent>
               <item.icon className="text-sage-700" size={18} />
@@ -107,10 +137,10 @@ export function InfosPage() {
         <Card>
           <CardContent>
             <MessageCircleMore className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">{"Besoin d'aide ?"}</p>
-            <p className="text-sm text-stone-600">{"L'équipe est disponible tout le week-end."}</p>
+            <p className="mt-2 font-semibold">Le groupe WhatsApp du mariage</p>
+            <p className="text-sm text-stone-600">Rejoins le groupe pour suivre le week-end et rester connecté avec tout le monde !</p>
             <a href={APP_CONFIG.whatsappLink} target="_blank" rel="noreferrer">
-              <Button className="mt-3 w-full">Ouvrir WhatsApp</Button>
+              <Button className="mt-3 w-full">Rejoindre le groupe</Button>
             </a>
           </CardContent>
         </Card>
@@ -186,6 +216,50 @@ export function InfosPage() {
             <p className="mt-3 text-center text-xs text-stone-400">Scannez pour accéder à l'application</p>
           </div>
         </motion.div>
+
+        {/* ── Les témoins ── */}
+        <Card>
+          <CardContent>
+            <Phone className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Les témoins</p>
+            <p className="text-sm text-stone-500 mb-3">Si besoin le jour J</p>
+            <ul className="space-y-2">
+              {TEMOINS.map(({ name, tel }) => (
+                <li key={name} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-stone-700">{name}</span>
+                  <a
+                    href={`tel:${tel}`}
+                    className="text-sm text-sage-700 font-semibold hover:underline"
+                  >
+                    {tel.replace(/^\+33/, '0').replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        {/* ── Taxis ── */}
+        <Card>
+          <CardContent>
+            <Car className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Taxis</p>
+            <p className="text-sm text-stone-500 mb-3">Réservez à l'avance si possible</p>
+            <ul className="space-y-2">
+              {TAXIS.map(({ name, tel }) => (
+                <li key={name} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-stone-700">{name}</span>
+                  <a
+                    href={`tel:${tel}`}
+                    className="text-sm text-sage-700 font-semibold hover:underline"
+                  >
+                    {tel.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
 
         {/* Admin shortcut */}
         <button onClick={openModal} className="w-full text-left">

@@ -34,7 +34,7 @@ export function CadeauxPage() {
             Si vous préférez participer en ligne, nous avons une liste pour notre voyage de noces. Encore une fois, c'est entièrement libre et facultatif 🌍
           </p>
           <a href={LISTE_URL} target="_blank" rel="noreferrer">
-            <Button variant="outline" className="mt-4 w-full">Voir la liste</Button>
+            <Button className="mt-4 w-full bg-rose-500 hover:bg-rose-700">Voir la liste</Button>
           </a>
         </CardContent>
       </Card>

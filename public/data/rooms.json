@@ -506,7 +506,7 @@
   {
     "person_id": "guest-59",
     "display_name": "Clément Payen",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Chambre 01 (RDC)",
     "notes": "RDC",
@@ -518,7 +518,7 @@
   {
     "person_id": "guest-65",
     "display_name": "Marion Mainfray",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Chambre 01 (RDC)",
     "notes": "RDC",
@@ -530,7 +530,7 @@
   {
     "person_id": "guest-106",
     "display_name": "Alba Payen",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Chambre 01 (RDC)",
     "notes": "RDC",
@@ -542,7 +542,7 @@
   {
     "person_id": "guest-113",
     "display_name": "Lia Payen",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Chambre 01 (RDC)",
     "notes": "RDC",
@@ -554,7 +554,7 @@
   {
     "person_id": "guest-60",
     "display_name": "Corinne Tardif",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Chambre 02 (RDC)",
     "notes": "RDC",
@@ -566,7 +566,7 @@
   {
     "person_id": "guest-71",
     "display_name": "Romain Mainfray",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Chambre 02 (RDC)",
     "notes": "RDC",
@@ -578,7 +578,7 @@
   {
     "person_id": "guest-61",
     "display_name": "Florane Mainfray",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Salon",
     "notes": "",
@@ -590,7 +590,7 @@
   {
     "person_id": "guest-66",
     "display_name": "Mathieu Menant",
-    "building": "Champêtre (PMR)",
+    "building": "Champêtre",
     "category": "Gîtes",
     "room_name": "Salon",
     "notes": "",

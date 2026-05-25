@@ -17,15 +17,28 @@ const NAV_BASE_SUN = [
   { to: '/quiz', label: 'Quiz' },
 ]
 
-const SUNDAY_MORNING = new Date('2026-03-30T08:00:00')
+// Dimanche 14 juin 2026 à 8h heure de Paris (UTC+2 en été)
+const SUNDAY_MORNING = new Date('2026-06-14T08:00:00+02:00')
 
 const PHOTOS_ITEM = { to: '/photos', label: 'Photos groupe', pulse: true }
 const ALBUM_ITEM  = { to: '/album',  label: 'Album' }
 
+function getParisMinutes() {
+  const parts = new Intl.DateTimeFormat('fr-FR', {
+    timeZone: 'Europe/Paris',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  }).formatToParts(new Date())
+  const h = parseInt(parts.find(p => p.type === 'hour').value)
+  const m = parseInt(parts.find(p => p.type === 'minute').value)
+  return h * 60 + m
+}
+
 function getNavItems() {
   const now = new Date()
   const base = now >= SUNDAY_MORNING ? NAV_BASE_SUN : NAV_BASE_SAT
-  const min = now.getHours() * 60 + now.getMinutes()
+  const min = getParisMinutes()
   // Photos groupe (pulsing) avant 17h15, Album après 18h15
   const showPhotos = min < 17 * 60 + 15
   const showAlbum  = min >= 18 * 60 + 15
