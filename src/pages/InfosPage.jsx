@@ -299,7 +299,7 @@ export function InfosPage() {
           <CardContent>
             <Users className="text-sage-700" size={18} />
             <p className="mt-2 font-semibold">Covoiturage</p>
-            <p className="text-sm text-stone-600">Vous partez de la même direction ? Proposez votre trajet ou trouvez une place dans le tableau partagé.</p>
+            <p className="text-sm text-stone-600">Vous faites le même trajet ? Proposez votre trajet ou trouvez une place dans le tableau partagé.</p>
             <a href="https://docs.google.com/spreadsheets/d/1036qwf3Txr1eiAjXALLYJr3o11D6cddk6gbLaMZIFDU/edit?usp=sharing" target="_blank" rel="noreferrer">
               <Button className="mt-3 w-full">Voir & proposer un covoiturage</Button>
             </a>
