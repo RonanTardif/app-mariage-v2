@@ -190,28 +190,6 @@ export function InfosPage() {
           </CardContent>
         </Card>
 
-        {/* ── Taxis ── */}
-        <Card>
-          <CardContent>
-            <Car className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">Taxis</p>
-            <p className="text-sm text-stone-500 mb-3">Réservez à l'avance si possible</p>
-            <ul className="space-y-2">
-              {TAXIS.map(({ name, tel }) => (
-                <li key={name} className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-stone-700">{name}</span>
-                  <a
-                    href={`tel:${tel}`}
-                    className="text-sm text-sage-700 font-semibold hover:underline"
-                  >
-                    {tel.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-
         {/* ── Les témoins ── */}
         <Card>
           <CardContent>
@@ -227,6 +205,28 @@ export function InfosPage() {
                     className="text-sm text-sage-700 font-semibold hover:underline"
                   >
                     {tel.replace(/^\+33/, '0').replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        {/* ── Taxis ── */}
+        <Card>
+          <CardContent>
+            <Car className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Taxis</p>
+            <p className="text-sm text-stone-500 mb-3">Réservez à l'avance si possible</p>
+            <ul className="space-y-2">
+              {TAXIS.map(({ name, tel }) => (
+                <li key={name} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-stone-700">{name}</span>
+                  <a
+                    href={`tel:${tel}`}
+                    className="text-sm text-sage-700 font-semibold hover:underline"
+                  >
+                    {tel.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
                   </a>
                 </li>
               ))}
