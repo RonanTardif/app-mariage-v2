@@ -165,7 +165,7 @@ export function LeaderboardPage() {
       </div>
 
       {/* ─── Podium ─── */}
-      <div className="rounded-3xl border border-stone-100 px-4 pt-6 pb-0 overflow-hidden" style={{ backgroundImage: 'url(/assets/podium_background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="rounded-3xl border border-stone-100 px-4 pt-6 pb-0 overflow-hidden" style={{ backgroundImage: 'url(/assets/podium_background.png)', backgroundSize: 'cover', backgroundPosition: 'top center' }}>
         <div className="flex items-end justify-center gap-2">
           {podiumOrder.map((entry, i) => (
             <PodiumCard
