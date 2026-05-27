@@ -71,7 +71,7 @@ export function AppShell({ children }) {
             </div>
             <div>
               <p className="text-sm font-semibold">Lorie & Ronan</p>
-              <p className="text-xs text-stone-500">13 juin 2026 · Domaine de la Corbe</p>
+              <p className="text-xs text-stone-500">13 juin 2026 · Château de la Corbe</p>
             </div>
           </div>
         </div>

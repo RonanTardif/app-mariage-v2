@@ -44,7 +44,7 @@ export function HomePage() {
         <div className="absolute bottom-0 left-0 p-6 text-white">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/60">Le mariage de</p>
           <h1 className="mt-1 text-3xl font-bold leading-tight tracking-tight">Lorie & Ronan</h1>
-          <p className="mt-1.5 text-sm text-white/75">Samedi 13 juin 2026 · Domaine de la Corbe</p>
+          <p className="mt-1.5 text-sm text-white/75">Samedi 13 juin 2026 · Château de la Corbe</p>
         </div>
       </motion.div>
 

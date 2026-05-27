@@ -4,7 +4,7 @@ export const programmeEvents = [
   {
     id: 'samedi-messe',
     day: 'Samedi',
-    timeLabel: '14h',
+    timeLabel: '14h00',
     title: 'Messe',
     subtitle: 'Cathédrale de Luçon',
     place: 'Cathédrale de Luçon',
@@ -114,7 +114,7 @@ export const programmeEvents = [
   {
     id: 'dimanche-pool',
     day: 'Dimanche',
-    timeLabel: '13h',
+    timeLabel: '13h00',
     title: 'Pool Party',
     subtitle: "N'oublie pas ton maillot !",
     place: 'Piscine',
