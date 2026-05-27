@@ -122,6 +122,18 @@ export function InfosPage() {
 
       <div className="space-y-3">
 
+        {/* WhatsApp */}
+        <Card>
+          <CardContent>
+            <MessageCircleMore className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Le groupe WhatsApp du mariage</p>
+            <p className="text-sm text-stone-600">Rejoins le groupe pour suivre le week-end et rester connecté avec tout le monde !</p>
+            <a href={APP_CONFIG.whatsappLink} target="_blank" rel="noreferrer">
+              <Button className="mt-3 w-full">Rejoindre le groupe</Button>
+            </a>
+          </CardContent>
+        </Card>
+
         {/* Infos pratiques */}
         {INFOS_PRATIQUES.map((item) => (
           <Card key={item.title}>
@@ -166,15 +178,59 @@ export function InfosPage() {
           </CardContent>
         </Card>
 
-        {/* WhatsApp */}
+        {/* ── Covoiturage ── */}
         <Card>
           <CardContent>
-            <MessageCircleMore className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">Le groupe WhatsApp du mariage</p>
-            <p className="text-sm text-stone-600">Rejoins le groupe pour suivre le week-end et rester connecté avec tout le monde !</p>
-            <a href={APP_CONFIG.whatsappLink} target="_blank" rel="noreferrer">
-              <Button className="mt-3 w-full">Rejoindre le groupe</Button>
+            <Users className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Covoiturage</p>
+            <p className="text-sm text-stone-600">Vous faites le même trajet ? Proposez votre trajet ou trouvez une place dans le tableau partagé.</p>
+            <a href="https://docs.google.com/spreadsheets/d/1036qwf3Txr1eiAjXALLYJr3o11D6cddk6gbLaMZIFDU/edit?usp=sharing" target="_blank" rel="noreferrer">
+              <Button className="mt-3 w-full">Voir & proposer un covoiturage</Button>
             </a>
+          </CardContent>
+        </Card>
+
+        {/* ── Taxis ── */}
+        <Card>
+          <CardContent>
+            <Car className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Taxis</p>
+            <p className="text-sm text-stone-500 mb-3">Réservez à l'avance si possible</p>
+            <ul className="space-y-2">
+              {TAXIS.map(({ name, tel }) => (
+                <li key={name} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-stone-700">{name}</span>
+                  <a
+                    href={`tel:${tel}`}
+                    className="text-sm text-sage-700 font-semibold hover:underline"
+                  >
+                    {tel.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        {/* ── Les témoins ── */}
+        <Card>
+          <CardContent>
+            <Phone className="text-sage-700" size={18} />
+            <p className="mt-2 font-semibold">Les témoins</p>
+            <p className="text-sm text-stone-500 mb-3">Si besoin le jour J</p>
+            <ul className="space-y-2">
+              {TEMOINS.map(({ name, tel }) => (
+                <li key={name} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-stone-700">{name}</span>
+                  <a
+                    href={`tel:${tel}`}
+                    className="text-sm text-sage-700 font-semibold hover:underline"
+                  >
+                    {tel.replace(/^\+33/, '0').replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
 
@@ -249,62 +305,6 @@ export function InfosPage() {
             <p className="mt-3 text-center text-xs text-stone-400">Scannez pour accéder à l'application</p>
           </div>
         </motion.div>
-
-        {/* ── Les témoins ── */}
-        <Card>
-          <CardContent>
-            <Phone className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">Les témoins</p>
-            <p className="text-sm text-stone-500 mb-3">Si besoin le jour J</p>
-            <ul className="space-y-2">
-              {TEMOINS.map(({ name, tel }) => (
-                <li key={name} className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-stone-700">{name}</span>
-                  <a
-                    href={`tel:${tel}`}
-                    className="text-sm text-sage-700 font-semibold hover:underline"
-                  >
-                    {tel.replace(/^\+33/, '0').replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-
-        {/* ── Taxis ── */}
-        <Card>
-          <CardContent>
-            <Car className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">Taxis</p>
-            <p className="text-sm text-stone-500 mb-3">Réservez à l'avance si possible</p>
-            <ul className="space-y-2">
-              {TAXIS.map(({ name, tel }) => (
-                <li key={name} className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-stone-700">{name}</span>
-                  <a
-                    href={`tel:${tel}`}
-                    className="text-sm text-sage-700 font-semibold hover:underline"
-                  >
-                    {tel.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-
-        {/* ── Covoiturage ── */}
-        <Card>
-          <CardContent>
-            <Users className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">Covoiturage</p>
-            <p className="text-sm text-stone-600">Vous faites le même trajet ? Proposez votre trajet ou trouvez une place dans le tableau partagé.</p>
-            <a href="https://docs.google.com/spreadsheets/d/1036qwf3Txr1eiAjXALLYJr3o11D6cddk6gbLaMZIFDU/edit?usp=sharing" target="_blank" rel="noreferrer">
-              <Button className="mt-3 w-full">Voir & proposer un covoiturage</Button>
-            </a>
-          </CardContent>
-        </Card>
 
         {/* Admin shortcut */}
         <button onClick={openModal} className="w-full text-left">
