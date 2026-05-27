@@ -123,7 +123,7 @@ export function PwaInstallPrompt() {
             <ol className="space-y-3 text-sm text-stone-700">
               <li className="flex items-start gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-xs font-bold text-rose-600">1</span>
-                <span>Appuie sur le bouton <strong>Partager</strong> <IosShareIcon className="inline-block h-[2.3em] w-[1.74em] align-middle mx-1" /> en bas de ton navigateur Safari</span>
+                <span>Appuie sur le bouton <strong>Partager</strong> <IosShareIcon className="inline-block h-[1.84em] w-[1.39em] align-middle mx-1" /> en bas de ton navigateur Safari</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-xs font-bold text-rose-600">2</span>
