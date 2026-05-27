@@ -91,14 +91,14 @@
       "answer_index": 0
     },
     {
-      "question": "Quelle est leur ville coup de cœur ?",
+      "question": "Quelle phrase dit Lorie tous les matins ?",
       "options": [
-        "Rome",
-        "Lisbonne",
-        "Matala",
-        "Santorin"
+        "Je suis en retard.",
+        "Quelle belle journée.",
+        "Tu télétravailles aujourd'hui ?",
+        "Où sont mes chaussures de running ?"
       ],
-      "answer_index": 2
+      "answer_index": 0
     },
     {
       "question": "Dans quel sport Lorie a-t-elle un niveau avancé et Ronan a passé son premier niveau ?",
@@ -184,9 +184,9 @@
       "question": "Où Ronan a-t-il fait sa demande en mariage à Lorie ?",
       "options": [
         "Punta Cana",
-        "Bridgetown",
-        "La Havane",
-        "Kingston"
+        "Bali",
+        "Santorini",
+        "New York"
       ],
       "answer_index": 0
     },
@@ -211,7 +211,7 @@
       "answer_index": 2
     },
     {
-      "question": "Dans quel sport ont-ils suivi un cours collectif réservé uniquement aux enfants de moins de 10 ans ?",
+      "question": "Dans quel sport ont-ils suivi l'année dernière un cours collectif réservé uniquement aux enfants de moins de 10 ans ?",
       "options": [
         "Equitation",
         "Voile",
@@ -291,12 +291,12 @@
       "answer_index": 1
     },
     {
-      "question": "Quel type de vacances ressemble le plus à Lorie et Ronan ?",
+      "question": "Combien de fois Lorie appuie-t-elle sur snooze chaque matin ?",
       "options": [
-        "Un city break festif avec beaucoup de sorties",
-        "Un séjour culturel à enchaîner les visites",
-        "Quelques jours de détente au soleil, au bord de la plage",
-        "Des vacances sportives entre randonnées et activités"
+        "1",
+        "3",
+        "5",
+        "8"
       ],
       "answer_index": 2
     }
