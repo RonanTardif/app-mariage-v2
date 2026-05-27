@@ -73,10 +73,9 @@ export function CadeauxPage() {
             <a href={LEETCHI_URL} target="_blank" rel="noreferrer" className="block">
               <div className="rounded-2xl bg-rose-50 border border-rose-200 p-4 hover:bg-rose-100 transition-colors active:scale-[0.99]">
                 <div className="flex items-center justify-between mb-1">
-                  <p className="font-bold text-stone-800 text-sm">🎉 Cagnotte Leetchi</p>
+                  <p className="font-bold text-stone-800 text-sm">🌍 La cagnotte</p>
                   <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[10px] font-bold text-white">Recommandé</span>
                 </div>
-                <p className="text-xs text-stone-500">Rapide, sécurisé, en quelques clics</p>
                 <div className="mt-3 w-full rounded-xl bg-rose-500 py-2.5 text-center text-sm font-semibold text-white">
                   Accéder à la cagnotte →
                 </div>
