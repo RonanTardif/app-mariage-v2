@@ -27,7 +27,7 @@ function statusConfig(status) {
   return               { label: 'À venir',            bg: 'bg-card',           timeColor: 'text-foreground', pill: 'bg-stone-100 text-stone-600' }
 }
 
-function SlotTicket({ slot, currentPersonName }) {
+function SlotTicket({ slot, currentPersonName, onPersonClick }) {
   const eta = slot.eta ? String(slot.eta).match(/(\d{1,2}:\d{2})/)?.[1] ?? slot.eta : '--:--'
   const s = (slot.status || '').toUpperCase()
   const isNow    = s === 'NOW'
@@ -102,6 +102,7 @@ function SlotTicket({ slot, currentPersonName }) {
                   key={i}
                   name={name}
                   isYou={name === currentPersonName}
+                  onClick={onPersonClick ? () => onPersonClick(name) : undefined}
                 />
               ))}
             </div>
@@ -112,9 +113,9 @@ function SlotTicket({ slot, currentPersonName }) {
   )
 }
 
-function MemberAvatar({ name, isYou }) {
+function MemberAvatar({ name, isYou, onClick }) {
   const initials = String(name || '?').split(/\s+/).map(w => w[0] || '').join('').toUpperCase().slice(0, 2)
-  return (
+  const inner = (
     <div className="flex flex-col items-center gap-1">
       <div className={`h-10 w-10 rounded-2xl flex items-center justify-center text-xs font-bold ${
         isYou ? 'bg-rose-100 text-rose-600 ring-2 ring-rose-300 ring-offset-1' : 'bg-stone-100 text-stone-500'
@@ -126,6 +127,14 @@ function MemberAvatar({ name, isYou }) {
       </p>
     </div>
   )
+  if (onClick && !isYou) {
+    return (
+      <button type="button" onClick={onClick} className="active:scale-90 transition-transform">
+        {inner}
+      </button>
+    )
+  }
+  return inner
 }
 
 export function PhotosPage() {
@@ -179,6 +188,12 @@ export function PhotosPage() {
     setPerson(item)
     setQuery(item.display_name)
     setShowDropdown(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function handleAvatarClick(name) {
+    const found = people.find(p => p.display_name === name)
+    if (found) selectPerson(found)
   }
 
   const firstName = person?.display_name?.split(' ')[0] ?? ''
@@ -248,7 +263,7 @@ export function PhotosPage() {
               </div>
             ) : (
               personSlots.map((slot, idx) => (
-                <SlotTicket key={idx} slot={slot} currentPersonName={person?.display_name} />
+                <SlotTicket key={idx} slot={slot} currentPersonName={person?.display_name} onPersonClick={handleAvatarClick} />
               ))
             )}
           </motion.div>

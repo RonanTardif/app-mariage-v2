@@ -19,9 +19,17 @@ function formatTimeUntil(startsAt, now) {
   if (ms <= 0) return null
   const totalMin = Math.floor(ms / 60000)
   if (totalMin < 60) return `dans ${totalMin} min`
-  const h = Math.floor(totalMin / 60)
+  const totalH = Math.floor(totalMin / 60)
   const min = totalMin % 60
-  return min > 0 ? `dans ${h}h${String(min).padStart(2, '0')}` : `dans ${h}h`
+  if (totalH >= 24) {
+    const days = Math.floor(totalH / 24)
+    const remH = totalH % 24
+    if (remH === 0 && min === 0) return `dans ${days}j`
+    if (min === 0) return `dans ${days}j ${remH}h`
+    if (remH === 0) return `dans ${days}j ${min}min`
+    return `dans ${days}j ${remH}h${String(min).padStart(2, '0')}`
+  }
+  return min > 0 ? `dans ${totalH}h${String(min).padStart(2, '0')}` : `dans ${totalH}h`
 }
 
 export function ProgrammePage() {

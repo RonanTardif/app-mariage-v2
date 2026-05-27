@@ -153,7 +153,7 @@ export function InfosPage() {
         <Card>
           <CardContent>
             <MapPin className="text-sage-700" size={18} />
-            <p className="mt-2 font-semibold">Domaine de la Corbe</p>
+            <p className="mt-2 font-semibold">Château de la Corbe</p>
             <p className="text-sm text-stone-500">La Corbedommère, 85480 Bournezeau</p>
             <a
               href="https://maps.google.com/?q=46.61720085396394,-1.1643862971748231"
