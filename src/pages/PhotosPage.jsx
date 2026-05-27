@@ -206,6 +206,11 @@ export function PhotosPage() {
         description="Retrouve l'heure de ton passage et ton groupe."
       />
 
+      <div className="rounded-2xl bg-amber-50 border border-amber-100 px-4 py-3 text-sm text-stone-700 leading-relaxed">
+        <p><span className="font-semibold">📸 On a prévu beaucoup de groupes !</span></p>
+        <p className="mt-1">On tient à avoir une photo avec chacun d'entre vous 💛 Votre créneau nous permet de tout garder fluide pour qu'on profite ensemble du vin d'honneur le plus vite possible !</p>
+      </div>
+
       <Input
         value={query}
         onChange={(e) => { setQuery(e.target.value); setPerson(null); setShowDropdown(true) }}
