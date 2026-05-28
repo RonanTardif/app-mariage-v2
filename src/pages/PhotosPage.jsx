@@ -8,6 +8,7 @@ import { subscribeToSessionData, subscribeToSessionState } from '../services/pho
 import { computeGroupEta } from '../utils/etaUtils'
 import { normalizeName } from '../utils/text'
 import { LoadingState, ErrorState } from '../components/shared/LoadingState'
+import { PhotoQueue } from '../components/photos/PhotoQueue'
 
 // Heure d'arrivée = eta - 5 min
 function computeArriveAt(etaStr) {
@@ -147,7 +148,7 @@ export function PhotosPage() {
   const [person, setPerson] = useState(null)
   const [showDropdown, setShowDropdown] = useState(false)
 
-  const matches = useMemo(() => {
+const matches = useMemo(() => {
     if (!showDropdown || query.length < 2) return []
     const q = normalizeName(query)
     return people
@@ -181,6 +182,15 @@ export function PhotosPage() {
       .sort((a, b) => (a.eta || '99:99').localeCompare(b.eta || '99:99'))
   }, [person, sessionState, people])
 
+  const myGroupIds = useMemo(() => {
+    if (!person || !sessionState?.groups) return new Set()
+    return new Set(
+      sessionState.groups
+        .filter(g => g.memberIds?.includes(person.person_id))
+        .map(g => g.id)
+    )
+  }, [person, sessionState])
+
   if (loadingData || loadingState) return <LoadingState message="Chargement des créneaux photos…" />
   if (errorData) return <ErrorState message="Impossible de charger les créneaux. Réessaie plus tard." />
 
@@ -188,7 +198,7 @@ export function PhotosPage() {
     setPerson(item)
     setQuery(item.display_name)
     setShowDropdown(false)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function handleAvatarClick(name) {
@@ -270,6 +280,17 @@ export function PhotosPage() {
               personSlots.map((slot, idx) => (
                 <SlotTicket key={idx} slot={slot} currentPersonName={person?.display_name} onPersonClick={handleAvatarClick} />
               ))
+            )}
+
+            {/* File d'attente globale */}
+            {sessionState?.groups?.length > 0 && (
+              <PhotoQueue
+                allGroups={sessionState.groups}
+                myGroupIds={myGroupIds}
+                photoStart={sessionState.photoStart}
+                delayMinutes={sessionState.delayMinutes}
+                groupIntervalMinutes={sessionState.groupIntervalMinutes}
+              />
             )}
           </motion.div>
         )}
