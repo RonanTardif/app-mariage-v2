@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mariage-react-v3';
+const CACHE_NAME = 'mariage-react-v4';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [
