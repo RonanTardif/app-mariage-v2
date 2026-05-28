@@ -13,7 +13,8 @@ export function PhotoQueue({ allGroups, myGroupIds, photoStart, delayMinutes, gr
       base.setMinutes(base.getMinutes() + Number(delayMinutes || 0))
       return base.getTime()
     })()
-    const nowIndex = Date.now() >= sessionStartMs ? allGroups.findIndex(g => !g.done) : -1
+    const sessionStarted = Date.now() >= sessionStartMs || allGroups.some(g => g.done)
+    const nowIndex = sessionStarted ? allGroups.findIndex(g => !g.done) : -1
     return allGroups.map((group, index) => ({
       ...group,
       _index: index,
