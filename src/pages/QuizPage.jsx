@@ -15,6 +15,7 @@ const OPTION_LETTERS = ['A', 'B', 'C', 'D', 'E']
 
 export function tier(score, total) {
   const pct = score / total
+  if (pct === 1)   return { label: 'Chapeau l\'artiste',            subtitle: 'Parfait. Suspicieusement parfait.',                    emoji: '🌟', color: 'text-amber-700', bg: 'bg-amber-50',  border: 'border-amber-200' }
   if (pct >= 0.95) return { label: 'Quasi parfait — chapeau',      subtitle: "On vous soupçonne d'avoir eu les réponses à l'avance.", emoji: '🏆', color: 'text-amber-700', bg: 'bg-amber-50',  border: 'border-amber-200' }
   if (pct >= 0.90) return { label: 'Inséparable',                  subtitle: 'Vous faites clairement partie du premier cercle.',     emoji: '🥇', color: 'text-amber-600', bg: 'bg-amber-50',  border: 'border-amber-200' }
   if (pct >= 0.80) return { label: 'Grand connaisseur',            subtitle: 'Peu de secrets vous résistent.',                       emoji: '🎉', color: 'text-sage-700',  bg: 'bg-sage-50',   border: 'border-sage-200'  }
