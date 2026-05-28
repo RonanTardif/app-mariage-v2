@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Camera, Images, Check, AlertCircle, X, Plus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { submitPhoto, getMyName } from '../services/galleryService'
+import { submitPhoto, getMyName, saveMyName } from '../services/galleryService'
 
 function genId() {
   return `photo_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
@@ -258,6 +258,7 @@ export function SharePhotoPage() {
 
   async function handleSubmit() {
     if (!items.length || !author.trim()) return
+    saveMyName(author.trim())
     setStep('processing')
     setProgress({ current: 0, total: items.length })
     setError(null)
