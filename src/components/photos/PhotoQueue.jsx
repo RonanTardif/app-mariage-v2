@@ -7,7 +7,13 @@ const COLS = 4
 export function PhotoQueue({ allGroups, myGroupIds, photoStart, delayMinutes, groupIntervalMinutes }) {
   const enriched = useMemo(() => {
     if (!allGroups?.length) return []
-    const nowIndex = allGroups.findIndex(g => !g.done)
+    const sessionStartMs = (() => {
+      if (!photoStart) return Infinity
+      const base = new Date(photoStart)
+      base.setMinutes(base.getMinutes() + Number(delayMinutes || 0))
+      return base.getTime()
+    })()
+    const nowIndex = Date.now() >= sessionStartMs ? allGroups.findIndex(g => !g.done) : -1
     return allGroups.map((group, index) => ({
       ...group,
       _index: index,
